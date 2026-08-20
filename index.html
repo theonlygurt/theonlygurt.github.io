@@ -105,7 +105,7 @@
             text-indent: 16px;
         }
 
-        /* Phần Hộp Kỹ Năng / Ảnh Đã Cắt */
+        /* Hộp kỹ năng chứa icon đã tách nền */
         .skills-box {
             background-color: #0d1117;
             border: 1px solid #30363d;
@@ -114,7 +114,6 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            gap: 10px;
         }
 
         .skill-item {
@@ -124,10 +123,15 @@
             gap: 6px;
         }
 
-        .skill-item img {
-            width: 40px;
-            height: 40px;
+        .skill-icon {
+            width: 36px;
+            height: 36px;
             object-fit: contain;
+        }
+
+        /* Đổi màu logo Rust sang trắng cho nổi bật trên nền tối */
+        .rust-icon {
+            filter: invert(1);
         }
 
         .skill-name {
@@ -158,18 +162,18 @@
             <p class="about-text">Hello, I am Gurt! I am a 15 years old student who learns about coding in Rust, Javascript and HTML!</p>
         </div>
 
-        <!-- Hộp các kỹ năng / ảnh bên dưới phần Abouts -->
+        <!-- Hộp icon kỹ năng đã tách nền sẵn -->
         <div class="skills-box">
             <div class="skill-item">
-                <img src="https://cdn.discordapp.com/attachments/1517919332255010911/1539996257315987656/IMG_2739.png" alt="Rust">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-plain.svg" alt="Rust" class="skill-icon rust-icon">
                 <span class="skill-name">Rust</span>
             </div>
             <div class="skill-item">
-                <img src="https://cdn.discordapp.com/attachments/1517919332255010911/1539996257735413760/IMG_2740.jpg" alt="JavaScript">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="skill-icon">
                 <span class="skill-name">JavaScript</span>
             </div>
             <div class="skill-item">
-                <img src="https://cdn.discordapp.com/attachments/1517919332255010911/1539996258100449310/IMG_2741.webp" alt="HTML">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" class="skill-icon">
                 <span class="skill-name">HTML</span>
             </div>
         </div>
