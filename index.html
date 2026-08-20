@@ -92,10 +92,12 @@
             margin-bottom: 16px;
         }
 
-        .about-title {
+        .section-title {
             color: #f0f6fc;
             font-size: 1rem;
+            font-weight: 700;
             margin-bottom: 6px;
+            text-align: left;
         }
 
         .about-text {
@@ -105,7 +107,11 @@
             text-indent: 16px;
         }
 
-        /* Hộp kỹ năng */
+        /* Hộp chứa tiêu đề Skills và danh sách icon */
+        .skills-container {
+            margin-top: 12px;
+        }
+
         .skills-box {
             background-color: #0d1117;
             border: 1px solid #30363d;
@@ -127,6 +133,12 @@
             width: 36px;
             height: 36px;
             object-fit: contain;
+            filter: brightness(0) invert(1); /* Làm sáng logo Rust cho đồng bộ */
+        }
+
+        /* Giữ nguyên màu gốc cho icon JS và HTML nếu không muốn đổi thành trắng hoàn toàn */
+        .color-icon {
+            filter: none;
         }
 
         .skill-name {
@@ -153,22 +165,25 @@
         <hr class="divider">
 
         <div class="about-section">
-            <h2 class="about-title">Abouts</h2>
+            <h2 class="section-title">Abouts</h2>
             <p class="about-text">Hello, I am Gurt! I am a 15 years old student who learns about coding in Rust, Javascript and HTML!</p>
         </div>
 
-        <div class="skills-box">
-            <div class="skill-item">
-                <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/rust/rust.png" alt="Rust" class="skill-icon">
-                <span class="skill-name">Rust</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" alt="JavaScript" class="skill-icon">
-                <span class="skill-name">JavaScript</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" alt="HTML" class="skill-icon">
-                <span class="skill-name">HTML</span>
+        <div class="skills-container">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-box">
+                <div class="skill-item">
+                    <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/rust/rust.png" alt="Rust" class="skill-icon">
+                    <span class="skill-name">Rust</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" alt="JavaScript" class="skill-icon color-icon">
+                    <span class="skill-name">JavaScript</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" alt="HTML" class="skill-icon color-icon">
+                    <span class="skill-name">HTML</span>
+                </div>
             </div>
         </div>
     </div>
