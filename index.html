@@ -35,12 +35,24 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
+        /* Thêm hiệu ứng khi con trỏ chuột di chuyển vào avatar */
+        .avatar-link {
+            display: inline-block;
+            border-radius: 50%;
+            transition: transform 0.2s ease;
+        }
+
+        .avatar-link:hover {
+            transform: scale(1.05);
+        }
+
         .avatar {
             width: 80px;
             height: 80px;
             border-radius: 50%;
             border: 2px solid #58a6ff;
             margin-bottom: 12px;
+            display: block;
         }
 
         h1 {
@@ -107,7 +119,6 @@
             text-indent: 16px;
         }
 
-        /* Hộp chứa tiêu đề Skills và danh sách icon */
         .skills-container {
             margin-top: 12px;
         }
@@ -133,10 +144,9 @@
             width: 36px;
             height: 36px;
             object-fit: contain;
-            filter: brightness(0) invert(1); /* Làm sáng logo Rust cho đồng bộ */
+            filter: brightness(0) invert(1);
         }
 
-        /* Giữ nguyên màu gốc cho icon JS và HTML nếu không muốn đổi thành trắng hoàn toàn */
         .color-icon {
             filter: none;
         }
@@ -151,7 +161,10 @@
 <body>
 
     <div class="card">
-        <img src="https://github.com/theonlygurt.png" alt="Avatar" class="avatar">
+        <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" class="avatar-link">
+            <img src="https://github.com/theonlygurt.png" alt="Avatar" class="avatar">
+        </a>
+
         <h1>Welcome to Gurt's Space</h1>
         <p class="subtitle">Personal website and stuff</p>
 
