@@ -208,17 +208,26 @@
         .screenshot-img {
             width: 100%;
             height: auto;
-            object-fit: contain; /* Giữ nguyên tỉ lệ, không crop ảnh */
+            object-fit: contain;
             border-radius: 8px;
             border: 1px solid #30363d;
             background-color: #0d1117;
             display: block;
+        }
+
+        /* Footer mờ dưới cùng */
+        .footer-text {
+            color: #484f58;
+            font-size: 0.75rem;
+            font-weight: 400;
+            margin-top: 4px;
         }
     </style>
 </head>
 <body>
 
     <div class="card">
+        <!-- Avatar -->
         <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" class="avatar-link">
             <img src="https://github.com/theonlygurt.png" alt="Avatar" class="avatar">
         </a>
@@ -235,11 +244,13 @@
 
         <hr class="divider">
 
+        <!-- Abouts -->
         <div class="about-section">
             <h2 class="section-title">Abouts</h2>
             <p class="about-text">Hello, I am Gurt! I am a 15 years old student who learns about coding in Rust, Javascript and HTML!</p>
         </div>
 
+        <!-- Skills -->
         <div class="skills-container">
             <h2 class="section-title">Skills</h2>
             <div class="skills-box">
@@ -258,6 +269,7 @@
             </div>
         </div>
 
+        <!-- Hobbies / Interests -->
         <div class="hobbies-container">
             <h2 class="section-title">Hobbies / Interests</h2>
             <ul class="hobbies-list">
@@ -266,10 +278,10 @@
                 <li class="hobby-tag">Eating</li>
                 <li class="hobby-tag">Sleeping</li>
                 <li class="hobby-tag">Jogging</li>
-                <li class="hobby-tag">Pooping😍😍😍</li>
             </ul>
         </div>
 
+        <!-- Random Screenshots -->
         <div class="screenshots-container">
             <h2 class="section-title">Random Screenshots</h2>
             <div class="screenshots-list">
@@ -281,6 +293,10 @@
                 </a>
             </div>
         </div>
+
+        <!-- Đường gạch phân cách & dòng chữ mờ ở cuối -->
+        <hr class="divider">
+        <p class="footer-text">Made with ❤️ by Gurt</p>
     </div>
 
 </body>
