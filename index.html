@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -193,10 +193,22 @@
             gap: 10px;
         }
 
+        .screenshot-link {
+            display: block;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .screenshot-link:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+
         .screenshot-img {
             width: 100%;
             height: auto;
-            object-fit: contain; /* Giữ nguyên tỉ lệ, không bị cắt bớt (crop) */
+            object-fit: contain; /* Giữ nguyên tỉ lệ, không crop ảnh */
             border-radius: 8px;
             border: 1px solid #30363d;
             background-color: #0d1117;
@@ -257,11 +269,15 @@
             </ul>
         </div>
 
-                <div class="screenshots-container">
+        <div class="screenshots-container">
             <h2 class="section-title">Random Screenshots</h2>
             <div class="screenshots-list">
-                <img src="IMG_2776.jpeg" alt="Random Screenshot 1" class="screenshot-img">
-                <img src="IMG_2779.jpeg" alt="Random Screenshot 2" class="screenshot-img">
+                <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" class="screenshot-link">
+                    <img src="IMG_2776.jpeg" alt="Random Screenshot 1" class="screenshot-img">
+                </a>
+                <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" class="screenshot-link">
+                    <img src="IMG_2779.jpeg" alt="Random Screenshot 2" class="screenshot-img">
+                </a>
             </div>
         </div>
     </div>
