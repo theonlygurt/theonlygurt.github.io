@@ -35,7 +35,7 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
-        /* Thêm hiệu ứng khi con trỏ chuột di chuyển vào avatar */
+        /* Hiệu ứng khi di chuột vào Avatar */
         .avatar-link {
             display: inline-block;
             border-radius: 50%;
@@ -121,6 +121,7 @@
 
         .skills-container {
             margin-top: 12px;
+            margin-bottom: 16px;
         }
 
         .skills-box {
@@ -154,6 +155,29 @@
         .skill-name {
             color: #8b949e;
             font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Phong cách cho mục Hobbies / Interests */
+        .hobbies-container {
+            margin-top: 16px;
+        }
+
+        .hobbies-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .hobby-tag {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            color: #8b949e;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 500;
         }
     </style>
@@ -198,6 +222,18 @@
                     <span class="skill-name">HTML</span>
                 </div>
             </div>
+        </div>
+
+        <div class="hobbies-container">
+            <h2 class="section-title">Hobbies / Interests</h2>
+            <ul class="hobbies-list">
+                <li class="hobby-tag">Jelbreking</li>
+                <li class="hobby-tag">Coding</li>
+                <li class="hobby-tag">Eating</li>
+                <li class="hobby-tag">Sleeping</li>
+                <li class="hobby-tag">Jogging</li>
+                <li class="hobby-tag">Pooping🤤</li>
+            </ul>
         </div>
     </div>
 
