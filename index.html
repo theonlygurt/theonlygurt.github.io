@@ -249,6 +249,21 @@
             margin-bottom: 10px;
         }
 
+        .app-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .app-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
         .app-info {
             display: flex;
             flex-direction: column;
@@ -279,6 +294,7 @@
             white-space: nowrap;
             transition: background-color 0.2s ease;
             display: inline-block;
+            flex-shrink: 0;
         }
 
         .btn-install:hover {
@@ -356,11 +372,14 @@
             <div class="slider-content">
                 <div id="dns-ksign" class="tab-pane active">
                     <div class="app-item">
-                        <div class="app-info">
-                            <span class="app-title">DNS</span>
-                            <span class="app-desc">DNS profile, must install before installing ksign. after installing, go to Settings -> general -> VPN and device management -> click on khơindvn -> install</span>
+                        <div class="app-left">
+                            <img src="https://img.icons8.com/color/96/dns.png" alt="DNS Icon" class="app-icon">
+                            <div class="app-info">
+                                <span class="app-title">DNS</span>
+                                <span class="app-desc">DNS profile, must install before installing ksign. after installing, go to Settings -> general -> VPN and device management -> click on khơindvn -> install</span>
+                            </div>
                         </div>
-                        <a href="#" class="btn-install">Install</a>
+                        <a href="https://github.com/dns-khoindvn/oci-auto-vm/releases/download/DNS/khoindvn.mobileconfig" class="btn-install">Install</a>
                     </div>
                 </div>
 
