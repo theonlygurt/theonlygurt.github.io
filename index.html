@@ -35,7 +35,7 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
-        /* Hiệu ứng Avatar */
+        /* Avatar */
         .avatar-link {
             display: inline-block;
             border-radius: 50%;
@@ -119,6 +119,7 @@
             text-indent: 16px;
         }
 
+        /* Skills */
         .skills-container {
             margin-top: 12px;
             margin-bottom: 16px;
@@ -229,20 +230,62 @@
 
         .tab-pane {
             display: none;
-            background-color: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 12px;
-            color: #8b949e;
-            font-size: 0.85rem;
-            line-height: 1.4;
         }
 
         .tab-pane.active {
             display: block;
         }
 
-        /* Footer mờ */
+        /* Item card dạng App List */
+        .app-item {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .app-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: left;
+        }
+
+        .app-title {
+            color: #f0f6fc;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .app-desc {
+            color: #8b949e;
+            font-size: 0.75rem;
+            line-height: 1.35;
+        }
+
+        .btn-install {
+            background-color: #1f6feb;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 16px;
+            white-space: nowrap;
+            transition: background-color 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn-install:hover {
+            background-color: #388bfd;
+        }
+
+        /* Footer */
         .footer-text {
             color: #484f58;
             font-size: 0.75rem;
@@ -312,10 +355,22 @@
 
             <div class="slider-content">
                 <div id="dns-ksign" class="tab-pane active">
-                    <p>Mục DNS & Ksign: Thêm thông tin hoặc link liên quan tại đây.</p>
+                    <div class="app-item">
+                        <div class="app-info">
+                            <span class="app-title">DNS</span>
+                            <span class="app-desc">DNS profile, must install before installing ksign. after installing, go to Settings -> general -> VPN and device management -> click on khơindvn -> install</span>
+                        </div>
+                        <a href="#" class="btn-install">Install</a>
+                    </div>
                 </div>
+
                 <div id="ipas-tipas" class="tab-pane">
-                    <p>Mục IPAs/TIPAs: Thêm thông tin hoặc link tải app tại đây.</p>
+                    <div class="app-item">
+                        <div class="app-info">
+                            <span class="app-title">IPAs / TIPAs</span>
+                            <span class="app-desc">Mục IPAs/TIPAs: Thêm thông tin hoặc link tải app tại đây.</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
