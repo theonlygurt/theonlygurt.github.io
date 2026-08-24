@@ -35,7 +35,7 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
-        /* effect Avatar */
+        /* Hiệu ứng Avatar */
         .avatar-link {
             display: inline-block;
             border-radius: 50%;
@@ -181,7 +181,68 @@
             font-size: 0.85rem;
             font-weight: 500;
         }
-        /* Footer underneath */
+
+        /* Slider / Segmented Controls Section */
+        .slider-section {
+            margin-top: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .slider-nav {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 4px;
+            display: flex;
+            width: 85%;
+            position: relative;
+        }
+
+        .slider-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #8b949e;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            z-index: 1;
+        }
+
+        .slider-btn.active {
+            background-color: #1f6feb;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(31, 111, 235, 0.4);
+        }
+
+        .slider-content {
+            width: 100%;
+            margin-top: 12px;
+            text-align: left;
+        }
+
+        .tab-pane {
+            display: none;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 12px;
+            color: #8b949e;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Footer mờ */
         .footer-text {
             color: #484f58;
             font-size: 0.75rem;
@@ -193,7 +254,6 @@
 <body>
 
     <div class="card">
-        <!-- Avatar -->
         <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" class="avatar-link">
             <img src="https://github.com/theonlygurt.png" alt="Avatar" class="avatar">
         </a>
@@ -203,20 +263,18 @@
 
         <div class="links">
             <a href="https://github.com/theonlygurt" class="btn" target="_blank">GitHub Profile</a>
-            <a href="https://on.soundcloud.com/V0JituX7oIkXcQYqNf" class="btn">Soundcloud Profile</a>
+            <a href="README.md" class="btn">README</a>
             <a href="https://x.com/gurtygur?s=11" class="btn" target="_blank">X contact</a>
             <a href="https://discord.com/users/917762961240621067" class="btn" target="_blank">Discord contact</a>
         </div>
 
         <hr class="divider">
 
-        <!-- Abouts -->
         <div class="about-section">
             <h2 class="section-title">Abouts</h2>
             <p class="about-text">Hello, I am Gurt! I am a 15 years old student who learns about coding in Rust, Javascript and HTML!</p>
         </div>
 
-        <!-- Skills -->
         <div class="skills-container">
             <h2 class="section-title">Skills</h2>
             <div class="skills-box">
@@ -235,7 +293,6 @@
             </div>
         </div>
 
-        <!-- Hobbies / Interests -->
         <div class="hobbies-container">
             <h2 class="section-title">Hobbies / Interests</h2>
             <ul class="hobbies-list">
@@ -246,10 +303,38 @@
                 <li class="hobby-tag">Jogging</li>
             </ul>
         </div>
-        <!-- madewithlovebygurt -->
+
+        <div class="slider-section">
+            <div class="slider-nav">
+                <button class="slider-btn active" onclick="switchTab('dns-ksign', this)">DNS & Ksign</button>
+                <button class="slider-btn" onclick="switchTab('ipas-tipas', this)">IPAs/TIPAs</button>
+            </div>
+
+            <div class="slider-content">
+                <div id="dns-ksign" class="tab-pane active">
+                    <p>Mục DNS & Ksign: Thêm thông tin hoặc link liên quan tại đây.</p>
+                </div>
+                <div id="ipas-tipas" class="tab-pane">
+                    <p>Mục IPAs/TIPAs: Thêm thông tin hoặc link tải app tại đây.</p>
+                </div>
+            </div>
+        </div>
+
         <hr class="divider">
         <p class="footer-text">Made with ❤️ by Gurt</p>
     </div>
 
+    <script>
+        function switchTab(tabId, btn) {
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            tabPanes.forEach(pane => pane.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.slider-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
 </body>
 </html>
