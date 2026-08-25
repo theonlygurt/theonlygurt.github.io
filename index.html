@@ -183,7 +183,7 @@
             font-weight: 500;
         }
 
-        /* Slider / Segmented Controls Section */
+        /* Slider / Segmented Controls Section dạng cuộn ngang */
         .slider-section {
             margin-top: 16px;
             margin-bottom: 16px;
@@ -198,22 +198,27 @@
             border-radius: 10px;
             padding: 4px;
             display: flex;
-            width: 85%;
-            position: relative;
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .slider-nav::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
         }
 
         .slider-btn {
-            flex: 1;
+            flex: 0 0 auto;
             background: none;
             border: none;
             color: #8b949e;
-            padding: 8px 12px;
+            padding: 8px 14px;
             font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             border-radius: 6px;
             transition: all 0.2s ease;
-            z-index: 1;
         }
 
         .slider-btn.active {
@@ -412,10 +417,12 @@
         <div class="slider-section">
             <div class="slider-nav">
                 <button class="slider-btn active" onclick="switchTab('dns-ksign', this)">DNS & Ksign</button>
+                <button class="slider-btn" onclick="switchTab('feather-others', this)">Feather & Others</button>
                 <button class="slider-btn" onclick="switchTab('ipas-tipas', this)">IPAs/TIPAs</button>
             </div>
 
             <div class="slider-content">
+                <!-- TAB 1: DNS & Ksign -->
                 <div id="dns-ksign" class="tab-pane active">
                     <!-- Mục DNS -->
                     <div class="app-item">
@@ -429,7 +436,7 @@
                         <a href="https://github.com/dns-khoindvn/oci-auto-vm/releases/download/DNS/khoindvn.mobileconfig" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - HSBC bank -->
+                    <!-- Các mục Ksign -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -442,7 +449,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/pbemcddlcpho.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - Central Power -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -455,7 +461,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lcfpeiedkheg.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - Central Power(different MP) -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -468,7 +473,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/dnnpggekacnm.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - Viet Nam Rubber -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -481,7 +485,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/idjbbheelkpp.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - Jiangsu simcere -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -494,7 +497,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/mlieeiadepah.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - Jiangsu Simcere(different MP) -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -507,7 +509,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lodjpjcljdpi.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - Moving Increasingly -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -520,7 +521,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/imppbfhicihh.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - Moving Increasingly(different MP) -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -533,7 +533,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lcfpeiedkheg.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - China telecom -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -546,7 +545,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/phcfgoaomgja.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - Qingdao Rural -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -559,7 +557,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lkcmbkcaibjd.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - Aramco -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -572,7 +569,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/egacibioeoae.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - comissions Electrons -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -585,7 +581,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/gcbllkegcanc.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - National Oilwell -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -598,7 +593,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/mhgbkhplggio.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - BOC -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -611,7 +605,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lmmjphdncjkf.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - BOC(second MP) -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -624,7 +617,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/dgiepohhpeff.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - BOC(third MP) -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -637,7 +629,6 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/hchbhebffgmj.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục Ksign - BOC(fourth MP) -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
@@ -650,7 +641,7 @@
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/joabkofbfegf.plist" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Mục NOTE (Không chứa nút Install) -->
+                    <!-- NOTE -->
                     <div class="note-item">
                         <div class="note-title">NOTE:</div>
                         <ul class="note-list">
@@ -660,8 +651,23 @@
                     </div>
                 </div>
 
+                <!-- TAB 2: Feather & Others -->
+                <div id="feather-others" class="tab-pane">
+                    <div class="app-item">
+                        <div class="app-left">
+                            <img src="1373903153535258745.webp" alt="Feather Icon" class="app-icon">
+                            <div class="app-info">
+                                <span class="app-title">Feather</span>
+                                <span class="app-desc">Certificate: HSBC bank</span>
+                                <span class="app-note">if it doesnt show install popup, try turning off Adblocker or change wifi/browser</span>
+                            </div>
+                        </div>
+                        <a href="itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/feather-hsbc.plist" class="btn-install">Install</a>
+                    </div>
+                </div>
+
+                <!-- TAB 3: IPAs/TIPAs -->
                 <div id="ipas-tipas" class="tab-pane">
-                    <!-- TrollinstallerDark IPA -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="https://raw.githubusercontent.com/rockylabs-dev/TrollInstallerDark/main/Resources/Icon.png" alt="TrollinstallerDark Icon" class="app-icon">
@@ -673,7 +679,6 @@
                         <a href="https://github.com/rockylabs-dev/TrollInstallerDark/releases/download/1.0/TrollInstallerDark.ipa" class="btn-install">Install</a>
                     </div>
 
-                    <!-- TrollinstallerX IPA -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="https://raw.githubusercontent.com/alfiecg24/TrollInstallerX/main/Resources/Icon.png" alt="TrollinstallerX Icon" class="app-icon">
@@ -685,7 +690,6 @@
                         <a href="https://github.com/alfiecg24/TrollInstallerX/releases/download/1.0.3/TrollInstallerX.ipa" class="btn-install">Install</a>
                     </div>
 
-                    <!-- Dopamine rootless IPA -->
                     <div class="app-item">
                         <div class="app-left">
                             <img src="IMG_3003.png" alt="Dopamine Icon" class="app-icon">
