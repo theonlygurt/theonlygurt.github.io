@@ -290,6 +290,44 @@
             margin-top: 2px;
         }
 
+        /* Card dạng Note thông báo (không nút) */
+        .note-item {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .note-title {
+            color: #f0f6fc;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .note-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .note-list li {
+            color: #8b949e;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            margin-bottom: 4px;
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .note-list li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+            color: #8b949e;
+        }
+
         /* Nút Install dạng hình chữ nhật */
         .btn-install {
             background-color: #1f6feb;
@@ -610,6 +648,15 @@
                             </div>
                         </div>
                         <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/joabkofbfegf.plist" class="btn-install">Install</a>
+                    </div>
+
+                    <!-- Mục NOTE (Không chứa nút Install) -->
+                    <div class="note-item">
+                        <div class="note-title">NOTE:</div>
+                        <ul class="note-list">
+                            <li>DNS and all Ksign download links belong to Khoindvn and super duper cute nyasami.</li>
+                            <li>if any certificate expires, please report to me so i can remove it off the website.</li>
+                        </ul>
                     </div>
                 </div>
 
