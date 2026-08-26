@@ -264,6 +264,21 @@
             flex-shrink: 0;
         }
 
+        .app-icon-placeholder {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background-color: #21262d;
+            border: 1px solid #30363d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b949e;
+            font-size: 1.3rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
         .app-info {
             display: flex;
             flex-direction: column;
@@ -412,6 +427,7 @@
                 <button class="slider-btn active" onclick="switchTab('dns-ksign', this)">DNS & Ksign</button>
                 <button class="slider-btn" onclick="switchTab('feather-others', this)">Feather & Others</button>
                 <button class="slider-btn" onclick="switchTab('ipas-tipas', this)">IPAs/TIPAs</button>
+                <button class="slider-btn" onclick="switchTab('apks', this)">APKs</button>
             </div>
 
             <div class="slider-content">
@@ -802,6 +818,27 @@
                             </div>
                         </div>
                         <a href="https://github.com/opa334/Dopamine/releases/download/3.0.9/Dopamine.ipa" class="btn-install">Install</a>
+                    </div>
+
+                    <div class="app-item">
+                        <div class="app-left">
+                            <div class="app-icon-placeholder">?</div>
+                            <div class="app-info">
+                                <span class="app-title">Relaxin IPA</span>
+                                <span class="app-desc">Roothide Jailbreak for A12-17, iOS 17.0-17.3.1</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com/5hux1n/relaxin/releases/download/v0.4.8/Relaxin-v0.4.8.ipa" class="btn-install">Install</a>
+                    </div>
+                </div>
+
+                <!-- TAB 4: APKs -->
+                <div id="apks" class="tab-pane">
+                    <div class="note-item">
+                        <div class="note-title">APKs Section</div>
+                        <ul class="note-list">
+                            <li>No APK files available yet. Check back later!</li>
+                        </ul>
                     </div>
                 </div>
             </div>
