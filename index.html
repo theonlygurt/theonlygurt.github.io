@@ -237,6 +237,28 @@
             display: block;
         }
 
+        /* 🔥 CONTAINER CUỘN - CHỈ CAO 3 MỤC */
+        .scroll-container {
+            max-height: 320px; /* ~3 mục + padding */
+            overflow-y: auto;
+            padding-right: 4px;
+            scrollbar-width: thin;
+            scrollbar-color: #30363d #0d1117;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .scroll-container::-webkit-scrollbar-track {
+            background: #0d1117;
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 4px;
+        }
+
         .app-item {
             background-color: #0d1117;
             border: 1px solid #30363d;
@@ -432,537 +454,543 @@
             <div class="slider-content">
                 <!-- TAB 1: DNS & Ksign -->
                 <div id="dns-ksign" class="tab-pane active">
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_2084.jpeg" alt="DNS Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">DNS</span>
-                                <span class="app-desc">DNS profile, must install before installing ksign. after installing, go to Settings -> general -> VPN and device management -> click on khoindvn -> install</span>
+                    <div class="scroll-container">
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_2084.jpeg" alt="DNS Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">DNS</span>
+                                    <span class="app-desc">DNS profile, must install before installing ksign. after installing, go to Settings -> general -> VPN and device management -> click on khoindvn -> install</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/dns-khoindvn/oci-auto-vm/releases/download/DNS/khoindvn.mobileconfig" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/dns-khoindvn/oci-auto-vm/releases/download/DNS/khoindvn.mobileconfig" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: HSBC bank</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: HSBC bank</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/pbemcddlcpho.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/pbemcddlcpho.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: Central Power</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: Central Power</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lcfpeiedkheg.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lcfpeiedkheg.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: Central Power(different MP)</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: Central Power(different MP)</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/dnnpggekacnm.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/dnnpggekacnm.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: Viet Nam Rubber</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: Viet Nam Rubber</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/idjbbheelkpp.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/idjbbheelkpp.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: Jiangsu simcere</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: Jiangsu simcere</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/mlieeiadepah.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/mlieeiadepah.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: Jiangsu Simcere(different MP)</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: Jiangsu Simcere(different MP)</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lodjpjcljdpi.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lodjpjcljdpi.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: Moving Increasingly</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: Moving Increasingly</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/imppbfhicihh.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/imppbfhicihh.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: Moving Increasingly(different MP)</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: Moving Increasingly(different MP)</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lcfpeiedkheg.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lcfpeiedkheg.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: China telecom</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: China telecom</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/phcfgoaomgja.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/phcfgoaomgja.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: Qingdao Rural</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: Qingdao Rural</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lkcmbkcaibjd.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lkcmbkcaibjd.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: Aramco</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: Aramco</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/egacibioeoae.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/egacibioeoae.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: comissions Electrons</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: comissions Electrons</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/gcbllkegcanc.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/gcbllkegcanc.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: National Oilwell</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: National Oilwell</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/mhgbkhplggio.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/mhgbkhplggio.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: BOC</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: BOC</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lmmjphdncjkf.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lmmjphdncjkf.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: BOC(second MP)</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: BOC(second MP)</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/dgiepohhpeff.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/dgiepohhpeff.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: BOC(third MP)</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: BOC(third MP)</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/hchbhebffgmj.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/hchbhebffgmj.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Ksign</span>
-                                <span class="app-desc">certificate: BOC(fourth MP)</span>
-                                <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Ksign</span>
+                                    <span class="app-desc">certificate: BOC(fourth MP)</span>
+                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/joabkofbfegf.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/joabkofbfegf.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="note-item">
-                        <div class="note-title">NOTE:</div>
-                        <ul class="note-list">
-                            <li>DNS and all Ksign download links belong to Khoindvn and super duper cute nyasami.</li>
-                            <li>if any certificate expires, please report to me so i can remove it off the website.</li>
-                        </ul>
+                        <div class="note-item">
+                            <div class="note-title">NOTE:</div>
+                            <ul class="note-list">
+                                <li>DNS and all Ksign download links belong to Khoindvn and super duper cute nyasami.</li>
+                                <li>if any certificate expires, please report to me so i can remove it off the website.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
                 <!-- TAB 2: Feather & Others -->
                 <div id="feather-others" class="tab-pane">
-                    <!-- Feather HSBC -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Feather</span>
-                                <span class="app-desc">Certificate: HSBC bank</span>
-                                <span class="app-note">if it doesnt show install popup, try turning off Adblocker or change wifi/browser</span>
+                    <div class="scroll-container">
+                        <!-- Feather HSBC -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Feather</span>
+                                    <span class="app-desc">Certificate: HSBC bank</span>
+                                    <span class="app-note">if it doesnt show install popup, try turning off Adblocker or change wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_d96f5706.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_d96f5706.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <!-- Cert HSBC -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">HSBC Bank plc Cert</span>
-                                <span class="app-desc">Password: 1</span>
+                        <!-- Cert HSBC -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">HSBC Bank plc Cert</span>
+                                    <span class="app-desc">Password: 1</span>
+                                </div>
                             </div>
+                            <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/HSBC%20Bank%20plc.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
                         </div>
-                        <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/HSBC%20Bank%20plc.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
-                    </div>
 
-                    <!-- Feather Jiangsu Simcere -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Feather</span>
-                                <span class="app-desc">certificate: Jiangsu Simcere</span>
-                                <span class="app-note">If doesnt show install popup, try turning off adblocker or change wifi/browser</span>
+                        <!-- Feather Jiangsu Simcere -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Feather</span>
+                                    <span class="app-desc">certificate: Jiangsu Simcere</span>
+                                    <span class="app-note">If doesnt show install popup, try turning off adblocker or change wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_a879eb00.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_a879eb00.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <!-- Cert Jiangsu Simcere -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Jiangsu Simcere Cert</span>
-                                <span class="app-desc">Password: 1</span>
+                        <!-- Cert Jiangsu Simcere -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Jiangsu Simcere Cert</span>
+                                    <span class="app-desc">Password: 1</span>
+                                </div>
                             </div>
+                            <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Jiangsu%20Simcere%20Pharmaceutical.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
                         </div>
-                        <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Jiangsu%20Simcere%20Pharmaceutical.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
-                    </div>
 
-                    <!-- Feather Aramco -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Feather Aramco</span>
-                                <span class="app-desc">certificate: Aramco</span>
-                                <span class="app-note">if doesnt show install popup, try turning off adblocker or switch wifi/browser</span>
+                        <!-- Feather Aramco -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Feather Aramco</span>
+                                    <span class="app-desc">certificate: Aramco</span>
+                                    <span class="app-note">if doesnt show install popup, try turning off adblocker or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_1ab068fe.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_1ab068fe.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <!-- Cert Aramco -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Aramco Services Cert</span>
-                                <span class="app-desc">Password: 1</span>
+                        <!-- Cert Aramco -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Aramco Services Cert</span>
+                                    <span class="app-desc">Password: 1</span>
+                                </div>
                             </div>
+                            <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Aramco%20Services%20Company.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
                         </div>
-                        <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Aramco%20Services%20Company.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
-                    </div>
 
-                    <!-- Feather China Telecom -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Feather China Telecom</span>
-                                <span class="app-desc">certificate: China Telecom</span>
-                                <span class="app-note">if doesnt show install popup, try turning off adblocker or switch wifi/browser</span>
+                        <!-- Feather China Telecom -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Feather China Telecom</span>
+                                    <span class="app-desc">certificate: China Telecom</span>
+                                    <span class="app-note">if doesnt show install popup, try turning off adblocker or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_b5fdba26.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_b5fdba26.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <!-- Cert China Telecom -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">China Telecom Cert</span>
-                                <span class="app-desc">Password: 1</span>
+                        <!-- Cert China Telecom -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">China Telecom Cert</span>
+                                    <span class="app-desc">Password: 1</span>
+                                </div>
                             </div>
+                            <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/China%20Telecom%20Corporation%20Limited.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
                         </div>
-                        <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/China%20Telecom%20Corporation%20Limited.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
-                    </div>
 
-                    <!-- Feather Moving Increasingly -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Feather Moving Increasingly</span>
-                                <span class="app-desc">certificate: Moving Increasingly</span>
-                                <span class="app-note">if doesnt show install popup, try turning off adblocker or switch wifi/browser</span>
+                        <!-- Feather Moving Increasingly -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Feather Moving Increasingly</span>
+                                    <span class="app-desc">certificate: Moving Increasingly</span>
+                                    <span class="app-note">if doesnt show install popup, try turning off adblocker or switch wifi/browser</span>
+                                </div>
                             </div>
+                            <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_480f881f.plist" class="btn-install">Install</a>
                         </div>
-                        <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_480f881f.plist" class="btn-install">Install</a>
-                    </div>
 
-                    <!-- Cert Moving Increasingly -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Moving Increasingly Cert</span>
-                                <span class="app-desc">Password: 1</span>
+                        <!-- Cert Moving Increasingly -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Moving Increasingly Cert</span>
+                                    <span class="app-desc">Password: 1</span>
+                                </div>
                             </div>
+                            <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Moving%20Increasingly%20Interconnection.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
                         </div>
-                        <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Moving%20Increasingly%20Interconnection.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
                     </div>
                 </div>
 
                 <!-- TAB 3: IPAs/TIPAs -->
                 <div id="ipas-tipas" class="tab-pane">
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="https://raw.githubusercontent.com/rockylabs-dev/TrollInstallerDark/main/Resources/Icon.png" alt="TrollinstallerDark Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">TrollinstallerDark IPA</span>
-                                <span class="app-desc">Supports iOS 14.0-16.6.1 on arm64</span>
+                    <div class="scroll-container">
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="https://raw.githubusercontent.com/rockylabs-dev/TrollInstallerDark/main/Resources/Icon.png" alt="TrollinstallerDark Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">TrollinstallerDark IPA</span>
+                                    <span class="app-desc">Supports iOS 14.0-16.6.1 on arm64</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/rockylabs-dev/TrollInstallerDark/releases/download/1.0/TrollInstallerDark.ipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/rockylabs-dev/TrollInstallerDark/releases/download/1.0/TrollInstallerDark.ipa" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="https://raw.githubusercontent.com/alfiecg24/TrollInstallerX/main/Resources/Icon.png" alt="TrollinstallerX Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">TrollinstallerX IPA</span>
-                                <span class="app-desc">Supports iOS 14.0-15.8.6, iOS 16.0-16.6.1 on both arm64 and arm64e, recommended unless on iOS 15.8.7-15.8.8</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="https://raw.githubusercontent.com/alfiecg24/TrollInstallerX/main/Resources/Icon.png" alt="TrollinstallerX Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">TrollinstallerX IPA</span>
+                                    <span class="app-desc">Supports iOS 14.0-15.8.6, iOS 16.0-16.6.1 on both arm64 and arm64e, recommended unless on iOS 15.8.7-15.8.8</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/alfiecg24/TrollInstallerX/releases/download/1.0.3/TrollInstallerX.ipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/alfiecg24/TrollInstallerX/releases/download/1.0.3/TrollInstallerX.ipa" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_3003.png" alt="Dopamine Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Dopamine rootless IPA</span>
-                                <span class="app-desc">A rootless semi-untethered jailbreak for iOS 15.0 - 17.3.1 (arm64e), iOS 15.0 - 18.7.1, 26.0 - 26.0.1 (A12/A13) and iOS 15.0 - 18.7.1 (arm64)</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_3003.png" alt="Dopamine Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Dopamine rootless IPA</span>
+                                    <span class="app-desc">A rootless semi-untethered jailbreak for iOS 15.0 - 17.3.1 (arm64e), iOS 15.0 - 18.7.1, 26.0 - 26.0.1 (A12/A13) and iOS 15.0 - 18.7.1 (arm64)</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/opa334/Dopamine/releases/download/3.0.9/Dopamine.ipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/opa334/Dopamine/releases/download/3.0.9/Dopamine.ipa" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="https://raw.githubusercontent.com/roothide/Dopamine2-roothide/2.x/Application/Dopamine/Assets.xcassets/AppIcon.appiconset/Icon-60%403x.png" alt="Dopamine2 Roothide Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Dopamine2 Roothide IPA</span>
-                                <span class="app-desc">Roothide jailbreak for ios 15-16.7.16(arm64) and 15.0-16.5.1(arm64e)</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="https://raw.githubusercontent.com/roothide/Dopamine2-roothide/2.x/Application/Dopamine/Assets.xcassets/AppIcon.appiconset/Icon-60%403x.png" alt="Dopamine2 Roothide Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Dopamine2 Roothide IPA</span>
+                                    <span class="app-desc">Roothide jailbreak for ios 15-16.7.16(arm64) and 15.0-16.5.1(arm64e)</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/roothide/Dopamine2-roothide/releases/download/25/Dopamine.ipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/roothide/Dopamine2-roothide/releases/download/25/Dopamine.ipa" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <div class="app-icon-placeholder">?</div>
-                            <div class="app-info">
-                                <span class="app-title">Relaxin IPA</span>
-                                <span class="app-desc">Roothide Jailbreak for A12-17, iOS 17.0-17.3.1</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <div class="app-icon-placeholder">?</div>
+                                <div class="app-info">
+                                    <span class="app-title">Relaxin IPA</span>
+                                    <span class="app-desc">Roothide Jailbreak for A12-17, iOS 17.0-17.3.1</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/5hux1n/relaxin/releases/download/v0.4.8/Relaxin-v0.4.8.ipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/5hux1n/relaxin/releases/download/v0.4.8/Relaxin-v0.4.8.ipa" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_3090.jpeg" alt="Appstore++ Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Appstore++ TIPA</span>
-                                <span class="app-desc">An App that's used to downgrade appstore-installed apps!</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_3090.jpeg" alt="Appstore++ Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Appstore++ TIPA</span>
+                                    <span class="app-desc">An App that's used to downgrade appstore-installed apps!</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/CokePokes/AppStorePlus-TrollStore/releases/download/v2.2.14-1/AppStorePlus-v2.2.14-1.tipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/CokePokes/AppStorePlus-TrollStore/releases/download/v2.2.14-1/AppStorePlus-v2.2.14-1.tipa" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_3131.jpeg" alt="TrollDecrypt Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">TrollDecrypt TIPA</span>
-                                <span class="app-desc">iOS IPA Decrypter for TrollStore</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_3131.jpeg" alt="TrollDecrypt Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">TrollDecrypt TIPA</span>
+                                    <span class="app-desc">iOS IPA Decrypter for TrollStore</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/donato-fiore/TrollDecrypt/releases/download/v1.2.4/TrollDecrypt.tipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/donato-fiore/TrollDecrypt/releases/download/v1.2.4/TrollDecrypt.tipa" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="https://raw.githubusercontent.com/sourcelocation/TrollTools/main/TrollTools/Assets.xcassets/64.imageset/TrollUtils.png" alt="TrollTools Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">TrollTools TIPA</span>
-                                <span class="app-desc">Revolutionizing iOS 15 customisation</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="https://raw.githubusercontent.com/sourcelocation/TrollTools/main/TrollTools/Assets.xcassets/64.imageset/TrollUtils.png" alt="TrollTools Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">TrollTools TIPA</span>
+                                    <span class="app-desc">Revolutionizing iOS 15 customisation</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/sourcelocation/TrollTools/releases/download/3.0/TrollTools.tipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/sourcelocation/TrollTools/releases/download/3.0/TrollTools.tipa" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="https://raw.githubusercontent.com/Lessica/TrollFools/main/Artworks/AppIconMarketing-240.png" alt="TrollFools Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">TrollFools TIPA</span>
-                                <span class="app-desc">In-place tweak injection with insert_dylib and ChOma</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="https://raw.githubusercontent.com/Lessica/TrollFools/main/Artworks/AppIconMarketing-240.png" alt="TrollFools Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">TrollFools TIPA</span>
+                                    <span class="app-desc">In-place tweak injection with insert_dylib and ChOma</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/Lessica/TrollFools/releases/download/v4.3-253/TrollFools_4.3-253.tipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/Lessica/TrollFools/releases/download/v4.3-253/TrollFools_4.3-253.tipa" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="https://raw.githubusercontent.com/sourcelocation/AirTroller/main/AirTroller/Assets.xcassets/AppIcon.appiconset/Artboard.png" alt="AirTroller Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">AirTroller TIPA</span>
-                                <span class="app-desc">AirDrop spammer / flooder to troll friends. Sends AirDrops until the receiving device explodes :D</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="https://raw.githubusercontent.com/sourcelocation/AirTroller/main/AirTroller/Assets.xcassets/AppIcon.appiconset/Artboard.png" alt="AirTroller Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">AirTroller TIPA</span>
+                                    <span class="app-desc">AirDrop spammer / flooder to troll friends. Sends AirDrops until the receiving device explodes :D</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/sourcelocation/AirTroller/releases/download/1.1.1/AirTroller-1.1.1.tipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/sourcelocation/AirTroller/releases/download/1.1.1/AirTroller-1.1.1.tipa" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <div class="app-icon-placeholder">VPN</div>
-                            <div class="app-info">
-                                <span class="app-title">The Free VPN IPA</span>
-                                <span class="app-desc">A cracked VPN, very good to use(yes, the name's literally The Free VPN 😭, credits to CYPWN repo)</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <div class="app-icon-placeholder">VPN</div>
+                                <div class="app-info">
+                                    <span class="app-title">The Free VPN IPA</span>
+                                    <span class="app-desc">A cracked VPN, very good to use(yes, the name's literally The Free VPN 😭, credits to CYPWN repo)</span>
+                                </div>
                             </div>
+                            <a href="https://ipa.cypwn.xyz/serve/get.php?md5=7dbdef6206049effaa5847f0fe195459" class="btn-install">Install</a>
                         </div>
-                        <a href="https://ipa.cypwn.xyz/serve/get.php?md5=7dbdef6206049effaa5847f0fe195459" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="Images/IMG_3133.jpeg" alt="ClassiCube Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">ClassiCube IPA</span>
-                                <span class="app-desc">a minecraft old beta emulator(pretty light)</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="Images/IMG_3133.jpeg" alt="ClassiCube Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">ClassiCube IPA</span>
+                                    <span class="app-desc">a minecraft old beta emulator(pretty light)</span>
+                                </div>
                             </div>
+                            <a href="https://cdn.classicube.net/client/latest/ClassiCube.ipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://cdn.classicube.net/client/latest/ClassiCube.ipa" class="btn-install">Install</a>
-                    </div>
 
-                    <div class="app-item">
-                        <div class="app-left">
-                            <div class="app-icon-placeholder">?</div>
-                            <div class="app-info">
-                                <span class="app-title">Nyxian IPA</span>
-                                <span class="app-desc">A full native IDE and a userspace microkernel for building and running iOS apps entirely on-device. offline, unjailbroken, iOS 18.4 through iOS 27 Beta 4</span>
+                        <div class="app-item">
+                            <div class="app-left">
+                                <div class="app-icon-placeholder">?</div>
+                                <div class="app-info">
+                                    <span class="app-title">Nyxian IPA</span>
+                                    <span class="app-desc">A full native IDE and a userspace microkernel for building and running iOS apps entirely on-device. offline, unjailbroken, iOS 18.4 through iOS 27 Beta 4</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/emexlab/Nyxian/releases/download/0.11.3.1/Nyxian.ipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/emexlab/Nyxian/releases/download/0.11.3.1/Nyxian.ipa" class="btn-install">Install</a>
-                    </div>
 
-                    <!-- Raincord IPA -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="https://github.com/ra1ncord/rain/blob/main/src/assets/rain.png?raw=true" alt="Raincord Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Raincord IPA</span>
-                                <span class="app-desc">A custom Discord client for Mobile! Designed to be lightweight and feature packed</span>
+                        <!-- Raincord IPA -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="https://github.com/ra1ncord/rain/blob/main/src/assets/rain.png?raw=true" alt="Raincord Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Raincord IPA</span>
+                                    <span class="app-desc">A custom Discord client for Mobile! Designed to be lightweight and feature packed</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/ra1ncord/RainTweak/releases/download/v0.9.3/RainTweak.ipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/ra1ncord/RainTweak/releases/download/v0.9.3/RainTweak.ipa" class="btn-install">Install</a>
-                    </div>
 
-                    <!-- Reynard IPA -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <img src="https://github.com/minh-ton/reynard-browser/blob/main/browser/Reynard/Resources/Assets.xcassets/AppIcon.appiconset/icon.png?raw=true" alt="Reynard Icon" class="app-icon">
-                            <div class="app-info">
-                                <span class="app-title">Reynard IPA</span>
-                                <span class="app-desc">Reynard is a Gecko-based web browser for iOS 13+. Unlike other browsers on iOS that are forced to use Apple's WebKit engine (including Safari and all third-party browsers), Reynard uses Gecko. This is the same engine that powers the Firefox browser on desktop and Android devices. Requires JIT</span>
+                        <!-- Reynard IPA -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <img src="https://github.com/minh-ton/reynard-browser/blob/main/browser/Reynard/Resources/Assets.xcassets/AppIcon.appiconset/icon.png?raw=true" alt="Reynard Icon" class="app-icon">
+                                <div class="app-info">
+                                    <span class="app-title">Reynard IPA</span>
+                                    <span class="app-desc">Reynard is a Gecko-based web browser for iOS 13+. Unlike other browsers on iOS that are forced to use Apple's WebKit engine (including Safari and all third-party browsers), Reynard uses Gecko. This is the same engine that powers the Firefox browser on desktop and Android devices. Requires JIT</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/minh-ton/reynard-browser/releases/download/0.10.1/Reynard.ipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/minh-ton/reynard-browser/releases/download/0.10.1/Reynard.ipa" class="btn-install">Install</a>
-                    </div>
 
-                    <!-- Blinker Fluid IPA -->
-                    <div class="app-item">
-                        <div class="app-left">
-                            <div class="app-icon-placeholder">Browser</div>
-                            <div class="app-info">
-                                <span class="app-title">Blinker Fluid IPA</span>
-                                <span class="app-desc">An experimental Chromium Blink + V8 browser for iOS. Runs without Apple's WebKit engine. Requires JIT</span>
+                        <!-- Blinker Fluid IPA -->
+                        <div class="app-item">
+                            <div class="app-left">
+                                <div class="app-icon-placeholder">Browser</div>
+                                <div class="app-info">
+                                    <span class="app-title">Blinker Fluid IPA</span>
+                                    <span class="app-desc">An experimental Chromium Blink + V8 browser for iOS. Runs without Apple's WebKit engine. Requires JIT</span>
+                                </div>
                             </div>
+                            <a href="https://github.com/Nodesclock/Blinker-Fluid/releases/download/v.0.3/Blinker.Fluid.v.0.3.JIT.ipa" class="btn-install">Install</a>
                         </div>
-                        <a href="https://github.com/Nodesclock/Blinker-Fluid/releases/download/v.0.3/Blinker.Fluid.v.0.3.JIT.ipa" class="btn-install">Install</a>
                     </div>
                 </div>
             </div>
