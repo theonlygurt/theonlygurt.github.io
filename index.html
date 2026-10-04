@@ -3,16 +3,6 @@
 <head>
     <meta charset="UTF-8">
 
-    <!-- ==================================================================
-         Content Security Policy
-         --------------------------------------------------------------
-         connect-src is now allowlisted to api.github.com so the page can
-         resolve "latest release" URLs at runtime. Everything else stays
-         locked down. To go back to a fully offline page, set
-         connect-src back to 'none' and delete the `repo:` / `assetMatch:`
-         fields from the TABS data — the hardcoded hrefs remain as
-         fallbacks either way.
-         ================================================================== -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' https://github.com https://raw.githubusercontent.com https://avatars.githubusercontent.com; connect-src https://api.github.com; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; media-src 'none'; font-src 'none'; worker-src 'none'; manifest-src 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'">
 
     <meta name="referrer" content="no-referrer">
@@ -356,6 +346,13 @@
             border-color: #1f6feb;
             color: #fff;
             font-size: 28px;
+        }
+
+        .app-icon-placeholder--deb {
+            background-color: #6e40c9;
+            border-color: #8957e5;
+            color: #fff;
+            font-size: 0.75rem;
         }
 
         .app-info {
@@ -739,12 +736,6 @@
             return typeof raw === 'string' && raw.length > 0 && !UNSAFE_SRC.test(raw);
         }
 
-        /**
-         * Permanent URL for an asset on a repo's newest non-prerelease
-         * release. Only usable when the asset filename does NOT contain a
-         * version number. If the maintainer ever renames the asset, this
-         * 404s — in which case fall back to a hardcoded href + assetMatch.
-         */
         function ghLatest(repo, filename) {
             return 'https://github.com/' + repo + '/releases/latest/download/' + filename;
         }
@@ -845,18 +836,6 @@
 
         /* ==================================================================
            3. Data
-           --------------------------------------------------------------
-           Two kinds of auto-updating links:
-
-           (a) href uses ghLatest(...) — no JS needed, no API call. The URL
-               permanently redirects to the newest release asset. Only valid
-               when the asset filename has no version in it.
-
-           (b) `repo` + `assetMatch` — a version-embedded filename. The page
-               asks the GitHub API for the newest release, finds the first
-               asset matching the regex, and rewrites the href in place.
-               The hardcoded href is the fallback if the API is slow,
-               rate-limited, or offline.
            ================================================================== */
 
         var TABS = [
@@ -904,8 +883,6 @@
                 id: 'ipas-tipas',
                 label: 'IPAs/TIPAs/DEBs',
                 items: [
-                    /* --- (a) stable filenames → permanent latest URL --- */
-
                     {
                         title: 'TrollinstallerDark IPA',
                         icon: 'https://raw.githubusercontent.com/rockylabs-dev/TrollInstallerDark/main/Resources/Icon.png',
@@ -934,9 +911,6 @@
                         desc: 'Roothide jailbreak for ios 15-16.7.16(arm64) and 15.0-16.5.1(arm64e)',
                         href: ghLatest('roothide/Dopamine2-roothide', 'Dopamine.ipa')
                     },
-
-                    /* --- (b) version-embedded filenames → API --- */
-
                     {
                         title: 'Relaxin IPA',
                         placeholder: '?',
@@ -1058,6 +1032,14 @@
                         iconAlt: 'Vibetok',
                         desc: 'Best tiktok mod for iOS besides BHtiktok+',
                         href: 'https://github.com/theonlygurt/theonlygurt.github.io/releases/download/1.0.6/VibeTokV1.75.ipa'
+                    },
+                    {
+                        title: 'Gtok DEB',
+                        icon: 'Images/IMG_2084.jpeg',
+                        iconAlt: 'Gtok',
+                        desc: 'A tiktok mod better than vibetok. inject this using Ksign/Feather or any signer than can inject. works well on rootless jailbroken phones but not on roothide(may not work properly)',
+                        href: 'https://github.com/theonlygurt/theonlygurt.github.io/releases/download/1.0.75/com.gtok.rootless_2.2_iphoneos-arm64.deb',
+                        btn: 'Download'
                     },
                     {
                         title: 'OldOS IPA',
@@ -1239,8 +1221,6 @@
            4. Rendering
            ================================================================== */
 
-        /* Registry of anchors whose href may be rewritten by the API
-           refresher. Each entry: { item, anchor }. */
         var dynamicLinks = [];
 
         function buildIcon(item) {
@@ -1317,7 +1297,6 @@
                 btn.setAttribute('rel', 'noopener noreferrer');
             }
 
-            /* Only register for live refresh if the data opts in. */
             if (item.repo && item.assetMatch instanceof RegExp) {
                 dynamicLinks.push({ item: item, anchor: btn });
             }
@@ -1392,12 +1371,6 @@
 
         /* ==================================================================
            5. Live "latest release" resolution
-           --------------------------------------------------------------
-           One GitHub API call per unique repo, cached in localStorage for
-           6 hours. Unauthenticated GitHub API allows 60 requests/hour per
-           IP; a cold cache costs 11 requests, so a shared IP with several
-           visitors could conceivably hit the ceiling. If that happens the
-           hardcoded hrefs simply stay in place — nothing breaks.
            ================================================================== */
 
         var LATEST_CACHE_KEY = 'gurt-latest-cache-v1';
@@ -1421,7 +1394,6 @@
             } catch (e) {}
         }
 
-        /* assets: [{ name, url }] */
         function applyRepoAssets(repo, assets) {
             dynamicLinks.forEach(function (entry) {
                 if (entry.item.repo !== repo) return;
@@ -1475,7 +1447,6 @@
         function refreshLatestLinks() {
             if (!dynamicLinks.length) return;
 
-            /* Group by repo so two items sharing a repo cost one request. */
             var repos = [];
             dynamicLinks.forEach(function (entry) {
                 if (repos.indexOf(entry.item.repo) === -1) repos.push(entry.item.repo);
