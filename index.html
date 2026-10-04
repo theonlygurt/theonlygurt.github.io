@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Only Gurt</title>
+    <meta name="description" content="Gurt's personal link hub — jailbreak tools, IPAs, TIPAs, DEBs, plus DNS and Ksign certificate installs.">
+    <meta name="theme-color" content="#0d1117">
+    <link rel="icon" href="https://github.com/theonlygurt.png">
     <style>
         * {
             margin: 0;
@@ -29,10 +32,17 @@
             padding: 20px;
             max-width: 400px;
             width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
             text-align: center;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- focus visibility ------------------------------------------- */
+        .btn:focus-visible,
+        .btn-install:focus-visible,
+        .slider-btn:focus-visible,
+        .avatar-link:focus-visible {
+            outline: 2px solid #58a6ff;
+            outline-offset: 2px;
         }
 
         .avatar-link {
@@ -275,6 +285,7 @@
             align-items: center;
             gap: 12px;
             flex: 1;
+            min-width: 0;
         }
 
         .app-icon {
@@ -300,11 +311,26 @@
             flex-shrink: 0;
         }
 
+        .app-icon-placeholder--minecraft {
+            background-color: #8B5A2B;
+            border-color: #5C3A1E;
+            color: #fff;
+            font-size: 28px;
+        }
+
+        .app-icon-placeholder--music {
+            background-color: #1f6feb;
+            border-color: #1f6feb;
+            color: #fff;
+            font-size: 28px;
+        }
+
         .app-info {
             display: flex;
             flex-direction: column;
             gap: 4px;
             text-align: left;
+            min-width: 0;
         }
 
         .app-title {
@@ -402,13 +428,17 @@
             font-weight: 400;
             margin: 0;
         }
+
+        .contributions-section .note-list li {
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
 
     <div class="card">
         <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" rel="noopener noreferrer" class="avatar-link">
-            <img src="https://github.com/theonlygurt.png" alt="Avatar" class="avatar">
+            <img src="https://github.com/theonlygurt.png" alt="Gurt's avatar" class="avatar">
         </a>
 
         <h1>Welcome to Gurt's Space</h1>
@@ -457,779 +487,17 @@
             </ul>
         </div>
 
+        <!-- Tab nav + panels are rendered from TABS below -->
         <div class="slider-section">
-            <div class="slider-nav">
-                <button class="slider-btn active" onclick="switchTab('dns-ksign', this)">DNS & Ksign</button>
-                <button class="slider-btn" onclick="switchTab('feather-others', this)">Feather & Others</button>
-                <button class="slider-btn" onclick="switchTab('ipas-tipas', this)">IPAs/TIPAs/DEBs</button>
-            </div>
-
-            <div class="slider-content">
-                <!-- TAB 1: DNS & Ksign -->
-                <div id="dns-ksign" class="tab-pane active">
-                    <div class="scroll-container">
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_2084.jpeg" alt="DNS Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">DNS</span>
-                                    <span class="app-desc">DNS profile, must install before installing ksign. after installing, go to Settings -> general -> VPN and device management -> click on khoindvn -> install</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/dns-khoindvn/oci-auto-vm/releases/download/DNS/khoindvn.mobileconfig" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: HSBC bank</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/pbemcddlcpho.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: Central Power</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lcfpeiedkheg.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: Central Power(different MP)</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/dnnpggekacnm.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: Viet Nam Rubber</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/idjbbheelkpp.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: Jiangsu simcere</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/mlieeiadepah.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: Jiangsu Simcere(different MP)</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lodjpjcljdpi.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: Moving Increasingly</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/imppbfhicihh.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: Moving Increasingly(different MP)</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lcfpeiedkheg.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: China telecom</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/phcfgoaomgja.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: Qingdao Rural</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lkcmbkcaibjd.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: Aramco</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/egacibioeoae.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: comissions Electrons</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/gcbllkegcanc.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: National Oilwell</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/mhgbkhplggio.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: BOC</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/lmmjphdncjkf.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: BOC(second MP)</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/dgiepohhpeff.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: BOC(third MP)</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/hchbhebffgmj.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/1373903153535258745.webp" alt="Ksign Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Ksign</span>
-                                    <span class="app-desc">certificate: BOC(fourth MP)</span>
-                                    <span class="app-note">if it doesnt show Install popup, turn off adblocker, or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/joabkofbfegf.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="note-item">
-                            <div class="note-title">NOTE:</div>
-                            <ul class="note-list">
-                                <li>DNS and all Ksign download links belong to Khoindvn and super duper cute nyasami.</li>
-                                <li>if any certificate expires, please report to me so i can remove it off the website.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TAB 2: Feather & Others -->
-                <div id="feather-others" class="tab-pane">
-                    <div class="scroll-container">
-                        <!-- Feather HSBC -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Feather</span>
-                                    <span class="app-desc">Certificate: HSBC bank</span>
-                                    <span class="app-note">if it doesnt show install popup, try turning off Adblocker or change wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_d96f5706.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Cert HSBC -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">HSBC Bank plc Cert</span>
-                                    <span class="app-desc">Password: 1</span>
-                                </div>
-                            </div>
-                            <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/HSBC%20Bank%20plc.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
-                        </div>
-
-                        <!-- Feather Jiangsu Simcere -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Feather</span>
-                                    <span class="app-desc">certificate: Jiangsu Simcere</span>
-                                    <span class="app-note">If doesnt show install popup, try turning off adblocker or change wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_a879eb00.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Cert Jiangsu Simcere -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Jiangsu Simcere Cert</span>
-                                    <span class="app-desc">Password: 1</span>
-                                </div>
-                            </div>
-                            <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Jiangsu%20Simcere%20Pharmaceutical.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
-                        </div>
-
-                        <!-- Feather Aramco -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Feather Aramco</span>
-                                    <span class="app-desc">certificate: Aramco</span>
-                                    <span class="app-note">if doesnt show install popup, try turning off adblocker or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_1ab068fe.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Cert Aramco -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Aramco Services Cert</span>
-                                    <span class="app-desc">Password: 1</span>
-                                </div>
-                            </div>
-                            <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Aramco%20Services%20Company.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
-                        </div>
-
-                        <!-- Feather China Telecom -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Feather China Telecom</span>
-                                    <span class="app-desc">certificate: China Telecom</span>
-                                    <span class="app-note">if doesnt show install popup, try turning off adblocker or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_b5fdba26.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Cert China Telecom -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">China Telecom Cert</span>
-                                    <span class="app-desc">Password: 1</span>
-                                </div>
-                            </div>
-                            <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/China%20Telecom%20Corporation%20Limited.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
-                        </div>
-
-                        <!-- Feather Moving Increasingly -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_0934.png" alt="Feather Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Feather Moving Increasingly</span>
-                                    <span class="app-desc">certificate: Moving Increasingly</span>
-                                    <span class="app-note">if doesnt show install popup, try turning off adblocker or switch wifi/browser</span>
-                                </div>
-                            </div>
-                            <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Fplistmaker-ajxufyus.manus.space%2Fmanus-storage%2Fmanifests%2Fmanifest_480f881f.plist" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Cert Moving Increasingly -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_0934.png" alt="Cert Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Moving Increasingly Cert</span>
-                                    <span class="app-desc">Password: 1</span>
-                                </div>
-                            </div>
-                            <a href="https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Moving%20Increasingly%20Interconnection.zip" class="btn-install" target="_blank" rel="noopener noreferrer">Download</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TAB 3: IPAs/TIPAs/DEBs -->
-                <div id="ipas-tipas" class="tab-pane">
-                    <div class="scroll-container">
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/rockylabs-dev/TrollInstallerDark/main/Resources/Icon.png" alt="TrollinstallerDark Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">TrollinstallerDark IPA</span>
-                                    <span class="app-desc">Supports iOS 14.0-16.6.1 on arm64</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/rockylabs-dev/TrollInstallerDark/releases/download/1.0/TrollInstallerDark.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/alfiecg24/TrollInstallerX/main/Resources/Icon.png" alt="TrollinstallerX Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">TrollinstallerX IPA</span>
-                                    <span class="app-desc">Supports iOS 14.0-15.8.6, iOS 16.0-16.6.1 on both arm64 and arm64e, recommended unless on iOS 15.8.7-15.8.8</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/alfiecg24/TrollInstallerX/releases/download/1.0.3/TrollInstallerX.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_3003.png" alt="Dopamine Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Dopamine rootless IPA</span>
-                                    <span class="app-desc">A rootless semi-untethered jailbreak for iOS 15.0 - 17.3.1 (arm64e), iOS 15.0 - 18.7.1, 26.0 - 26.0.1 (A12/A13) and iOS 15.0 - 18.7.1 (arm64)</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/opa334/Dopamine/releases/download/3.0.9/Dopamine.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/roothide/Dopamine2-roothide/2.x/Application/Dopamine/Assets.xcassets/AppIcon.appiconset/Icon-60%403x.png" alt="Dopamine2 Roothide Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Dopamine2 Roothide IPA</span>
-                                    <span class="app-desc">Roothide jailbreak for ios 15-16.7.16(arm64) and 15.0-16.5.1(arm64e)</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/roothide/Dopamine2-roothide/releases/download/25/Dopamine.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <div class="app-icon-placeholder">?</div>
-                                <div class="app-info">
-                                    <span class="app-title">Relaxin IPA</span>
-                                    <span class="app-desc">Roothide Jailbreak for A12-17, iOS 17.0-17.3.1</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/5hux1n/relaxin/releases/download/v0.4.8/Relaxin-v0.4.8.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_3090.jpeg" alt="Appstore++ Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Appstore++ TIPA</span>
-                                    <span class="app-desc">An App that's used to downgrade appstore-installed apps!</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/CokePokes/AppStorePlus-TrollStore/releases/download/v2.2.14-1/AppStorePlus-v2.2.14-1.tipa" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_3131.jpeg" alt="TrollDecrypt Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">TrollDecrypt TIPA</span>
-                                    <span class="app-desc">iOS IPA Decrypter for TrollStore</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/donato-fiore/TrollDecrypt/releases/download/v1.2.4/TrollDecrypt.tipa" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/sourcelocation/TrollTools/main/TrollTools/Assets.xcassets/64.imageset/TrollUtils.png" alt="TrollTools Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">TrollTools TIPA</span>
-                                    <span class="app-desc">Revolutionizing iOS 15 customisation</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/sourcelocation/TrollTools/releases/download/3.0/TrollTools.tipa" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/Lessica/TrollFools/main/Artworks/AppIconMarketing-240.png" alt="TrollFools Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">TrollFools TIPA</span>
-                                    <span class="app-desc">In-place tweak injection with insert_dylib and ChOma</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/Lessica/TrollFools/releases/download/v4.3-253/TrollFools_4.3-253.tipa" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/sourcelocation/AirTroller/main/AirTroller/Assets.xcassets/AppIcon.appiconset/Artboard.png" alt="AirTroller Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">AirTroller TIPA</span>
-                                    <span class="app-desc">AirDrop spammer / flooder to troll friends. Sends AirDrops until the receiving device explodes :D</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/sourcelocation/AirTroller/releases/download/1.1.1/AirTroller-1.1.1.tipa" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <div class="app-icon-placeholder">VPN</div>
-                                <div class="app-info">
-                                    <span class="app-title">The Free VPN IPA</span>
-                                    <span class="app-desc">A cracked VPN, very good to use(yes, the name's literally The Free VPN 😭, credits to CYPWN repo)</span>
-                                </div>
-                            </div>
-                            <a href="https://ipa.cypwn.xyz/serve/get.php?md5=7dbdef6206049effaa5847f0fe195459" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_3133.jpeg" alt="ClassiCube Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">ClassiCube IPA</span>
-                                    <span class="app-desc">a minecraft old beta emulator(pretty light)</span>
-                                </div>
-                            </div>
-                            <a href="https://cdn.classicube.net/client/latest/ClassiCube.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <div class="app-item">
-                            <div class="app-left">
-                                <div class="app-icon-placeholder">?</div>
-                                <div class="app-info">
-                                    <span class="app-title">Nyxian IPA</span>
-                                    <span class="app-desc">A full native IDE and a userspace microkernel for building and running iOS apps entirely on-device. offline, unjailbroken, iOS 18.4 through iOS 27 Beta 4</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/emexlab/Nyxian/releases/download/0.11.3.1/Nyxian.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Raincord IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://github.com/ra1ncord/rain/blob/main/src/assets/rain.png?raw=true" alt="Raincord Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Raincord IPA</span>
-                                    <span class="app-desc">A custom Discord client for Mobile! Designed to be lightweight and feature packed</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/ra1ncord/RainTweak/releases/download/v0.9.3/RainTweak.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Reynard IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://github.com/minh-ton/reynard-browser/blob/main/browser/Reynard/Resources/Assets.xcassets/AppIcon.appiconset/icon.png?raw=true" alt="Reynard Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Reynard IPA</span>
-                                    <span class="app-desc">Reynard is a Gecko-based web browser for iOS 13+. Unlike other browsers on iOS that are forced to use Apple's WebKit engine (including Safari and all third-party browsers), Reynard uses Gecko. This is the same engine that powers the Firefox browser on desktop and Android devices. Requires JIT</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/minh-ton/reynard-browser/releases/download/0.10.1/Reynard.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Blinker Fluid IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <div class="app-icon-placeholder">Browser</div>
-                                <div class="app-info">
-                                    <span class="app-title">Blinker Fluid IPA</span>
-                                    <span class="app-desc">An experimental Chromium Blink + V8 browser for iOS. Runs without Apple's WebKit engine. Requires JIT</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/Nodesclock/Blinker-Fluid/releases/download/v.0.3/Blinker.Fluid.v.0.3.JIT.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Soundcloud modded IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_3210.jpeg" alt="Soundcloud Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Soundcloud modded IPA</span>
-                                    <span class="app-desc">Modded version of Soundcloud. Made by GLESign</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/theonlygurt/theonlygurt.github.io/releases/download/1.0.5/SoundCloud.v8.75.0.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- EeveeSpotify IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_4357.jpeg" alt="EeveeSpotify Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">EeveeSpotify IPA</span>
-                                    <span class="app-desc">Spotify modded. From Apptesters</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/apptesters-org/AppTesters_Repo/releases/download/12-06-2026/EeveeSpotify_9.1.50_Premium_%40thisismanpreets_apptesters.org.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Eeveespotifyrepublic -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_4357.jpeg" alt="Eeveespotifyrepublic Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Eeveespotifyrepublic IPA</span>
-                                    <span class="app-desc">EeveeSpotify Republic version</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks/EeveeSpotify-6.6.2-9.1.28-patched.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Vibetok IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_3246.jpeg" alt="Vibetok Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Vibetok IPA</span>
-                                    <span class="app-desc">Best tiktok mod for iOS besides BHtiktok+</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/theonlygurt/theonlygurt.github.io/releases/download/1.0.6/VibeTokV1.75.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- OldOS IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="Images/IMG_3257.jpeg" alt="OldOS Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">OldOS IPA</span>
-                                    <span class="app-desc">Recreating a fully functional version of iOS 4 in SwiftUI.</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/zzanehip/The-OldOS-Project/releases/download/2.0_8/OldOS.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Amethyst Remastered IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/herbrine8403/Amethyst-iOS-MyRemastered/refs/heads/main/Natives/Assets.xcassets/AppIcon-Light.appiconset/1024x1024.png" alt="Amethyst Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Amethyst Remastered IPA</span>
-                                    <span class="app-desc">The remastered version of Amethyst Launcher</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/herbrine8403/Amethyst-iOS-MyRemastered/releases/download/5.0.0/Air-5.0.0.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Minecraft IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <div class="app-icon-placeholder" style="font-size: 28px; background-color: #8B5A2B; color: #fff; border: 2px solid #5C3A1E;">🟫</div>
-                                <div class="app-info">
-                                    <span class="app-title">Minecraft IPA</span>
-                                    <span class="app-desc">Minecraft bedrock cracked</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks2/Minecraft_1.21.124_1788118038.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- ByeTunes IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <div class="app-icon-placeholder" style="font-size: 28px; background-color: #1f6feb; color: #fff;">🎵</div>
-                                <div class="app-info">
-                                    <span class="app-title">ByeTunes IPA</span>
-                                    <span class="app-desc">ByeTunes is a native iOS app that lets you inject music (MP3, M4A, FLAC, WAV) and ringtones directly into your device's media library—without needing a computer connection for every sync. It communicates directly with the iOS media database, giving you the power to manage your music on your terms.</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/EduAlexxis/ByeTunes/releases/download/v2.5/ByeTunes.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- YouProEXTRA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/dayanch96/YTLite/refs/heads/main/Resources/icon.png" alt="YouProEXTRA Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">YouProEXTRA</span>
-                                    <span class="app-desc">YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxing.</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/mrdrvt99/YouProEXTRA/releases/download/ytl-ipa4/YouTubePlus_21.24.3_5.2.2.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- NeoFreeBird IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/NeoFreeBird/app/refs/heads/main/assets/main/Custom-Icon-00160x60%402x.png" alt="NeoFreeBird Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">NeoFreeBird IPA</span>
-                                    <span class="app-desc">modified Twitter app, with branding reverts, BHTwitter and other QoL modifications.</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/NeoFreeBird/app/releases/download/2.2/NeoFreeBird-2.2-Twitter-11.35.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- XeniOS -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/xenios-jp/XeniOS/refs/heads/xenios/assets/apple/xenios-readme-icon.png" alt="XeniOS Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">XeniOS</span>
-                                    <span class="app-desc">The iOS and MacOS port of Xenia, the Xbox 360 Emulator Research project.</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/xenios-jp/XeniOS/releases/download/release-v2.0.1-build-9730/xenios_ios_iphone_ipad.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- VirtualMac DEB -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/nfzerox/VirtualMacOniPad/refs/heads/main/VirtualMac/assets/VirtualMac.png" alt="VirtualMac Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">VirtualMac DEB</span>
-                                    <span class="app-desc">People have dreamed of running macOS on iPad for more than a decade. Today, that dream comes true. With Virtual Mac, iPad finally breaks free from iPadOS, enabling pro apps like Xcode, Terminal, Final Cut Pro, Logic Pro, and Pixelmator Pro to run directly on device. Requires iPad Pro (M1, M2) or iPad Air (M1) running iPadOS 14 up to 16.3.1. requires an iPad Pro (M1, M2) or iPad Air (M1) running iPadOS 14 up to 16.3.1. iPad Pro models with 1 TB or 2 TB of storage have 16 GB of RAM and provide the best performance and experience.</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/nfzerox/VirtualMacOniPad/releases/download/1.2.3/VirtualMac_1.2.3.deb" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- Eeveespotify Reincarnated IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/SideloadLabs/EeveeSpotifyReincarnated/refs/heads/Master/Assets/AppIcon/EeveeCustom%402x.png" alt="Eeveespotify Reincarnated IPA Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">Eeveespotify Reincarnated IPA</span>
-                                    <span class="app-desc">Self-explanatory</span>
-                                </div>
-                            </div>
-                            <a href="https://files.catbox.moe/1qbbn8.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- TrollApps IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/TheResonanceTeam/TrollApps/refs/heads/main/assets/ResonanceStoreIcon.png" alt="TrollApps Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">TrollApps IPA</span>
-                                    <span class="app-desc">TrollApps is an alternative to the iOS App Store for TrollStore users. TrollApps allows users to download apps from repositories and install them directly in TrollStore. TrollApps works on iOS 14.0 and up; make sure to be on the latest version of TrollStore. You require a TrollStore 1.0 / 2.0 compatible device, and TrollStore must be installed to use this application. It is also required that you enable schema urls within TrollStore.</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/TheResonanceTeam/TrollApps/releases/download/2.3/org.resonance.store_2.3_082724.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- BunnyTweak -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://avatars.githubusercontent.com/u/222484597?s=200&v=4" alt="BunnyTweak Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">BunnyTweak</span>
-                                    <span class="app-desc">Tweak to inject Bunny and OpenInDiscord into Discord. Forked from VendettaTweak and modified to match with BunnyXposed's behavior.</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/pyoncord/BunnyTweak/releases/latest/download/Bunny.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- KettuTweak -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://avatars.githubusercontent.com/u/222484597?s=200&v=4" alt="KettuTweak Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">KettuTweak</span>
-                                    <span class="app-desc">Tweak to inject Kettu into discord</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/C0C0B01/KettuTweak/releases/download/v305.1/KettuTweak.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- 3105 IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/YangJiiii/3105/refs/heads/main/docs/images/app-icon.png" alt="3105 Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">3105 IPA</span>
-                                    <span class="app-desc">A native iOS workspace for app-container files, portable patches, limited cleanup, and PosterBoard wallpaper packages. Supports ios 17.0-18.7.1, 26.0-26.6.1 and 27.0db1-4</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/YangJiiii/3105/releases/download/v1.1.1/3105-unsigned.ipa" class="btn-install">Install</a>
-                        </div>
-
-                        <!-- stikdebug IPA -->
-                        <div class="app-item">
-                            <div class="app-left">
-                                <img src="https://raw.githubusercontent.com/StikDebug/StikDebug/refs/heads/main/assets/StikDebug.png" alt="stikdebug Icon" class="app-icon">
-                                <div class="app-info">
-                                    <span class="app-title">stikdebug IPA</span>
-                                    <span class="app-desc">An on-device debugger/JIT enabler for iOS versions 17.4+ powered by idevice.</span>
-                                </div>
-                            </div>
-                            <a href="https://github.com/StikDebug/StikDebug/releases/download/3.1.9/StikDebug-3.1.9.ipa" class="btn-install">Install</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            <div class="slider-nav" role="tablist" aria-label="Download categories"></div>
+            <div class="slider-content"></div>
         </div>
 
-        <!-- Contributions Section -->
         <div class="contributions-section">
             <h2 class="section-title">Contributions</h2>
-            <p>- @kysonloll, @pizzaman590, @2p4j, @3v9h, @oed6: suggesting IPAs, helping me getting IPAs</p>
+            <ul class="note-list">
+                <li>@kysonloll, @pizzaman590, @2p4j, @3v9h, @oed6: suggesting IPAs, helping me getting IPAs</li>
+            </ul>
         </div>
 
         <hr class="divider">
@@ -1237,16 +505,554 @@
     </div>
 
     <script>
-        function switchTab(tabId, btn) {
-            const tabPanes = document.querySelectorAll('.tab-pane');
-            tabPanes.forEach(pane => pane.classList.remove('active'));
+    (function () {
+        'use strict';
 
-            const buttons = document.querySelectorAll('.slider-btn');
-            buttons.forEach(b => b.classList.remove('active'));
+        /* ------------------------------------------------------------------
+           Shared snippets
+           ------------------------------------------------------------------ */
 
-            document.getElementById(tabId).classList.add('active');
-            btn.classList.add('active');
+        var KSIGN_NOTE = 'if it doesnt show Install popup, turn off adblocker, or switch wifi/browser';
+
+        var KSIGN_ICON = 'Images/1373903153535258745.webp';
+
+        /**
+         * Builds a Ksign install row.
+         * @param {string} cert   Certificate name, shown after "certificate: ".
+         * @param {string} plist  Plist filename on website.khoindvn.io.vn (no extension).
+         */
+        function ksign(cert, plist) {
+            return {
+                title: 'Ksign',
+                icon: KSIGN_ICON,
+                iconAlt: 'Ksign',
+                desc: 'certificate: ' + cert,
+                note: KSIGN_NOTE,
+                href: 'itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/' + plist + '.plist',
+                ariaLabel: 'Install Ksign certificate: ' + cert
+            };
         }
+
+        /* ------------------------------------------------------------------
+           Data — tabs render in this order
+           ------------------------------------------------------------------ */
+
+        var TABS = [
+
+            /* ============================ TAB 1 ============================ */
+            {
+                id: 'dns-ksign',
+                label: 'DNS & Ksign',
+                items: [
+                    {
+                        title: 'DNS',
+                        icon: 'Images/IMG_2084.jpeg',
+                        iconAlt: 'DNS profile',
+                        desc: 'DNS profile, must install before installing ksign. after installing, go to Settings -> general -> VPN and device management -> click on khoindvn -> install',
+                        href: 'https://github.com/dns-khoindvn/oci-auto-vm/releases/download/DNS/khoindvn.mobileconfig'
+                    },
+
+                    ksign('HSBC bank', 'pbemcddlcpho'),
+                    ksign('Central Power', 'lcfpeiedkheg'),
+                    ksign('Central Power(different MP)', 'dnnpggekacnm'),
+                    ksign('Viet Nam Rubber', 'idjbbheelkpp'),
+                    ksign('Jiangsu simcere', 'mlieeiadepah'),
+                    ksign('Jiangsu Simcere(different MP)', 'lodjpjcljdpi'),
+                    ksign('Moving Increasingly', 'imppbfhicihh'),
+
+                    // FIXME: duplicate plist — "lcfpeiedkheg" is also used by
+                    // "Central Power" above. One of these two is wrong.
+                    ksign('Moving Increasingly(different MP)', 'lcfpeiedkheg'),
+
+                    ksign('China telecom', 'phcfgoaomgja'),
+                    ksign('Qingdao Rural', 'lkcmbkcaibjd'),
+                    ksign('National Oilwell', 'mhgbkhplggio'),
+                    ksign('BOC', 'lmmjphdncjkf'),
+                    ksign('BOC(second MP)', 'dgiepohhpeff'),
+                    ksign('BOC(third MP)', 'hchbhebffgmj'),
+                    ksign('BOC(fourth MP)', 'joabkofbfegf')
+                ],
+                notes: [
+                    'DNS and all Ksign download links belong to Khoindvn and super duper cute nyasami.',
+                    'if any certificate expires, please report to me so i can remove it off the website.'
+                ]
+            },
+
+            /* ============================ TAB 2 ============================ */
+            {
+                id: 'ipas-tipas',
+                label: 'IPAs/TIPAs/DEBs',
+                items: [
+                    {
+                        title: 'TrollinstallerDark IPA',
+                        icon: 'https://raw.githubusercontent.com/rockylabs-dev/TrollInstallerDark/main/Resources/Icon.png',
+                        iconAlt: 'TrollinstallerDark',
+                        desc: 'Supports iOS 14.0-16.6.1 on arm64',
+                        href: 'https://github.com/rockylabs-dev/TrollInstallerDark/releases/download/1.0/TrollInstallerDark.ipa'
+                    },
+                    {
+                        title: 'TrollinstallerX IPA',
+                        icon: 'https://raw.githubusercontent.com/alfiecg24/TrollInstallerX/main/Resources/Icon.png',
+                        iconAlt: 'TrollinstallerX',
+                        desc: 'Supports iOS 14.0-15.8.6, iOS 16.0-16.6.1 on both arm64 and arm64e, recommended unless on iOS 15.8.7-15.8.8',
+                        href: 'https://github.com/alfiecg24/TrollInstallerX/releases/download/1.0.3/TrollInstallerX.ipa'
+                    },
+                    {
+                        title: 'Dopamine rootless IPA',
+                        icon: 'Images/IMG_3003.png',
+                        iconAlt: 'Dopamine',
+                        desc: 'A rootless semi-untethered jailbreak for iOS 15.0 - 17.3.1 (arm64e), iOS 15.0 - 18.7.1, 26.0 - 26.0.1 (A12/A13) and iOS 15.0 - 18.7.1 (arm64)',
+                        href: 'https://github.com/opa334/Dopamine/releases/download/3.0.9/Dopamine.ipa'
+                    },
+                    {
+                        title: 'Dopamine2 Roothide IPA',
+                        icon: 'https://raw.githubusercontent.com/roothide/Dopamine2-roothide/2.x/Application/Dopamine/Assets.xcassets/AppIcon.appiconset/Icon-60%403x.png',
+                        iconAlt: 'Dopamine2 Roothide',
+                        desc: 'Roothide jailbreak for ios 15-16.7.16(arm64) and 15.0-16.5.1(arm64e)',
+                        href: 'https://github.com/roothide/Dopamine2-roothide/releases/download/25/Dopamine.ipa'
+                    },
+                    {
+                        title: 'Relaxin IPA',
+                        placeholder: '?',
+                        desc: 'Roothide Jailbreak for A12-17, iOS 17.0-17.3.1',
+                        href: 'https://github.com/5hux1n/relaxin/releases/download/v0.4.8/Relaxin-v0.4.8.ipa'
+                    },
+                    {
+                        title: 'Appstore++ TIPA',
+                        icon: 'Images/IMG_3090.jpeg',
+                        iconAlt: 'Appstore++',
+                        desc: "An App that's used to downgrade appstore-installed apps!",
+                        href: 'https://github.com/CokePokes/AppStorePlus-TrollStore/releases/download/v2.2.14-1/AppStorePlus-v2.2.14-1.tipa'
+                    },
+                    {
+                        title: 'TrollDecrypt TIPA',
+                        icon: 'Images/IMG_3131.jpeg',
+                        iconAlt: 'TrollDecrypt',
+                        desc: 'iOS IPA Decrypter for TrollStore',
+                        href: 'https://github.com/donato-fiore/TrollDecrypt/releases/download/v1.2.4/TrollDecrypt.tipa'
+                    },
+                    {
+                        title: 'TrollTools TIPA',
+                        icon: 'https://raw.githubusercontent.com/sourcelocation/TrollTools/main/TrollTools/Assets.xcassets/64.imageset/TrollUtils.png',
+                        iconAlt: 'TrollTools',
+                        desc: 'Revolutionizing iOS 15 customisation',
+                        href: 'https://github.com/sourcelocation/TrollTools/releases/download/3.0/TrollTools.tipa'
+                    },
+                    {
+                        title: 'TrollFools TIPA',
+                        icon: 'https://raw.githubusercontent.com/Lessica/TrollFools/main/Artworks/AppIconMarketing-240.png',
+                        iconAlt: 'TrollFools',
+                        desc: 'In-place tweak injection with insert_dylib and ChOma',
+                        href: 'https://github.com/Lessica/TrollFools/releases/download/v4.3-253/TrollFools_4.3-253.tipa'
+                    },
+                    {
+                        title: 'AirTroller TIPA',
+                        icon: 'https://raw.githubusercontent.com/sourcelocation/AirTroller/main/AirTroller/Assets.xcassets/AppIcon.appiconset/Artboard.png',
+                        iconAlt: 'AirTroller',
+                        desc: 'AirDrop spammer / flooder to troll friends. Sends AirDrops until the receiving device explodes :D',
+                        href: 'https://github.com/sourcelocation/AirTroller/releases/download/1.1.1/AirTroller-1.1.1.tipa'
+                    },
+                    {
+                        title: 'The Free VPN IPA',
+                        placeholder: 'VPN',
+                        desc: "A cracked VPN, very good to use(yes, the name's literally The Free VPN 😭, credits to CYPWN repo)",
+                        href: 'https://ipa.cypwn.xyz/serve/get.php?md5=7dbdef6206049effaa5847f0fe195459'
+                    },
+                    {
+                        title: 'ClassiCube IPA',
+                        icon: 'Images/IMG_3133.jpeg',
+                        iconAlt: 'ClassiCube',
+                        desc: 'a minecraft old beta emulator(pretty light)',
+                        href: 'https://cdn.classicube.net/client/latest/ClassiCube.ipa'
+                    },
+                    {
+                        title: 'Nyxian IPA',
+                        placeholder: '?',
+                        desc: 'A full native IDE and a userspace microkernel for building and running iOS apps entirely on-device. offline, unjailbroken, iOS 18.4 through iOS 27 Beta 4',
+                        href: 'https://github.com/emexlab/Nyxian/releases/download/0.11.3.1/Nyxian.ipa'
+                    },
+                    {
+                        title: 'Raincord IPA',
+                        icon: 'https://github.com/ra1ncord/rain/blob/main/src/assets/rain.png?raw=true',
+                        iconAlt: 'Raincord',
+                        desc: 'A custom Discord client for Mobile! Designed to be lightweight and feature packed',
+                        href: 'https://github.com/ra1ncord/RainTweak/releases/download/v0.9.3/RainTweak.ipa'
+                    },
+                    {
+                        title: 'Reynard IPA',
+                        icon: 'https://github.com/minh-ton/reynard-browser/blob/main/browser/Reynard/Resources/Assets.xcassets/AppIcon.appiconset/icon.png?raw=true',
+                        iconAlt: 'Reynard',
+                        desc: "Reynard is a Gecko-based web browser for iOS 13+. Unlike other browsers on iOS that are forced to use Apple's WebKit engine (including Safari and all third-party browsers), Reynard uses Gecko. This is the same engine that powers the Firefox browser on desktop and Android devices. Requires JIT",
+                        href: 'https://github.com/minh-ton/reynard-browser/releases/download/0.10.1/Reynard.ipa'
+                    },
+                    {
+                        title: 'Blinker Fluid IPA',
+                        placeholder: 'Browser',
+                        desc: "An experimental Chromium Blink + V8 browser for iOS. Runs without Apple's WebKit engine. Requires JIT",
+                        href: 'https://github.com/Nodesclock/Blinker-Fluid/releases/download/v.0.3/Blinker.Fluid.v.0.3.JIT.ipa'
+                    },
+                    {
+                        title: 'Soundcloud modded IPA',
+                        icon: 'Images/IMG_3210.jpeg',
+                        iconAlt: 'Soundcloud',
+                        desc: 'Modded version of Soundcloud. Made by GLESign',
+                        href: 'https://github.com/theonlygurt/theonlygurt.github.io/releases/download/1.0.5/SoundCloud.v8.75.0.ipa'
+                    },
+                    {
+                        title: 'EeveeSpotify IPA',
+                        icon: 'Images/IMG_4357.jpeg',
+                        iconAlt: 'EeveeSpotify',
+                        desc: 'Spotify modded. From Apptesters',
+                        href: 'https://github.com/apptesters-org/AppTesters_Repo/releases/download/12-06-2026/EeveeSpotify_9.1.50_Premium_%40thisismanpreets_apptesters.org.ipa'
+                    },
+                    {
+                        title: 'Eeveespotifyrepublic IPA',
+                        icon: 'Images/IMG_4357.jpeg',
+                        iconAlt: 'Eeveespotifyrepublic',
+                        desc: 'EeveeSpotify Republic version',
+                        href: 'https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks/EeveeSpotify-6.6.2-9.1.28-patched.ipa'
+                    },
+                    {
+                        title: 'Vibetok IPA',
+                        icon: 'Images/IMG_3246.jpeg',
+                        iconAlt: 'Vibetok',
+                        desc: 'Best tiktok mod for iOS besides BHtiktok+',
+                        href: 'https://github.com/theonlygurt/theonlygurt.github.io/releases/download/1.0.6/VibeTokV1.75.ipa'
+                    },
+                    {
+                        title: 'OldOS IPA',
+                        icon: 'Images/IMG_3257.jpeg',
+                        iconAlt: 'OldOS',
+                        desc: 'Recreating a fully functional version of iOS 4 in SwiftUI.',
+                        href: 'https://github.com/zzanehip/The-OldOS-Project/releases/download/2.0_8/OldOS.ipa'
+                    },
+                    {
+                        title: 'Amethyst Remastered IPA',
+                        icon: 'https://raw.githubusercontent.com/herbrine8403/Amethyst-iOS-MyRemastered/refs/heads/main/Natives/Assets.xcassets/AppIcon-Light.appiconset/1024x1024.png',
+                        iconAlt: 'Amethyst',
+                        desc: 'The remastered version of Amethyst Launcher',
+                        href: 'https://github.com/herbrine8403/Amethyst-iOS-MyRemastered/releases/download/5.0.0/Air-5.0.0.ipa'
+                    },
+                    {
+                        title: 'Minecraft IPA',
+                        placeholder: '🟫',
+                        placeholderVariant: 'minecraft',
+                        desc: 'Minecraft bedrock cracked',
+                        href: 'https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks2/Minecraft_1.21.124_1788118038.ipa'
+                    },
+                    {
+                        title: 'ByeTunes IPA',
+                        placeholder: '🎵',
+                        placeholderVariant: 'music',
+                        desc: "ByeTunes is a native iOS app that lets you inject music (MP3, M4A, FLAC, WAV) and ringtones directly into your device's media library—without needing a computer connection for every sync. It communicates directly with the iOS media database, giving you the power to manage your music on your terms.",
+                        href: 'https://github.com/EduAlexxis/ByeTunes/releases/download/v2.5/ByeTunes.ipa'
+                    },
+                    {
+                        title: 'YouProEXTRA',
+                        icon: 'https://raw.githubusercontent.com/dayanch96/YTLite/refs/heads/main/Resources/icon.png',
+                        iconAlt: 'YouProEXTRA',
+                        desc: 'YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxing.',
+                        href: 'https://github.com/mrdrvt99/YouProEXTRA/releases/download/ytl-ipa4/YouTubePlus_21.24.3_5.2.2.ipa'
+                    },
+                    {
+                        title: 'NeoFreeBird IPA',
+                        icon: 'https://raw.githubusercontent.com/NeoFreeBird/app/refs/heads/main/assets/main/Custom-Icon-00160x60%402x.png',
+                        iconAlt: 'NeoFreeBird',
+                        desc: 'modified Twitter app, with branding reverts, BHTwitter and other QoL modifications.',
+                        href: 'https://github.com/NeoFreeBird/app/releases/download/2.2/NeoFreeBird-2.2-Twitter-11.35.ipa'
+                    },
+                    {
+                        title: 'XeniOS',
+                        icon: 'https://raw.githubusercontent.com/xenios-jp/XeniOS/refs/heads/xenios/assets/apple/xenios-readme-icon.png',
+                        iconAlt: 'XeniOS',
+                        desc: 'The iOS and MacOS port of Xenia, the Xbox 360 Emulator Research project.',
+                        href: 'https://github.com/xenios-jp/XeniOS/releases/download/release-v2.0.1-build-9730/xenios_ios_iphone_ipad.ipa'
+                    },
+                    {
+                        title: 'VirtualMac DEB',
+                        icon: 'https://raw.githubusercontent.com/nfzerox/VirtualMacOniPad/refs/heads/main/VirtualMac/assets/VirtualMac.png',
+                        iconAlt: 'VirtualMac',
+                        desc: 'People have dreamed of running macOS on iPad for more than a decade. Today, that dream comes true. With Virtual Mac, iPad finally breaks free from iPadOS, enabling pro apps like Xcode, Terminal, Final Cut Pro, Logic Pro, and Pixelmator Pro to run directly on device. Requires iPad Pro (M1, M2) or iPad Air (M1) running iPadOS 14 up to 16.3.1. requires an iPad Pro (M1, M2) or iPad Air (M1) running iPadOS 14 up to 16.3.1. iPad Pro models with 1 TB or 2 TB of storage have 16 GB of RAM and provide the best performance and experience.',
+                        href: 'https://github.com/nfzerox/VirtualMacOniPad/releases/download/1.2.3/VirtualMac_1.2.3.deb'
+                    },
+                    {
+                        title: 'Eeveespotify Reincarnated IPA',
+                        icon: 'https://raw.githubusercontent.com/SideloadLabs/EeveeSpotifyReincarnated/refs/heads/Master/Assets/AppIcon/EeveeCustom%402x.png',
+                        iconAlt: 'Eeveespotify Reincarnated',
+                        desc: 'Self-explanatory',
+                        href: 'https://files.catbox.moe/1qbbn8.ipa'
+                    },
+                    {
+                        title: 'TrollApps IPA',
+                        icon: 'https://raw.githubusercontent.com/TheResonanceTeam/TrollApps/refs/heads/main/assets/ResonanceStoreIcon.png',
+                        iconAlt: 'TrollApps',
+                        desc: 'TrollApps is an alternative to the iOS App Store for TrollStore users. TrollApps allows users to download apps from repositories and install them directly in TrollStore. TrollApps works on iOS 14.0 and up; make sure to be on the latest version of TrollStore. You require a TrollStore 1.0 / 2.0 compatible device, and TrollStore must be installed to use this application. It is also required that you enable schema urls within TrollStore.',
+                        href: 'https://github.com/TheResonanceTeam/TrollApps/releases/download/2.3/org.resonance.store_2.3_082724.ipa'
+                    },
+                    {
+                        title: 'BunnyTweak',
+                        icon: 'https://avatars.githubusercontent.com/u/222484597?s=200&v=4',
+                        iconAlt: 'BunnyTweak',
+                        desc: "Tweak to inject Bunny and OpenInDiscord into Discord. Forked from VendettaTweak and modified to match with BunnyXposed's behavior.",
+                        href: 'https://github.com/pyoncord/BunnyTweak/releases/latest/download/Bunny.ipa'
+                    },
+                    {
+                        title: 'KettuTweak',
+                        icon: 'https://avatars.githubusercontent.com/u/222484597?s=200&v=4',
+                        iconAlt: 'KettuTweak',
+                        desc: 'Tweak to inject Kettu into discord',
+                        href: 'https://github.com/C0C0B01/KettuTweak/releases/download/v305.1/KettuTweak.ipa'
+                    },
+                    {
+                        title: '3105 IPA',
+                        icon: 'https://raw.githubusercontent.com/YangJiiii/3105/refs/heads/main/docs/images/app-icon.png',
+                        iconAlt: '3105',
+                        desc: 'A native iOS workspace for app-container files, portable patches, limited cleanup, and PosterBoard wallpaper packages. Supports ios 17.0-18.7.1, 26.0-26.6.1 and 27.0db1-4',
+                        href: 'https://github.com/YangJiiii/3105/releases/download/v1.1.1/3105-unsigned.ipa'
+                    },
+                    {
+                        title: 'stikdebug IPA',
+                        icon: 'https://raw.githubusercontent.com/StikDebug/StikDebug/refs/heads/main/assets/StikDebug.png',
+                        iconAlt: 'stikdebug',
+                        desc: 'An on-device debugger/JIT enabler for iOS versions 17.4+ powered by idevice.',
+                        href: 'https://github.com/StikDebug/StikDebug/releases/download/3.1.9/StikDebug-3.1.9.ipa'
+                    }
+                ]
+            },
+
+            /* ============================ TAB 3 ============================ */
+            {
+                id: 'others',
+                label: 'Others',
+                items: [
+                    {
+                        title: 'HSBC Bank plc Cert',
+                        icon: 'Images/IMG_0934.png',
+                        iconAlt: 'Certificate',
+                        desc: 'Password: 1',
+                        href: 'https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/HSBC%20Bank%20plc.zip',
+                        btn: 'Download',
+                        external: true
+                    },
+                    {
+                        title: 'Jiangsu Simcere Cert',
+                        icon: 'Images/IMG_0934.png',
+                        iconAlt: 'Certificate',
+                        desc: 'Password: 1',
+                        href: 'https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Jiangsu%20Simcere%20Pharmaceutical.zip',
+                        btn: 'Download',
+                        external: true
+                    },
+                    {
+                        title: 'Aramco Services Cert',
+                        icon: 'Images/IMG_0934.png',
+                        iconAlt: 'Certificate',
+                        desc: 'Password: 1',
+                        href: 'https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Aramco%20Services%20Company.zip',
+                        btn: 'Download',
+                        external: true
+                    },
+                    {
+                        title: 'China Telecom Cert',
+                        icon: 'Images/IMG_0934.png',
+                        iconAlt: 'Certificate',
+                        desc: 'Password: 1',
+                        href: 'https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/China%20Telecom%20Corporation%20Limited.zip',
+                        btn: 'Download',
+                        external: true
+                    },
+                    {
+                        title: 'Moving Increasingly Cert',
+                        icon: 'Images/IMG_0934.png',
+                        iconAlt: 'Certificate',
+                        desc: 'Password: 1',
+                        href: 'https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Moving%20Increasingly%20Interconnection.zip',
+                        btn: 'Download',
+                        external: true
+                    }
+                ]
+            }
+        ];
+
+        /* ------------------------------------------------------------------
+           Rendering
+           ------------------------------------------------------------------ */
+
+        function buildIcon(item) {
+            if (item.icon) {
+                var img = document.createElement('img');
+                img.src = item.icon;
+                img.alt = item.iconAlt || '';
+                img.className = 'app-icon';
+                img.loading = 'lazy';
+                img.decoding = 'async';
+                return img;
+            }
+            var ph = document.createElement('div');
+            ph.className = 'app-icon-placeholder' +
+                (item.placeholderVariant ? ' app-icon-placeholder--' + item.placeholderVariant : '');
+            ph.setAttribute('aria-hidden', 'true');
+            ph.textContent = item.placeholder || '?';
+            return ph;
+        }
+
+        function buildItem(item) {
+            var row = document.createElement('div');
+            row.className = 'app-item';
+
+            var left = document.createElement('div');
+            left.className = 'app-left';
+            left.appendChild(buildIcon(item));
+
+            var info = document.createElement('div');
+            info.className = 'app-info';
+
+            var title = document.createElement('span');
+            title.className = 'app-title';
+            title.textContent = item.title;
+            info.appendChild(title);
+
+            if (item.desc) {
+                var desc = document.createElement('span');
+                desc.className = 'app-desc';
+                desc.textContent = item.desc;
+                info.appendChild(desc);
+            }
+
+            if (item.note) {
+                var note = document.createElement('span');
+                note.className = 'app-note';
+                note.textContent = item.note;
+                info.appendChild(note);
+            }
+
+            left.appendChild(info);
+            row.appendChild(left);
+
+            var btn = document.createElement('a');
+            var label = item.btn || 'Install';
+            btn.className = 'btn-install';
+            btn.href = item.href;
+            btn.textContent = label;
+            btn.setAttribute('aria-label', item.ariaLabel || (label + ': ' + item.title));
+            if (item.external) {
+                btn.target = '_blank';
+                btn.rel = 'noopener noreferrer';
+            }
+            row.appendChild(btn);
+
+            return row;
+        }
+
+        function buildNotes(notes) {
+            var wrap = document.createElement('div');
+            wrap.className = 'note-item';
+
+            var heading = document.createElement('div');
+            heading.className = 'note-title';
+            heading.textContent = 'NOTE:';
+            wrap.appendChild(heading);
+
+            var ul = document.createElement('ul');
+            ul.className = 'note-list';
+            notes.forEach(function (text) {
+                var li = document.createElement('li');
+                li.textContent = text;
+                ul.appendChild(li);
+            });
+            wrap.appendChild(ul);
+
+            return wrap;
+        }
+
+        function buildTabs() {
+            var nav = document.querySelector('.slider-nav');
+            var content = document.querySelector('.slider-content');
+
+            TABS.forEach(function (tab, index) {
+                var isFirst = index === 0;
+
+                /* --- tab button --- */
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'slider-btn' + (isFirst ? ' active' : '');
+                btn.id = 'tab-' + tab.id;
+                btn.textContent = tab.label;
+                btn.setAttribute('role', 'tab');
+                btn.setAttribute('aria-selected', isFirst ? 'true' : 'false');
+                btn.setAttribute('aria-controls', 'panel-' + tab.id);
+                btn.tabIndex = isFirst ? 0 : -1;
+                btn.addEventListener('click', function () { selectTab(tab.id); });
+                btn.addEventListener('keydown', onTabKeydown);
+                nav.appendChild(btn);
+
+                /* --- panel --- */
+                var panel = document.createElement('div');
+                panel.className = 'tab-pane' + (isFirst ? ' active' : '');
+                panel.id = 'panel-' + tab.id;
+                panel.setAttribute('role', 'tabpanel');
+                panel.setAttribute('aria-labelledby', 'tab-' + tab.id);
+
+                var scroll = document.createElement('div');
+                scroll.className = 'scroll-container';
+
+                tab.items.forEach(function (item) {
+                    scroll.appendChild(buildItem(item));
+                });
+
+                if (tab.notes && tab.notes.length) {
+                    scroll.appendChild(buildNotes(tab.notes));
+                }
+
+                panel.appendChild(scroll);
+                content.appendChild(panel);
+            });
+        }
+
+        /* ------------------------------------------------------------------
+           Tab behaviour
+           ------------------------------------------------------------------ */
+
+        function selectTab(tabId, focusTab) {
+            var buttons = document.querySelectorAll('.slider-btn');
+            Array.prototype.forEach.call(buttons, function (btn) {
+                var on = btn.id === 'tab-' + tabId;
+                btn.classList.toggle('active', on);
+                btn.setAttribute('aria-selected', on ? 'true' : 'false');
+                btn.tabIndex = on ? 0 : -1;
+                if (on && focusTab) btn.focus();
+            });
+
+            var panels = document.querySelectorAll('.tab-pane');
+            Array.prototype.forEach.call(panels, function (panel) {
+                var on = panel.id === 'panel-' + tabId;
+                panel.classList.toggle('active', on);
+                if (on) {
+                    var scroller = panel.querySelector('.scroll-container');
+                    if (scroller) scroller.scrollTop = 0;
+                }
+            });
+        }
+
+        function onTabKeydown(event) {
+            var key = event.key;
+            if (key !== 'ArrowLeft' && key !== 'ArrowRight' && key !== 'Home' && key !== 'End') return;
+            event.preventDefault();
+
+            var buttons = Array.prototype.slice.call(document.querySelectorAll('.slider-btn'));
+            var current = buttons.indexOf(event.currentTarget);
+            var next = current;
+
+            if (key === 'ArrowLeft')  next = (current - 1 + buttons.length) % buttons.length;
+            if (key === 'ArrowRight') next = (current + 1) % buttons.length;
+            if (key === 'Home')       next = 0;
+            if (key === 'End')        next = buttons.length - 1;
+
+            selectTab(TABS[next].id, true);
+        }
+
+        buildTabs();
+    })();
     </script>
 </body>
 </html>
