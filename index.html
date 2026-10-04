@@ -84,18 +84,17 @@
             border-radius: 0px;
             border: 2px solid #58a6ff;
             margin-bottom: 12px;
-            display:;
- block;
+            display: block;
         }
 
         h1 {
             color: #f0f6fc;
-            font-size           : 1.35rem;
+            font-size: 1.35rem;
             margin-bottom: 6px;
         }
 
         p.subtitle {
-            color: #8b color949e;
+            color: #8b949e;
             font-size: 0.9rem;
             margin-bottom: 16px;
         }
@@ -106,9 +105,22 @@
             gap: 10px;
         }
 
-        .btn {
+        /* ================================================================
+           Link buttons
+           ----------------------------------------------------------------
+           Multiple selectors + !important + -webkit-text-fill-color so
+           neither a UA default, a :visited rule, nor an injected user
+           stylesheet can turn these blue.
+           ================================================================ */
+        .btn,
+        a.btn,
+        a.btn:link,
+        a.btn:visited,
+        a.btn:active {
             display: block;
-            background-color: #21262d: #c9d1d9;
+            background-color: #21262d;
+            color: #c9d1d9 !important;
+            -webkit-text-fill-color: #c9d1d9 !important;
             border: 1px solid #30363d;
             padding: 10px 14px;
             border-radius: 0px;
@@ -118,10 +130,13 @@
             transition: all 0.2s ease;
         }
 
-        .btn:hover {
+        .btn:hover,
+        a.btn:hover,
+        a.btn:focus {
             background-color: #30363d;
             border-color: #8b949e;
-            color: #58a6ff;
+            color: #58a6ff !important;
+            -webkit-text-fill-color: #58a6ff !important;
         }
 
         .divider {
@@ -141,43 +156,51 @@
             font-size: 1rem;
             font-weight: 700;
             margin-bottom: 8px;
-            text-align display: left;
+            text-align: left;
         }
 
         .about-text {
             color: #8b949e;
-            font-size: 0.:9rem;
+            font-size: 0.9rem;
             line-height: 1.5;
             text-indent: 16px;
         }
 
-        . flexskills-container {
+        .skills-container {
             margin-top: 12px;
             margin-bottom: 16px;
         }
 
         .skills-box {
-;
             background-color: #0d1117;
             border: 1px solid #30363d;
-            border-radius           : 0px;
+            border-radius: 0px;
             padding: 12px;
             display: flex;
-            justify-content: flex space-around;
+            justify-content: space-around;
             align-items: center;
         }
 
+        /* ================================================================
+           Skill items — stacked icon-over-name
+           ----------------------------------------------------------------
+           No longer relies on flex-direction: column surviving. Each child
+           is explicitly block-level, so the icon and label stack no matter
+           what the parent or any injected rule does.
+           ================================================================ */
         .skill-item {
-           -direction: column;
-            align-items: center;
-            gap: 6px;
+            display: block;
+            text-align: center;
+            min-width: 64px;
         }
 
         .skill-icon {
+            display: block !important;
             width: 36px;
             height: 36px;
             object-fit: contain;
             filter: brightness(0) invert(1);
+            margin: 0 auto 6px;
         }
 
         .color-icon {
@@ -185,7 +208,9 @@
         }
 
         .skill-name {
-            color: #8b949e;
+            display: block !important;
+            color: #8b949e !important;
+            -webkit-text-fill-color: #8b949e !important;
             font-size: 0.8rem;
             font-weight: 500;
         }
@@ -206,7 +231,8 @@
         .hobby-tag {
             background-color: #0d1117;
             border: 1px solid #30363d;
-            color: #8b949e;
+            color: #8b949e !important;
+            -webkit-text-fill-color: #8b949e !important;
             padding: 6px 12px;
             border-radius: 0px;
             font-size: 0.85rem;
@@ -237,11 +263,17 @@
             display: none;
         }
 
-        .slider-btn {
+        /* ================================================================
+           Tab buttons — forced text colours
+           ================================================================ */
+        .slider-btn,
+        button.slider-btn,
+        .slider-nav .slider-btn {
             flex: 1;
             background: none;
             border: none;
-            color: #8b949e;
+            color: #8b949e !important;
+            -webkit-text-fill-color: #8b949e !important;
             padding: 8px 14px;
             font-size: 0.85rem;
             font-weight: 600;
@@ -250,9 +282,12 @@
             transition: all 0.2s ease;
         }
 
-        .slider-btn.active {
+        .slider-btn.active,
+        button.slider-btn.active,
+        .slider-nav .slider-btn.active {
             background-color: #1f6feb;
-            color: #ffffff;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
             box-shadow: 0 2px 8px rgba(31, 111, 235, 0.4);
         }
 
@@ -422,9 +457,14 @@
             color: #8b949e;
         }
 
-        .btn-install {
+        /* ================================================================
+           Install / Download buttons
+           ================================================================ */
+        .btn-install,
+        a.btn-install {
             background-color: #1f6feb;
-            color: #ffffff;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.85rem;
@@ -436,13 +476,17 @@
             flex-shrink: 0;
         }
 
-        .btn-install:hover {
+        .btn-install:hover,
+        a.btn-install:hover {
             background-color: #388bfd;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
         }
 
         .btn-install--blocked {
             background-color: #21262d;
-            color: #6e7681;
+            color: #6e7681 !important;
+            -webkit-text-fill-color: #6e7681 !important;
             cursor: not-allowed;
         }
 
@@ -529,7 +573,8 @@
         .warning-btn {
             width: 100%;
             background-color: #1f6feb;
-            color: #ffffff;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
             border: 1px solid #1f6feb;
             padding: 12px 16px;
             border-radius: 0px;
@@ -549,7 +594,8 @@
         .warning-btn:disabled {
             background-color: #21262d;
             border-color: #30363d;
-            color: #6e7681;
+            color: #6e7681 !important;
+            -webkit-text-fill-color: #6e7681 !important;
             cursor: not-allowed;
         }
 
@@ -566,7 +612,8 @@
             margin-top: 14px;
             padding: 6px 4px;
             font-size: 0.75rem;
-            color: #8b949e;
+            color: #8b949e !important;
+            -webkit-text-fill-color: #8b949e !important;
             cursor: pointer;
             user-select: none;
             -webkit-user-select: none;
