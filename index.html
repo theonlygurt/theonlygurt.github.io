@@ -2,11 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- ==================================================================
+         Content Security Policy
+         --------------------------------------------------------------
+         Delivered via <meta> because GitHub Pages cannot send custom
+         headers. Limitations of meta-delivered CSP:
+           • frame-ancestors, report-uri and sandbox are IGNORED
+           • no violation reporting
+         Everything the page actually needs is allowlisted below;
+         everything else (frames, forms, objects, XHR, workers, fonts,
+         media, manifests) is denied outright by default-src 'none'.
+         ================================================================== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' https://github.com https://raw.githubusercontent.com https://avatars.githubusercontent.com; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; connect-src 'none'; media-src 'none'; font-src 'none'; worker-src 'none'; manifest-src 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'">
+
+    <!-- Don't leak the page URL to third-party download hosts -->
+    <meta name="referrer" content="no-referrer">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Only Gurt</title>
     <meta name="description" content="Gurt's project idk hi lol">
     <meta name="theme-color" content="#0d1117">
+    <meta name="format-detection" content="telephone=no">
     <link rel="icon" href="https://github.com/theonlygurt.png">
+
+    <!-- ==================================================================
+         Frame-busting
+         --------------------------------------------------------------
+         Best-effort only. A determined attacker can defeat this with a
+         sandboxed iframe. True clickjacking protection needs a response
+         header, which GitHub Pages won't let us set.
+         ================================================================== -->
+    <script>
+    (function () {
+        try {
+            if (window.top !== window.self) {
+                window.top.location = window.self.location.href;
+            }
+        } catch (e) {
+            /* Cross-origin parent we can't navigate — hide the page. */
+            document.documentElement.style.visibility = 'hidden';
+        }
+    })();
+    </script>
+
     <style>
         * {
             margin: 0;
@@ -416,6 +455,17 @@
             background-color: #388bfd;
         }
 
+        /* Rendered in place of a link whose URL failed validation. */
+        .btn-install--blocked {
+            background-color: #21262d;
+            color: #6e7681;
+            cursor: not-allowed;
+        }
+
+        .btn-install--blocked:hover {
+            background-color: #21262d;
+        }
+
         .footer-text {
             color: #484f58;
             font-size: 0.75rem;
@@ -605,7 +655,7 @@
 <body class="modal-open">
 
     <div class="card">
-        <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" rel="noopener noreferrer" class="avatar-link">
+        <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" class="avatar-link">
             <img src="https://github.com/theonlygurt.png" alt="Gurt's avatar" class="avatar">
         </a>
 
@@ -613,10 +663,10 @@
         <p class="subtitle">Personal website and stuff</p>
 
         <div class="links">
-            <a href="https://github.com/theonlygurt" class="btn" target="_blank" rel="noopener noreferrer">GitHub Profile</a>
-            <a href="https://on.soundcloud.com/Q988Svjj6KCiInlOk0" class="btn" target="_blank" rel="noopener noreferrer">Soundcloud profile</a>
-            <a href="https://x.com/gurtygur?s=11" class="btn" target="_blank" rel="noopener noreferrer">X contact</a>
-            <a href="https://discord.com/users/917762961240621067" class="btn" target="_blank" rel="noopener noreferrer">Discord contact</a>
+            <a href="https://github.com/theonlygurt" class="btn" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">GitHub Profile</a>
+            <a href="https://on.soundcloud.com/Q988Svjj6KCiInlOk0" class="btn" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Soundcloud profile</a>
+            <a href="https://x.com/gurtygur?s=11" class="btn" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">X contact</a>
+            <a href="https://discord.com/users/917762961240621067" class="btn" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Discord contact</a>
         </div>
 
         <hr class="divider">
@@ -696,6 +746,32 @@
         'use strict';
 
         /* ==================================================================
+           0. URL validation
+           --------------------------------------------------------------
+           The TABS data is written by hand, so a typo like "javascript:"
+           or a copy-paste accident is the realistic threat — not an
+           attacker. These guards make such a mistake fail loudly (a greyed
+           out button) instead of silently shipping an executable link.
+           ================================================================== */
+
+        /* Download links: https:// and the itms-services:// install scheme
+           only. Everything else is rejected. */
+        var SAFE_HREF = /^(?:https:\/\/|itms-services:\/\/)/i;
+
+        /* Icons: anything that isn't a known-scriptable scheme. CSP's
+           img-src allowlist is the real control here; this is belt and
+           braces for schemes CSP doesn't cover. */
+        var UNSAFE_SRC = /^\s*(?:javascript|vbscript|data|blob|file):/i;
+
+        function isSafeHref(raw) {
+            return typeof raw === 'string' && SAFE_HREF.test(raw.trim());
+        }
+
+        function isSafeIconSrc(raw) {
+            return typeof raw === 'string' && raw.length > 0 && !UNSAFE_SRC.test(raw);
+        }
+
+        /* ==================================================================
            1. Warning gate
            ================================================================== */
 
@@ -707,7 +783,9 @@
            gate still works, it just won't remember anything. */
         function readSnoozeUntil() {
             try {
-                return parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10) || 0;
+                var raw = localStorage.getItem(STORAGE_KEY);
+                var n = parseInt(raw || '0', 10);
+                return isFinite(n) ? n : 0;
             } catch (e) {
                 return 0;
             }
@@ -1086,8 +1164,15 @@
                         title: '3105 IPA',
                         icon: 'https://raw.githubusercontent.com/YangJiiii/3105/refs/heads/main/docs/images/app-icon.png',
                         iconAlt: '3105',
-                        desc: 'A native iOS workspace for app-container files, portable patches, limited cleanup, and PosterBoard wallpaper packages. Supports ios 17.0-18.7.1, 26.0-26.6.1 and 27.0db1-4',
-                        href: 'https://github.com/YangJiiii/3105/releases/download/v1.1.1/3105-unsigned.ipa'
+                        desc: 'A native iOS workspace for app-container files, portable patches, limited cleanup, and PosterBoard wallpaper packages. Supports ios 17.0-18.7.1, 26.0-26.6.1 and 27.0db1-4. Requires In-app purchase to use',
+                        href: 'https://files.catbox.moe/0vdb4d.ipa'
+                    },
+                    {
+                        title: '3105 IPA cracked',
+                        icon: 'https://raw.githubusercontent.com/YangJiiii/3105/refs/heads/main/docs/images/app-icon.png',
+                        iconAlt: '3105 cracked',
+                        desc: 'Cracked version of 3105',
+                        href: 'https://files.catbox.moe/5ozsac.ipa'
                     },
                     {
                         title: 'stikdebug IPA',
@@ -1155,18 +1240,25 @@
 
         /* ==================================================================
            4. Rendering
+           --------------------------------------------------------------
+           Only createElement + textContent + setAttribute are used. No
+           innerHTML, outerHTML, insertAdjacentHTML, eval, Function or
+           document.write anywhere — which is what makes the
+           require-trusted-types-for directive above safe to enable.
            ================================================================== */
 
         function buildIcon(item) {
-            if (item.icon) {
+            if (item.icon && isSafeIconSrc(item.icon)) {
                 var img = document.createElement('img');
-                img.src = item.icon;
-                img.alt = item.iconAlt || '';
+                img.setAttribute('src', item.icon);
+                img.setAttribute('alt', item.iconAlt || '');
+                img.setAttribute('loading', 'lazy');
+                img.setAttribute('decoding', 'async');
                 img.className = 'app-icon';
-                img.loading = 'lazy';
-                img.decoding = 'async';
                 return img;
             }
+
+            /* No icon, or the icon URL failed validation. */
             var ph = document.createElement('div');
             ph.className = 'app-icon-placeholder' +
                 (item.placeholderVariant ? ' app-icon-placeholder--' + item.placeholderVariant : '');
@@ -1208,18 +1300,32 @@
             left.appendChild(info);
             row.appendChild(left);
 
-            var btn = document.createElement('a');
             var label = item.btn || 'Install';
+
+            /* Validate the URL before creating an anchor. A bad scheme
+               renders a dead grey button rather than a live link. */
+            if (!isSafeHref(item.href)) {
+                var blocked = document.createElement('span');
+                blocked.className = 'btn-install btn-install--blocked';
+                blocked.textContent = 'Unavailable';
+                blocked.setAttribute('aria-label', 'Link disabled: unsafe URL for ' + item.title);
+                row.appendChild(blocked);
+                return row;
+            }
+
+            var btn = document.createElement('a');
             btn.className = 'btn-install';
-            btn.href = item.href;
+            btn.setAttribute('href', item.href.trim());
+            btn.setAttribute('referrerpolicy', 'no-referrer');
             btn.textContent = label;
             btn.setAttribute('aria-label', item.ariaLabel || (label + ': ' + item.title));
-            if (item.external) {
-                btn.target = '_blank';
-                btn.rel = 'noopener noreferrer';
-            }
-            row.appendChild(btn);
 
+            if (item.external) {
+                btn.setAttribute('target', '_blank');
+                btn.setAttribute('rel', 'noopener noreferrer');
+            }
+
+            row.appendChild(btn);
             return row;
         }
 
@@ -1247,6 +1353,7 @@
         function buildTabs() {
             var nav = document.querySelector('.slider-nav');
             var content = document.querySelector('.slider-content');
+            if (!nav || !content) return;
 
             TABS.forEach(function (tab, index) {
                 var isFirst = index === 0;
