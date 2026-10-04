@@ -63,7 +63,8 @@
         .slider-btn:focus-visible,
         .avatar-link:focus-visible,
         .warning-btn:focus-visible,
-        .warning-dismiss input:focus-visible {
+        .warning-dismiss input:focus-visible,
+        .search-input:focus-visible {
             outline: 2px solid #58a6ff;
             outline-offset: 2px;
         }
@@ -80,95 +81,88 @@
 
         .avatar {
             width: 80px;
-            height: 80px;
+            height:;
+ 80px;
             border-radius: 0px;
             border: 2px solid #58a6ff;
-            margin-bottom: 12px;
+            margin-bottom: 12       px;
             display: block;
         }
 
         h1 {
             color: #f0f6fc;
-            font-size: 1.35rem;
+            font-size: 1.35rem }
+
+;
             margin-bottom: 6px;
         }
 
         p.subtitle {
             color: #8b949e;
-            font-size: 0.9rem;
+            font-size       : 0.9rem;
             margin-bottom: 16px;
         }
 
         .links {
             display: flex;
-            flex-direction: column;
+            . flex-direction: column;
             gap: 10px;
         }
 
-        /* ================================================================
-           Link buttons
-           ----------------------------------------------------------------
-           Multiple selectors + !important + -webkit-text-fill-color so
-           neither a UA default, a :visited rule, nor an injected user
-           stylesheet can turn these blue.
-           ================================================================ */
-        .btn,
+       skills .btn,
         a.btn,
         a.btn:link,
         a.btn:visited,
         a.btn:active {
             display: block;
-            background-color: #21262d;
+            background-color: #21262-containerd;
             color: #c9d1d9 !important;
-            -webkit-text-fill-color: #c9d1d9 !important;
+            -webkit-text-fill-color: #c9d1d {
+9 !important;
             border: 1px solid #30363d;
             padding: 10px 14px;
-            border-radius: 0px;
+            border-radius:            0px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: all 0.2s ease;
+            transition: margin all 0.2s ease;
         }
 
         .btn:hover,
         a.btn:hover,
         a.btn:focus {
-            background-color: #30363d;
+           -top background-color: #30363d;
             border-color: #8b949e;
             color: #58a6ff !important;
-            -webkit-text-fill-color: #58a6ff !important;
+            -webkit:-text-fill-color: #58a6ff !important;
         }
 
         .divider {
             border: 0;
-            height: 1px;
+             height: 1px;
             background: #30363d;
             margin: 16px 0;
         }
 
-        .about-section {
+        .about12-section {
             text-align: left;
             margin-bottom: 16px;
         }
 
         .section-title {
-            color: #f0f6fc;
+            color: #f0pxf6fc;
             font-size: 1rem;
             font-weight: 700;
             margin-bottom: 8px;
+;
             text-align: left;
         }
 
         .about-text {
             color: #8b949e;
-            font-size: 0.9rem;
+            font-size: 0.9rem           ;
             line-height: 1.5;
-            text-indent: 16px;
-        }
-
-        .skills-container {
-            margin-top: 12px;
-            margin-bottom: 16px;
+            text-indent: 16px margin-bottom: 16px;
         }
 
         .skills-box {
@@ -181,13 +175,6 @@
             align-items: center;
         }
 
-        /* ================================================================
-           Skill items — stacked icon-over-name
-           ----------------------------------------------------------------
-           No longer relies on flex-direction: column surviving. Each child
-           is explicitly block-level, so the icon and label stack no matter
-           what the parent or any injected rule does.
-           ================================================================ */
         .skill-item {
             display: block;
             text-align: center;
@@ -263,9 +250,6 @@
             display: none;
         }
 
-        /* ================================================================
-           Tab buttons — forced text colours
-           ================================================================ */
         .slider-btn,
         button.slider-btn,
         .slider-nav .slider-btn {
@@ -303,6 +287,57 @@
 
         .tab-pane.active {
             display: block;
+        }
+
+        /* ================================================================
+           Search bar (per-tab, opt-in via tab.searchable)
+           ================================================================ */
+        .search-wrap {
+            margin-bottom: 10px;
+        }
+
+        .search-input {
+            width: 100%;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            color: #c9d1d9 !important;
+            -webkit-text-fill-color: #c9d1d9 !important;
+            padding: 10px 12px;
+            border-radius: 0px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            line-height: 1.2;
+            -webkit-appearance: none;
+            appearance: none;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .search-input::placeholder {
+            color: #6e7681;
+            -webkit-text-fill-color: #6e7681;
+            opacity: 1;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #58a6ff;
+            background-color: #161b22;
+        }
+
+        /* Kill the native WebKit search decorations iOS adds. */
+        .search-input::-webkit-search-decoration,
+        .search-input::-webkit-search-cancel-button,
+        .search-input::-webkit-search-results-button,
+        .search-input::-webkit-search-results-decoration {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .search-empty {
+            color: #6e7681;
+            font-size: 0.8rem;
+            padding: 20px 4px;
+            text-align: center;
         }
 
         .scroll-container {
@@ -457,9 +492,6 @@
             color: #8b949e;
         }
 
-        /* ================================================================
-           Install / Download buttons
-           ================================================================ */
         .btn-install,
         a.btn-install {
             background-color: #1f6feb;
@@ -885,6 +917,10 @@
 
         /* ==================================================================
            3. Data
+           --------------------------------------------------------------
+           To enable search on a tab, add:  searchable: true
+           To auto-sort a tab (letters A-Z, then leading-digit items last),
+           add:  sort: 'az-num-last'
            ================================================================== */
 
         var TABS = [
@@ -931,6 +967,8 @@
             {
                 id: 'ipas-tipas',
                 label: 'IPAs/TIPAs/DEBs',
+                searchable: true,
+                sort: 'az-num-last',
                 items: [
                     {
                         title: 'TrollinstallerDark IPA',
@@ -1267,7 +1305,28 @@
         ];
 
         /* ==================================================================
-           4. Rendering
+           4. Sorting helper
+           --------------------------------------------------------------
+           "az-num-last": letters A-Z (case-insensitive), then anything
+           whose title begins with a digit.
+           ================================================================== */
+
+        function sortTabItems(items, mode) {
+            if (mode !== 'az-num-last') return items;
+
+            return items.slice().sort(function (a, b) {
+                var aNum = /^\d/.test(a.title);
+                var bNum = /^\d/.test(b.title);
+                if (aNum !== bNum) return aNum ? 1 : -1;
+
+                return a.title.localeCompare(b.title, undefined, {
+                    sensitivity: 'base'
+                });
+            });
+        }
+
+        /* ==================================================================
+           5. Rendering
            ================================================================== */
 
         var dynamicLinks = [];
@@ -1293,6 +1352,15 @@
         function buildItem(item) {
             var row = document.createElement('div');
             row.className = 'app-item';
+
+            /* Precompute the haystack used by the search filter. Includes
+               title, description and note so users can search "roothide"
+               or "ios 17" and still hit the right entries. */
+            var haystack = [item.title, item.desc, item.note]
+                .filter(Boolean)
+                .join(' ')
+                .toLowerCase();
+            row.setAttribute('data-search', haystack);
 
             var left = document.createElement('div');
             left.className = 'app-left';
@@ -1375,6 +1443,73 @@
             return wrap;
         }
 
+        /* ==================================================================
+           6. Search
+           ================================================================== */
+
+        function filterPanel(panel, query) {
+            var scroll = panel.querySelector('.scroll-container');
+            if (!scroll) return;
+
+            var q = query.trim().toLowerCase();
+            var rows = scroll.querySelectorAll('.app-item');
+            var visible = 0;
+
+            Array.prototype.forEach.call(rows, function (row) {
+                var hay = row.getAttribute('data-search') || '';
+                var match = !q || hay.indexOf(q) !== -1;
+                row.style.display = match ? '' : 'none';
+                if (match) visible++;
+            });
+
+            /* The NOTE block isn't a search result — hide it while a query
+               is active so the results list stays clean. */
+            var notes = scroll.querySelectorAll('.note-item');
+            Array.prototype.forEach.call(notes, function (n) {
+                n.style.display = q ? 'none' : '';
+            });
+
+            var empty = scroll.querySelector('.search-empty');
+            if (empty) {
+                empty.style.display = (q && visible === 0) ? 'block' : 'none';
+            }
+
+            scroll.scrollTop = 0;
+        }
+
+        function buildSearchInput(tab, panel) {
+            var wrap = document.createElement('div');
+            wrap.className = 'search-wrap';
+
+            var input = document.createElement('input');
+            input.type = 'search';
+            input.className = 'search-input';
+            input.placeholder = 'Search ' + tab.label + '...';
+            input.setAttribute('aria-label', 'Search ' + tab.label);
+            input.setAttribute('autocomplete', 'off');
+            input.setAttribute('autocorrect', 'off');
+            input.setAttribute('autocapitalize', 'off');
+            input.setAttribute('spellcheck', 'false');
+            input.setAttribute('enterkeyhint', 'search');
+            input.setAttribute('inputmode', 'search');
+
+            input.addEventListener('input', function () {
+                filterPanel(panel, input.value);
+            });
+
+            /* Native iOS clear button fires 'search' on some versions. */
+            input.addEventListener('search', function () {
+                filterPanel(panel, input.value);
+            });
+
+            wrap.appendChild(input);
+            return wrap;
+        }
+
+        /* ==================================================================
+           7. Tab building
+           ================================================================== */
+
         function buildTabs() {
             var nav = document.querySelector('.slider-nav');
             var content = document.querySelector('.slider-content');
@@ -1383,6 +1518,7 @@
             TABS.forEach(function (tab, index) {
                 var isFirst = index === 0;
 
+                /* --- tab button --- */
                 var btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'slider-btn' + (isFirst ? ' active' : '');
@@ -1396,21 +1532,35 @@
                 btn.addEventListener('keydown', onTabKeydown);
                 nav.appendChild(btn);
 
+                /* --- panel --- */
                 var panel = document.createElement('div');
                 panel.className = 'tab-pane' + (isFirst ? ' active' : '');
                 panel.id = 'panel-' + tab.id;
                 panel.setAttribute('role', 'tabpanel');
                 panel.setAttribute('aria-labelledby', 'tab-' + tab.id);
 
+                if (tab.searchable) {
+                    panel.appendChild(buildSearchInput(tab, panel));
+                }
+
                 var scroll = document.createElement('div');
                 scroll.className = 'scroll-container';
 
-                tab.items.forEach(function (item) {
+                var items = sortTabItems(tab.items, tab.sort);
+                items.forEach(function (item) {
                     scroll.appendChild(buildItem(item));
                 });
 
                 if (tab.notes && tab.notes.length) {
                     scroll.appendChild(buildNotes(tab.notes));
+                }
+
+                if (tab.searchable) {
+                    var empty = document.createElement('div');
+                    empty.className = 'search-empty';
+                    empty.textContent = 'No results found.';
+                    empty.style.display = 'none';
+                    scroll.appendChild(empty);
                 }
 
                 panel.appendChild(scroll);
@@ -1419,7 +1569,7 @@
         }
 
         /* ==================================================================
-           5. Live "latest release" resolution
+           8. Live "latest release" resolution
            ================================================================== */
 
         var LATEST_CACHE_KEY = 'gurt-latest-cache-v1';
@@ -1523,7 +1673,7 @@
         }
 
         /* ==================================================================
-           6. Tab behaviour
+           9. Tab behaviour
            ================================================================== */
 
         function selectTab(tabId, focusTab) {
