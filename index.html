@@ -6,19 +6,16 @@
     <!-- ==================================================================
          Content Security Policy
          --------------------------------------------------------------
-         Delivered via <meta> because GitHub Pages cannot send custom
-         headers. Limitations of meta-delivered CSP:
-           • frame-ancestors, report-uri and sandbox are IGNORED
-           • no violation reporting
-         Everything the page actually needs is allowlisted below;
-         everything else (frames, forms, objects, XHR, workers, fonts,
-         media, manifests) is denied outright by default-src 'none'.
+         connect-src is now allowlisted to api.github.com so the page can
+         resolve "latest release" URLs at runtime. Everything else stays
+         locked down. To go back to a fully offline page, set
+         connect-src back to 'none' and delete the `repo:` / `assetMatch:`
+         fields from the TABS data — the hardcoded hrefs remain as
+         fallbacks either way.
          ================================================================== -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' https://github.com https://raw.githubusercontent.com https://avatars.githubusercontent.com; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; connect-src 'none'; media-src 'none'; font-src 'none'; worker-src 'none'; manifest-src 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' https://github.com https://raw.githubusercontent.com https://avatars.githubusercontent.com; connect-src https://api.github.com; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; media-src 'none'; font-src 'none'; worker-src 'none'; manifest-src 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'">
 
-    <!-- Don't leak the page URL to third-party download hosts -->
     <meta name="referrer" content="no-referrer">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Only Gurt</title>
     <meta name="description" content="Gurt's project idk hi lol">
@@ -26,13 +23,6 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="icon" href="https://github.com/theonlygurt.png">
 
-    <!-- ==================================================================
-         Frame-busting
-         --------------------------------------------------------------
-         Best-effort only. A determined attacker can defeat this with a
-         sandboxed iframe. True clickjacking protection needs a response
-         header, which GitHub Pages won't let us set.
-         ================================================================== -->
     <script>
     (function () {
         try {
@@ -40,7 +30,6 @@
                 window.top.location = window.self.location.href;
             }
         } catch (e) {
-            /* Cross-origin parent we can't navigate — hide the page. */
             document.documentElement.style.visibility = 'hidden';
         }
     })();
@@ -79,7 +68,6 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
-        /* --- focus visibility ------------------------------------------- */
         .btn:focus-visible,
         .btn-install:focus-visible,
         .slider-btn:focus-visible,
@@ -455,7 +443,6 @@
             background-color: #388bfd;
         }
 
-        /* Rendered in place of a link whose URL failed validation. */
         .btn-install--blocked {
             background-color: #21262d;
             color: #6e7681;
@@ -488,10 +475,6 @@
         .contributions-section .note-list li {
             font-size: 0.8rem;
         }
-
-        /* ==================================================================
-           Warning overlay
-           ================================================================== */
 
         .warning-overlay {
             position: fixed;
@@ -577,8 +560,6 @@
             font-variant-numeric: tabular-nums;
             opacity: 0.85;
         }
-
-        /* --- "don't show again" checkbox row ---------------------------- */
 
         .warning-dismiss {
             display: flex;
@@ -705,7 +686,6 @@
             </ul>
         </div>
 
-        <!-- Tab nav + panels are rendered from TABS below -->
         <div class="slider-section">
             <div class="slider-nav" role="tablist" aria-label="Download categories"></div>
             <div class="slider-content"></div>
@@ -722,7 +702,6 @@
         <p class="footer-text">Made with ❤️ by Gurt</p>
     </div>
 
-    <!-- ================= Warning overlay ================= -->
     <div class="warning-overlay" id="warningOverlay"
          role="dialog" aria-modal="true"
          aria-labelledby="warningTitle" aria-describedby="warningSub">
@@ -747,20 +726,9 @@
 
         /* ==================================================================
            0. URL validation
-           --------------------------------------------------------------
-           The TABS data is written by hand, so a typo like "javascript:"
-           or a copy-paste accident is the realistic threat — not an
-           attacker. These guards make such a mistake fail loudly (a greyed
-           out button) instead of silently shipping an executable link.
            ================================================================== */
 
-        /* Download links: https:// and the itms-services:// install scheme
-           only. Everything else is rejected. */
         var SAFE_HREF = /^(?:https:\/\/|itms-services:\/\/)/i;
-
-        /* Icons: anything that isn't a known-scriptable scheme. CSP's
-           img-src allowlist is the real control here; this is belt and
-           braces for schemes CSP doesn't cover. */
         var UNSAFE_SRC = /^\s*(?:javascript|vbscript|data|blob|file):/i;
 
         function isSafeHref(raw) {
@@ -771,30 +739,33 @@
             return typeof raw === 'string' && raw.length > 0 && !UNSAFE_SRC.test(raw);
         }
 
+        /**
+         * Permanent URL for an asset on a repo's newest non-prerelease
+         * release. Only usable when the asset filename does NOT contain a
+         * version number. If the maintainer ever renames the asset, this
+         * 404s — in which case fall back to a hardcoded href + assetMatch.
+         */
+        function ghLatest(repo, filename) {
+            return 'https://github.com/' + repo + '/releases/latest/download/' + filename;
+        }
+
         /* ==================================================================
            1. Warning gate
            ================================================================== */
 
-        var ACCEPT_DELAY = 5;                              // seconds
-        var SNOOZE_MS = 7 * 24 * 60 * 60 * 1000;           // 7 days
+        var ACCEPT_DELAY = 5;
+        var SNOOZE_MS = 7 * 24 * 60 * 60 * 1000;
         var STORAGE_KEY = 'gurt-warn-dismissed-until';
 
-        /* localStorage throws in iOS Private Browsing — swallow it so the
-           gate still works, it just won't remember anything. */
         function readSnoozeUntil() {
             try {
-                var raw = localStorage.getItem(STORAGE_KEY);
-                var n = parseInt(raw || '0', 10);
+                var n = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
                 return isFinite(n) ? n : 0;
-            } catch (e) {
-                return 0;
-            }
+            } catch (e) { return 0; }
         }
 
         function writeSnoozeUntil(ms) {
-            try {
-                localStorage.setItem(STORAGE_KEY, String(ms));
-            } catch (e) { /* no-op */ }
+            try { localStorage.setItem(STORAGE_KEY, String(ms)); } catch (e) {}
         }
 
         (function initWarning() {
@@ -805,7 +776,6 @@
             var card    = document.querySelector('.card');
             if (!overlay || !btn || !card) return;
 
-            /* --- Snoozed? Skip the gate entirely. --- */
             if (readSnoozeUntil() > Date.now()) {
                 document.body.classList.remove('modal-open');
                 if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
@@ -814,23 +784,17 @@
 
             var remaining = ACCEPT_DELAY;
 
-            /* Keep the page behind the overlay out of the tab order and
-               away from screen readers while the gate is up. */
             card.setAttribute('aria-hidden', 'true');
-            if ('inert' in HTMLElement.prototype) {
-                card.inert = true;
-            }
+            if ('inert' in HTMLElement.prototype) card.inert = true;
 
             btn.focus();
 
             var timer = setInterval(function () {
                 remaining -= 1;
-
                 if (remaining > 0) {
                     count.textContent = '(' + remaining + ')';
                     return;
                 }
-
                 clearInterval(timer);
                 count.remove();
                 btn.disabled = false;
@@ -840,17 +804,12 @@
             btn.addEventListener('click', function () {
                 if (btn.disabled) return;
 
-                /* Persist the 7-day snooze if the box was ticked. */
-                if (snooze && snooze.checked) {
-                    writeSnoozeUntil(Date.now() + SNOOZE_MS);
-                }
+                if (snooze && snooze.checked) writeSnoozeUntil(Date.now() + SNOOZE_MS);
 
                 overlay.classList.add('is-dismissed');
                 document.body.classList.remove('modal-open');
                 card.removeAttribute('aria-hidden');
-                if ('inert' in HTMLElement.prototype) {
-                    card.inert = false;
-                }
+                if ('inert' in HTMLElement.prototype) card.inert = false;
 
                 var removed = false;
                 function remove() {
@@ -858,11 +817,10 @@
                     removed = true;
                     if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
                 }
-
                 overlay.addEventListener('transitionend', function (e) {
                     if (e.target === overlay) remove();
                 });
-                setTimeout(remove, 700); // fallback if transitionend never fires
+                setTimeout(remove, 700);
             });
         })();
 
@@ -871,14 +829,8 @@
            ================================================================== */
 
         var KSIGN_NOTE = 'if it doesnt show Install popup, turn off adblocker, or switch wifi/browser';
-
         var KSIGN_ICON = 'Images/1373903153535258745.webp';
 
-        /**
-         * Builds a Ksign install row.
-         * @param {string} cert   Certificate name, shown after "certificate: ".
-         * @param {string} plist  Plist filename on website.khoindvn.io.vn (no extension).
-         */
         function ksign(cert, plist) {
             return {
                 title: 'Ksign',
@@ -892,7 +844,19 @@
         }
 
         /* ==================================================================
-           3. Data — tabs render in this order
+           3. Data
+           --------------------------------------------------------------
+           Two kinds of auto-updating links:
+
+           (a) href uses ghLatest(...) — no JS needed, no API call. The URL
+               permanently redirects to the newest release asset. Only valid
+               when the asset filename has no version in it.
+
+           (b) `repo` + `assetMatch` — a version-embedded filename. The page
+               asks the GitHub API for the newest release, finds the first
+               asset matching the regex, and rewrites the href in place.
+               The hardcoded href is the fallback if the API is slow,
+               rate-limited, or offline.
            ================================================================== */
 
         var TABS = [
@@ -940,74 +904,87 @@
                 id: 'ipas-tipas',
                 label: 'IPAs/TIPAs/DEBs',
                 items: [
+                    /* --- (a) stable filenames → permanent latest URL --- */
+
                     {
                         title: 'TrollinstallerDark IPA',
                         icon: 'https://raw.githubusercontent.com/rockylabs-dev/TrollInstallerDark/main/Resources/Icon.png',
                         iconAlt: 'TrollinstallerDark',
                         desc: 'Supports iOS 14.0-16.6.1 on arm64',
-                        href: 'https://github.com/rockylabs-dev/TrollInstallerDark/releases/download/1.0/TrollInstallerDark.ipa'
+                        href: ghLatest('rockylabs-dev/TrollInstallerDark', 'TrollInstallerDark.ipa')
                     },
                     {
                         title: 'TrollinstallerX IPA',
                         icon: 'https://raw.githubusercontent.com/alfiecg24/TrollInstallerX/main/Resources/Icon.png',
                         iconAlt: 'TrollinstallerX',
                         desc: 'Supports iOS 14.0-15.8.6, iOS 16.0-16.6.1 on both arm64 and arm64e, recommended unless on iOS 15.8.7-15.8.8',
-                        href: 'https://github.com/alfiecg24/TrollInstallerX/releases/download/1.0.3/TrollInstallerX.ipa'
+                        href: ghLatest('alfiecg24/TrollInstallerX', 'TrollInstallerX.ipa')
                     },
                     {
                         title: 'Dopamine rootless IPA',
                         icon: 'Images/IMG_3003.png',
                         iconAlt: 'Dopamine',
                         desc: 'A rootless semi-untethered jailbreak for iOS 15.0 - 17.3.1 (arm64e), iOS 15.0 - 18.7.1, 26.0 - 26.0.1 (A12/A13) and iOS 15.0 - 18.7.1 (arm64)',
-                        href: 'https://github.com/opa334/Dopamine/releases/download/3.0.10/Dopamine.ipa'
+                        href: ghLatest('opa334/Dopamine', 'Dopamine.ipa')
                     },
                     {
                         title: 'Dopamine2 Roothide IPA',
                         icon: 'https://raw.githubusercontent.com/roothide/Dopamine2-roothide/2.x/Application/Dopamine/Assets.xcassets/AppIcon.appiconset/Icon-60%403x.png',
                         iconAlt: 'Dopamine2 Roothide',
                         desc: 'Roothide jailbreak for ios 15-16.7.16(arm64) and 15.0-16.5.1(arm64e)',
-                        href: 'https://github.com/roothide/Dopamine2-roothide/releases/download/27/Dopamine.ipa'
+                        href: ghLatest('roothide/Dopamine2-roothide', 'Dopamine.ipa')
                     },
+
+                    /* --- (b) version-embedded filenames → API --- */
+
                     {
                         title: 'Relaxin IPA',
                         placeholder: '?',
                         desc: 'Roothide jailbreak for A12-M2 idevices. Supports iOS 16.5-18.7.1, 26.0-26.0.1 for A12-13, iOS 16.5-17.3.1 for A14+',
-                        href: 'https://github.com/5hux1n/relaxin/releases/download/v0.5.4/Relaxin-v0.5.4.ipa'
+                        href: 'https://github.com/5hux1n/relaxin/releases/download/v0.5.4/Relaxin-v0.5.4.ipa',
+                        repo: '5hux1n/relaxin',
+                        assetMatch: /^Relaxin-v[\d.]+\.ipa$/i
                     },
                     {
                         title: 'Appstore++ TIPA',
                         icon: 'Images/IMG_3090.jpeg',
                         iconAlt: 'Appstore++',
                         desc: "An App that's used to downgrade appstore-installed apps!",
-                        href: 'https://github.com/CokePokes/AppStorePlus-TrollStore/releases/download/v2.2.14-1/AppStorePlus-v2.2.14-1.tipa'
+                        href: 'https://github.com/CokePokes/AppStorePlus-TrollStore/releases/download/v2.2.14-1/AppStorePlus-v2.2.14-1.tipa',
+                        repo: 'CokePokes/AppStorePlus-TrollStore',
+                        assetMatch: /^AppStorePlus-v[\d.\-]+\.tipa$/i
                     },
                     {
                         title: 'TrollDecrypt TIPA',
                         icon: 'Images/IMG_3131.jpeg',
                         iconAlt: 'TrollDecrypt',
                         desc: 'iOS IPA Decrypter for TrollStore',
-                        href: 'https://github.com/donato-fiore/TrollDecrypt/releases/download/v1.2.4/TrollDecrypt.tipa'
+                        href: ghLatest('donato-fiore/TrollDecrypt', 'TrollDecrypt.tipa')
                     },
                     {
                         title: 'TrollTools TIPA',
                         icon: 'https://raw.githubusercontent.com/sourcelocation/TrollTools/main/TrollTools/Assets.xcassets/64.imageset/TrollUtils.png',
                         iconAlt: 'TrollTools',
                         desc: 'Revolutionizing iOS 15 customisation',
-                        href: 'https://github.com/sourcelocation/TrollTools/releases/download/3.0/TrollTools.tipa'
+                        href: ghLatest('sourcelocation/TrollTools', 'TrollTools.tipa')
                     },
                     {
                         title: 'TrollFools TIPA',
                         icon: 'https://raw.githubusercontent.com/Lessica/TrollFools/main/Artworks/AppIconMarketing-240.png',
                         iconAlt: 'TrollFools',
                         desc: 'In-place tweak injection with insert_dylib and ChOma',
-                        href: 'https://github.com/Lessica/TrollFools/releases/download/v4.3-253/TrollFools_4.3-253.tipa'
+                        href: 'https://github.com/Lessica/TrollFools/releases/download/v4.3-253/TrollFools_4.3-253.tipa',
+                        repo: 'Lessica/TrollFools',
+                        assetMatch: /^TrollFools_[\d.\-]+\.tipa$/i
                     },
                     {
                         title: 'AirTroller TIPA',
                         icon: 'https://raw.githubusercontent.com/sourcelocation/AirTroller/main/AirTroller/Assets.xcassets/AppIcon.appiconset/Artboard.png',
                         iconAlt: 'AirTroller',
                         desc: 'AirDrop spammer / flooder to troll friends. Sends AirDrops until the receiving device explodes :D',
-                        href: 'https://github.com/sourcelocation/AirTroller/releases/download/1.1.1/AirTroller-1.1.1.tipa'
+                        href: 'https://github.com/sourcelocation/AirTroller/releases/download/1.1.1/AirTroller-1.1.1.tipa',
+                        repo: 'sourcelocation/AirTroller',
+                        assetMatch: /^AirTroller-[\d.]+\.tipa$/i
                     },
                     {
                         title: 'The Free VPN IPA',
@@ -1026,27 +1003,29 @@
                         title: 'Nyxian IPA',
                         placeholder: '?',
                         desc: 'A full native IDE and a userspace microkernel for building and running iOS apps entirely on-device. offline, unjailbroken, iOS 18.4 through iOS 27 Beta 4',
-                        href: 'https://github.com/emexlab/Nyxian/releases/download/0.11.3.1/Nyxian.ipa'
+                        href: ghLatest('emexlab/Nyxian', 'Nyxian.ipa')
                     },
                     {
                         title: 'Raincord IPA',
                         icon: 'https://github.com/ra1ncord/rain/blob/main/src/assets/rain.png?raw=true',
                         iconAlt: 'Raincord',
                         desc: 'A custom Discord client for Mobile! Designed to be lightweight and feature packed',
-                        href: 'https://github.com/ra1ncord/RainTweak/releases/download/v0.9.3/RainTweak.ipa'
+                        href: ghLatest('ra1ncord/RainTweak', 'RainTweak.ipa')
                     },
                     {
                         title: 'Reynard IPA',
                         icon: 'https://github.com/minh-ton/reynard-browser/blob/main/browser/Reynard/Resources/Assets.xcassets/AppIcon.appiconset/icon.png?raw=true',
                         iconAlt: 'Reynard',
                         desc: "Reynard is a Gecko-based web browser for iOS 13+. Unlike other browsers on iOS that are forced to use Apple's WebKit engine (including Safari and all third-party browsers), Reynard uses Gecko. This is the same engine that powers the Firefox browser on desktop and Android devices. Requires JIT",
-                        href: 'https://github.com/minh-ton/reynard-browser/releases/download/0.10.1/Reynard.ipa'
+                        href: ghLatest('minh-ton/reynard-browser', 'Reynard.ipa')
                     },
                     {
                         title: 'Blinker Fluid IPA',
                         placeholder: 'Browser',
                         desc: "An experimental Chromium Blink + V8 browser for iOS. Runs without Apple's WebKit engine. Requires JIT",
-                        href: 'https://github.com/Nodesclock/Blinker-Fluid/releases/download/v.0.3/Blinker.Fluid.v.0.3.JIT.ipa'
+                        href: 'https://github.com/Nodesclock/Blinker-Fluid/releases/download/v.0.3/Blinker.Fluid.v.0.3.JIT.ipa',
+                        repo: 'Nodesclock/Blinker-Fluid',
+                        assetMatch: /\.ipa$/i
                     },
                     {
                         title: 'Soundcloud modded IPA',
@@ -1060,14 +1039,18 @@
                         icon: 'Images/IMG_4357.jpeg',
                         iconAlt: 'EeveeSpotify',
                         desc: 'Spotify modded. From Apptesters',
-                        href: 'https://github.com/apptesters-org/AppTesters_Repo/releases/download/12-06-2026/EeveeSpotify_9.1.50_Premium_%40thisismanpreets_apptesters.org.ipa'
+                        href: 'https://github.com/apptesters-org/AppTesters_Repo/releases/download/12-06-2026/EeveeSpotify_9.1.50_Premium_%40thisismanpreets_apptesters.org.ipa',
+                        repo: 'apptesters-org/AppTesters_Repo',
+                        assetMatch: /EeveeSpotify.*\.ipa$/i
                     },
                     {
                         title: 'Eeveespotifyrepublic IPA',
                         icon: 'Images/IMG_4357.jpeg',
                         iconAlt: 'Eeveespotifyrepublic',
                         desc: 'EeveeSpotify Republic version',
-                        href: 'https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks/EeveeSpotify-6.6.2-9.1.28-patched.ipa'
+                        href: 'https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks/EeveeSpotify-6.6.2-9.1.28-patched.ipa',
+                        repo: 'v8vptjgydb-svg/Eeveespotify-IPA-Link',
+                        assetMatch: /EeveeSpotify.*patched\.ipa$/i
                     },
                     {
                         title: 'Vibetok IPA',
@@ -1081,56 +1064,66 @@
                         icon: 'Images/IMG_3257.jpeg',
                         iconAlt: 'OldOS',
                         desc: 'Recreating a fully functional version of iOS 4 in SwiftUI.',
-                        href: 'https://github.com/zzanehip/The-OldOS-Project/releases/download/2.0_8/OldOS.ipa'
+                        href: ghLatest('zzanehip/The-OldOS-Project', 'OldOS.ipa')
                     },
                     {
                         title: 'Amethyst Remastered IPA',
                         icon: 'https://raw.githubusercontent.com/herbrine8403/Amethyst-iOS-MyRemastered/refs/heads/main/Natives/Assets.xcassets/AppIcon-Light.appiconset/1024x1024.png',
                         iconAlt: 'Amethyst',
                         desc: 'The remastered version of Amethyst Launcher',
-                        href: 'https://github.com/herbrine8403/Amethyst-iOS-MyRemastered/releases/download/5.0.0/Air-5.0.0.ipa'
+                        href: 'https://github.com/herbrine8403/Amethyst-iOS-MyRemastered/releases/download/5.0.0/Air-5.0.0.ipa',
+                        repo: 'herbrine8403/Amethyst-iOS-MyRemastered',
+                        assetMatch: /\.ipa$/i
                     },
                     {
                         title: 'Minecraft IPA',
                         placeholder: '🟫',
                         placeholderVariant: 'minecraft',
                         desc: 'Minecraft bedrock cracked',
-                        href: 'https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks2/Minecraft_1.21.124_1788118038.ipa'
+                        href: 'https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks2/Minecraft_1.21.124_1788118038.ipa',
+                        repo: 'v8vptjgydb-svg/Eeveespotify-IPA-Link',
+                        assetMatch: /^Minecraft_.*\.ipa$/i
                     },
                     {
                         title: 'ByeTunes IPA',
                         placeholder: '🎵',
                         placeholderVariant: 'music',
                         desc: "ByeTunes is a native iOS app that lets you inject music (MP3, M4A, FLAC, WAV) and ringtones directly into your device's media library—without needing a computer connection for every sync. It communicates directly with the iOS media database, giving you the power to manage your music on your terms.",
-                        href: 'https://github.com/EduAlexxis/ByeTunes/releases/download/v2.5/ByeTunes.ipa'
+                        href: ghLatest('EduAlexxis/ByeTunes', 'ByeTunes.ipa')
                     },
                     {
                         title: 'YouProEXTRA',
                         icon: 'https://raw.githubusercontent.com/dayanch96/YTLite/refs/heads/main/Resources/icon.png',
                         iconAlt: 'YouProEXTRA',
                         desc: 'YouTube IPA builder packed with customizable tweaks. Also Known as Youtubemaxxing.',
-                        href: 'https://github.com/mrdrvt99/YouProEXTRA/releases/download/ytl-ipa4/YouTubePlus_21.24.3_5.2.2.ipa'
+                        href: 'https://github.com/mrdrvt99/YouProEXTRA/releases/download/ytl-ipa4/YouTubePlus_21.24.3_5.2.2.ipa',
+                        repo: 'mrdrvt99/YouProEXTRA',
+                        assetMatch: /\.ipa$/i
                     },
                     {
                         title: 'NeoFreeBird IPA',
                         icon: 'https://raw.githubusercontent.com/NeoFreeBird/app/refs/heads/main/assets/main/Custom-Icon-00160x60%402x.png',
                         iconAlt: 'NeoFreeBird',
                         desc: 'modified Twitter app, with branding reverts, BHTwitter and other QoL modifications.',
-                        href: 'https://github.com/NeoFreeBird/app/releases/download/2.2/NeoFreeBird-2.2-Twitter-11.35.ipa'
+                        href: 'https://github.com/NeoFreeBird/app/releases/download/2.2/NeoFreeBird-2.2-Twitter-11.35.ipa',
+                        repo: 'NeoFreeBird/app',
+                        assetMatch: /^NeoFreeBird-.*\.ipa$/i
                     },
                     {
                         title: 'XeniOS',
                         icon: 'https://raw.githubusercontent.com/xenios-jp/XeniOS/refs/heads/xenios/assets/apple/xenios-readme-icon.png',
                         iconAlt: 'XeniOS',
                         desc: 'The iOS and MacOS port of Xenia, the Xbox 360 Emulator Research project.',
-                        href: 'https://github.com/xenios-jp/XeniOS/releases/download/release-v2.0.1-build-9730/xenios_ios_iphone_ipad.ipa'
+                        href: ghLatest('xenios-jp/XeniOS', 'xenios_ios_iphone_ipad.ipa')
                     },
                     {
                         title: 'VirtualMac DEB',
                         icon: 'https://raw.githubusercontent.com/nfzerox/VirtualMacOniPad/refs/heads/main/VirtualMac/assets/VirtualMac.png',
                         iconAlt: 'VirtualMac',
                         desc: 'People have dreamed of running macOS on iPad for more than a decade. Today, that dream comes true. With Virtual Mac, iPad finally breaks free from iPadOS, enabling pro apps like Xcode, Terminal, Final Cut Pro, Logic Pro, and Pixelmator Pro to run directly on device. Requires iPad Pro (M1, M2) or iPad Air (M1) running iPadOS 14 up to 16.3.1. requires an iPad Pro (M1, M2) or iPad Air (M1) running iPadOS 14 up to 16.3.1. iPad Pro models with 1 TB or 2 TB of storage have 16 GB of RAM and provide the best performance and experience.',
-                        href: 'https://github.com/nfzerox/VirtualMacOniPad/releases/download/1.2.3/VirtualMac_1.2.3.deb'
+                        href: 'https://github.com/nfzerox/VirtualMacOniPad/releases/download/1.2.3/VirtualMac_1.2.3.deb',
+                        repo: 'nfzerox/VirtualMacOniPad',
+                        assetMatch: /^VirtualMac_.*\.deb$/i
                     },
                     {
                         title: 'Eeveespotify Reincarnated IPA',
@@ -1144,7 +1137,9 @@
                         icon: 'https://raw.githubusercontent.com/TheResonanceTeam/TrollApps/refs/heads/main/assets/ResonanceStoreIcon.png',
                         iconAlt: 'TrollApps',
                         desc: 'TrollApps is an alternative to the iOS App Store for TrollStore users. TrollApps allows users to download apps from repositories and install them directly in TrollStore. TrollApps works on iOS 14.0 and up; make sure to be on the latest version of TrollStore. You require a TrollStore 1.0 / 2.0 compatible device, and TrollStore must be installed to use this application. It is also required that you enable schema urls within TrollStore.',
-                        href: 'https://github.com/TheResonanceTeam/TrollApps/releases/download/2.3/org.resonance.store_2.3_082724.ipa'
+                        href: 'https://github.com/TheResonanceTeam/TrollApps/releases/download/2.3/org.resonance.store_2.3_082724.ipa',
+                        repo: 'TheResonanceTeam/TrollApps',
+                        assetMatch: /\.ipa$/i
                     },
                     {
                         title: 'BunnyTweak',
@@ -1158,7 +1153,7 @@
                         icon: 'https://avatars.githubusercontent.com/u/222484597?s=200&v=4',
                         iconAlt: 'KettuTweak',
                         desc: 'Tweak to inject Kettu into discord',
-                        href: 'https://github.com/C0C0B01/KettuTweak/releases/download/v305.1/KettuTweak.ipa'
+                        href: ghLatest('C0C0B01/KettuTweak', 'KettuTweak.ipa')
                     },
                     {
                         title: '3105 IPA',
@@ -1179,7 +1174,9 @@
                         icon: 'https://raw.githubusercontent.com/StikDebug/StikDebug/refs/heads/main/assets/StikDebug.png',
                         iconAlt: 'stikdebug',
                         desc: 'An on-device debugger/JIT enabler for iOS versions 17.4+ powered by idevice.',
-                        href: 'https://github.com/StikDebug/StikDebug/releases/download/3.1.9/StikDebug-3.1.9.ipa'
+                        href: 'https://github.com/StikDebug/StikDebug/releases/download/3.1.9/StikDebug-3.1.9.ipa',
+                        repo: 'StikDebug/StikDebug',
+                        assetMatch: /^StikDebug-[\d.]+\.ipa$/i
                     }
                 ]
             },
@@ -1240,12 +1237,11 @@
 
         /* ==================================================================
            4. Rendering
-           --------------------------------------------------------------
-           Only createElement + textContent + setAttribute are used. No
-           innerHTML, outerHTML, insertAdjacentHTML, eval, Function or
-           document.write anywhere — which is what makes the
-           require-trusted-types-for directive above safe to enable.
            ================================================================== */
+
+        /* Registry of anchors whose href may be rewritten by the API
+           refresher. Each entry: { item, anchor }. */
+        var dynamicLinks = [];
 
         function buildIcon(item) {
             if (item.icon && isSafeIconSrc(item.icon)) {
@@ -1257,8 +1253,6 @@
                 img.className = 'app-icon';
                 return img;
             }
-
-            /* No icon, or the icon URL failed validation. */
             var ph = document.createElement('div');
             ph.className = 'app-icon-placeholder' +
                 (item.placeholderVariant ? ' app-icon-placeholder--' + item.placeholderVariant : '');
@@ -1302,8 +1296,6 @@
 
             var label = item.btn || 'Install';
 
-            /* Validate the URL before creating an anchor. A bad scheme
-               renders a dead grey button rather than a live link. */
             if (!isSafeHref(item.href)) {
                 var blocked = document.createElement('span');
                 blocked.className = 'btn-install btn-install--blocked';
@@ -1323,6 +1315,11 @@
             if (item.external) {
                 btn.setAttribute('target', '_blank');
                 btn.setAttribute('rel', 'noopener noreferrer');
+            }
+
+            /* Only register for live refresh if the data opts in. */
+            if (item.repo && item.assetMatch instanceof RegExp) {
+                dynamicLinks.push({ item: item, anchor: btn });
             }
 
             row.appendChild(btn);
@@ -1358,7 +1355,6 @@
             TABS.forEach(function (tab, index) {
                 var isFirst = index === 0;
 
-                /* --- tab button --- */
                 var btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'slider-btn' + (isFirst ? ' active' : '');
@@ -1372,7 +1368,6 @@
                 btn.addEventListener('keydown', onTabKeydown);
                 nav.appendChild(btn);
 
-                /* --- panel --- */
                 var panel = document.createElement('div');
                 panel.className = 'tab-pane' + (isFirst ? ' active' : '');
                 panel.id = 'panel-' + tab.id;
@@ -1396,7 +1391,119 @@
         }
 
         /* ==================================================================
-           5. Tab behaviour
+           5. Live "latest release" resolution
+           --------------------------------------------------------------
+           One GitHub API call per unique repo, cached in localStorage for
+           6 hours. Unauthenticated GitHub API allows 60 requests/hour per
+           IP; a cold cache costs 11 requests, so a shared IP with several
+           visitors could conceivably hit the ceiling. If that happens the
+           hardcoded hrefs simply stay in place — nothing breaks.
+           ================================================================== */
+
+        var LATEST_CACHE_KEY = 'gurt-latest-cache-v1';
+        var CACHE_TTL = 6 * 60 * 60 * 1000;
+        var MAX_REQUESTS = 20;
+
+        function readLatestCache() {
+            try {
+                var parsed = JSON.parse(localStorage.getItem(LATEST_CACHE_KEY) || 'null');
+                if (!parsed || typeof parsed !== 'object') return {};
+                if (Date.now() - (parsed.t || 0) > CACHE_TTL) return {};
+                return parsed.data || {};
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function writeLatestCache(data) {
+            try {
+                localStorage.setItem(LATEST_CACHE_KEY, JSON.stringify({ t: Date.now(), data: data }));
+            } catch (e) {}
+        }
+
+        /* assets: [{ name, url }] */
+        function applyRepoAssets(repo, assets) {
+            dynamicLinks.forEach(function (entry) {
+                if (entry.item.repo !== repo) return;
+
+                for (var i = 0; i < assets.length; i++) {
+                    var a = assets[i];
+                    if (entry.item.assetMatch.test(a.name) && isSafeHref(a.url)) {
+                        entry.anchor.setAttribute('href', a.url);
+                        return;
+                    }
+                }
+            });
+        }
+
+        function fetchRepoAssets(repo, done) {
+            var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+            var timeout = setTimeout(function () {
+                if (controller) controller.abort();
+            }, 8000);
+
+            var opts = {
+                method: 'GET',
+                headers: { 'Accept': 'application/vnd.github+json' },
+                referrerPolicy: 'no-referrer',
+                credentials: 'omit',
+                cache: 'default'
+            };
+            if (controller) opts.signal = controller.signal;
+
+            fetch('https://api.github.com/repos/' + repo + '/releases/latest', opts)
+                .then(function (res) {
+                    clearTimeout(timeout);
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    return res.json();
+                })
+                .then(function (data) {
+                    if (!data || !Array.isArray(data.assets)) return done(null);
+                    var assets = data.assets
+                        .filter(function (a) { return a && typeof a.name === 'string'; })
+                        .map(function (a) {
+                            return { name: a.name, url: a.browser_download_url || '' };
+                        });
+                    done(assets.length ? assets : null);
+                })
+                .catch(function () {
+                    clearTimeout(timeout);
+                    done(null);
+                });
+        }
+
+        function refreshLatestLinks() {
+            if (!dynamicLinks.length) return;
+
+            /* Group by repo so two items sharing a repo cost one request. */
+            var repos = [];
+            dynamicLinks.forEach(function (entry) {
+                if (repos.indexOf(entry.item.repo) === -1) repos.push(entry.item.repo);
+            });
+
+            var cache = readLatestCache();
+            var pending = [];
+
+            repos.forEach(function (repo) {
+                if (cache[repo]) {
+                    applyRepoAssets(repo, cache[repo]);
+                } else {
+                    pending.push(repo);
+                }
+            });
+
+            pending.slice(0, MAX_REQUESTS).forEach(function (repo) {
+                fetchRepoAssets(repo, function (assets) {
+                    if (!assets) return;
+                    cache[repo] = assets;
+                    writeLatestCache(cache);
+                    applyRepoAssets(repo, assets);
+                });
+            });
+        }
+
+        /* ==================================================================
+           6. Tab behaviour
            ================================================================== */
 
         function selectTab(tabId, focusTab) {
@@ -1438,6 +1545,7 @@
         }
 
         buildTabs();
+        refreshLatestLinks();
     })();
     </script>
 </body>
