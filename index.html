@@ -45,7 +45,8 @@
         .btn-install:focus-visible,
         .slider-btn:focus-visible,
         .avatar-link:focus-visible,
-        .warning-btn:focus-visible {
+        .warning-btn:focus-visible,
+        .warning-dismiss input:focus-visible {
             outline: 2px solid #58a6ff;
             outline-offset: 2px;
         }
@@ -468,7 +469,7 @@
             background-color: #161b22;
             border: 1px solid #f85149;
             border-radius: 0px;
-            padding: 28px 22px 24px;
+            padding: 28px 22px 22px;
             max-width: 380px;
             width: 100%;
             text-align: center;
@@ -525,6 +526,68 @@
         .warning-count {
             font-variant-numeric: tabular-nums;
             opacity: 0.85;
+        }
+
+        /* --- "don't show again" checkbox row ---------------------------- */
+
+        .warning-dismiss {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+            padding: 6px 4px;
+            font-size: 0.75rem;
+            color: #8b949e;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            opacity: 0.55;
+            filter: blur(0.25px);
+            transition: opacity 0.2s ease, filter 0.2s ease;
+        }
+
+        .warning-dismiss:hover,
+        .warning-dismiss:focus-within {
+            opacity: 0.9;
+            filter: blur(0);
+        }
+
+        .warning-dismiss input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            margin: 0;
+            border: 1px solid #30363d;
+            background-color: #0d1117;
+            border-radius: 0px;
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .warning-dismiss input[type="checkbox"]:checked {
+            background-color: #1f6feb;
+            border-color: #1f6feb;
+        }
+
+        .warning-dismiss input[type="checkbox"]:checked::after {
+            content: "";
+            position: absolute;
+            left: 4px;
+            top: 1px;
+            width: 4px;
+            height: 8px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .warning-dismiss-text {
+            line-height: 1.3;
+            text-align: left;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -620,6 +683,11 @@
                 I understand and accept the risk.
                 <span class="warning-count" id="warningCount">(5)</span>
             </button>
+
+            <label class="warning-dismiss" for="warningDismissBox">
+                <input type="checkbox" id="warningDismissBox">
+                <span class="warning-dismiss-text">Don't show this again for 7 days</span>
+            </label>
         </div>
     </div>
 
@@ -631,14 +699,40 @@
            1. Warning gate
            ================================================================== */
 
-        var ACCEPT_DELAY = 5; // seconds
+        var ACCEPT_DELAY = 5;                              // seconds
+        var SNOOZE_MS = 7 * 24 * 60 * 60 * 1000;           // 7 days
+        var STORAGE_KEY = 'gurt-warn-dismissed-until';
+
+        /* localStorage throws in iOS Private Browsing — swallow it so the
+           gate still works, it just won't remember anything. */
+        function readSnoozeUntil() {
+            try {
+                return parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10) || 0;
+            } catch (e) {
+                return 0;
+            }
+        }
+
+        function writeSnoozeUntil(ms) {
+            try {
+                localStorage.setItem(STORAGE_KEY, String(ms));
+            } catch (e) { /* no-op */ }
+        }
 
         (function initWarning() {
             var overlay = document.getElementById('warningOverlay');
             var btn     = document.getElementById('warningBtn');
             var count   = document.getElementById('warningCount');
+            var snooze  = document.getElementById('warningDismissBox');
             var card    = document.querySelector('.card');
             if (!overlay || !btn || !card) return;
+
+            /* --- Snoozed? Skip the gate entirely. --- */
+            if (readSnoozeUntil() > Date.now()) {
+                document.body.classList.remove('modal-open');
+                if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+                return;
+            }
 
             var remaining = ACCEPT_DELAY;
 
@@ -667,6 +761,11 @@
 
             btn.addEventListener('click', function () {
                 if (btn.disabled) return;
+
+                /* Persist the 7-day snooze if the box was ticked. */
+                if (snooze && snooze.checked) {
+                    writeSnoozeUntil(Date.now() + SNOOZE_MS);
+                }
 
                 overlay.classList.add('is-dismissed');
                 document.body.classList.remove('modal-open');
