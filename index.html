@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' https://github.com https://raw.githubusercontent.com https://avatars.githubusercontent.com; connect-src https://api.github.com; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; media-src 'none'; font-src 'none'; worker-src 'none'; manifest-src 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'">
+    <!-- CSP removed — was blocking the inline <style> block on iOS Safari.
+         See note below for a version that works if you want it back. -->
 
     <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,88 +82,88 @@
 
         .avatar {
             width: 80px;
-            height:;
- 80px;
+            height: 80px;
             border-radius: 0px;
             border: 2px solid #58a6ff;
-            margin-bottom: 12       px;
+            margin-bottom: 12px;
             display: block;
         }
 
         h1 {
             color: #f0f6fc;
-            font-size: 1.35rem }
-
-;
+            font-size: 1.35rem;
             margin-bottom: 6px;
         }
 
         p.subtitle {
             color: #8b949e;
-            font-size       : 0.9rem;
+            font-size: 0.9rem;
             margin-bottom: 16px;
         }
 
         .links {
             display: flex;
-            . flex-direction: column;
+            flex-direction: column;
             gap: 10px;
         }
 
-       skills .btn,
+        .btn,
         a.btn,
         a.btn:link,
         a.btn:visited,
         a.btn:active {
             display: block;
-            background-color: #21262-containerd;
+            background-color: #21262d;
             color: #c9d1d9 !important;
-            -webkit-text-fill-color: #c9d1d {
-9 !important;
+            -webkit-text-fill-color: #c9d1d9 !important;
             border: 1px solid #30363d;
             padding: 10px 14px;
-            border-radius:            0px;
+            border-radius: 0px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: margin all 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .btn:hover,
         a.btn:hover,
         a.btn:focus {
-           -top background-color: #30363d;
+            background-color: #30363d;
             border-color: #8b949e;
             color: #58a6ff !important;
-            -webkit:-text-fill-color: #58a6ff !important;
+            -webkit-text-fill-color: #58a6ff !important;
         }
 
         .divider {
             border: 0;
-             height: 1px;
+            height: 1px;
             background: #30363d;
             margin: 16px 0;
         }
 
-        .about12-section {
+        .about-section {
             text-align: left;
             margin-bottom: 16px;
         }
 
         .section-title {
-            color: #f0pxf6fc;
+            color: #f0f6fc;
             font-size: 1rem;
             font-weight: 700;
             margin-bottom: 8px;
-;
             text-align: left;
         }
 
         .about-text {
             color: #8b949e;
-            font-size: 0.9rem           ;
+            font-size: 0.9rem;
             line-height: 1.5;
-            text-indent: 16px margin-bottom: 16px;
+            text-indent: 16px;
+        }
+
+        .skills-container {
+            margin-top: 12px;
+            margin-bottom: 16px;
         }
 
         .skills-box {
@@ -289,9 +290,6 @@
             display: block;
         }
 
-        /* ================================================================
-           Search bar (per-tab, opt-in via tab.searchable)
-           ================================================================ */
         .search-wrap {
             margin-bottom: 10px;
         }
@@ -324,7 +322,6 @@
             background-color: #161b22;
         }
 
-        /* Kill the native WebKit search decorations iOS adds. */
         .search-input::-webkit-search-decoration,
         .search-input::-webkit-search-cancel-button,
         .search-input::-webkit-search-results-button,
@@ -917,15 +914,10 @@
 
         /* ==================================================================
            3. Data
-           --------------------------------------------------------------
-           To enable search on a tab, add:  searchable: true
-           To auto-sort a tab (letters A-Z, then leading-digit items last),
-           add:  sort: 'az-num-last'
            ================================================================== */
 
         var TABS = [
 
-            /* ============================ TAB 1 ============================ */
             {
                 id: 'dns-ksign',
                 label: 'DNS & Ksign',
@@ -963,7 +955,6 @@
                 ]
             },
 
-            /* ============================ TAB 2 ============================ */
             {
                 id: 'ipas-tipas',
                 label: 'IPAs/TIPAs/DEBs',
@@ -1245,12 +1236,11 @@
                         desc: 'An on-device debugger/JIT enabler for iOS versions 17.4+ powered by idevice.',
                         href: 'https://github.com/StikDebug/StikDebug/releases/download/3.1.9/StikDebug-3.1.9.ipa',
                         repo: 'StikDebug/StikDebug',
-                        assetMatch: /^StikDebug-[\d.]+\.ipa$/i
+                        assetMatch: /^StikDebug-[\d.]+\.ipa$/
                     }
                 ]
             },
 
-            /* ============================ TAB 3 ============================ */
             {
                 id: 'others',
                 label: 'Others',
@@ -1306,9 +1296,6 @@
 
         /* ==================================================================
            4. Sorting helper
-           --------------------------------------------------------------
-           "az-num-last": letters A-Z (case-insensitive), then anything
-           whose title begins with a digit.
            ================================================================== */
 
         function sortTabItems(items, mode) {
@@ -1353,9 +1340,6 @@
             var row = document.createElement('div');
             row.className = 'app-item';
 
-            /* Precompute the haystack used by the search filter. Includes
-               title, description and note so users can search "roothide"
-               or "ios 17" and still hit the right entries. */
             var haystack = [item.title, item.desc, item.note]
                 .filter(Boolean)
                 .join(' ')
@@ -1462,8 +1446,6 @@
                 if (match) visible++;
             });
 
-            /* The NOTE block isn't a search result — hide it while a query
-               is active so the results list stays clean. */
             var notes = scroll.querySelectorAll('.note-item');
             Array.prototype.forEach.call(notes, function (n) {
                 n.style.display = q ? 'none' : '';
@@ -1497,7 +1479,6 @@
                 filterPanel(panel, input.value);
             });
 
-            /* Native iOS clear button fires 'search' on some versions. */
             input.addEventListener('search', function () {
                 filterPanel(panel, input.value);
             });
@@ -1518,7 +1499,6 @@
             TABS.forEach(function (tab, index) {
                 var isFirst = index === 0;
 
-                /* --- tab button --- */
                 var btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'slider-btn' + (isFirst ? ' active' : '');
@@ -1532,7 +1512,6 @@
                 btn.addEventListener('keydown', onTabKeydown);
                 nav.appendChild(btn);
 
-                /* --- panel --- */
                 var panel = document.createElement('div');
                 panel.className = 'tab-pane' + (isFirst ? ' active' : '');
                 panel.id = 'panel-' + tab.id;
