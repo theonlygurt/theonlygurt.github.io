@@ -49,7 +49,7 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: #c9d1d9;
+            color: #f0f6fc; /* Đổi màu chữ mặc định sáng hơn */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -70,7 +70,7 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Animation mới: Phản hồi tức thì, trượt mượt và nhanh */
+        /* Animation mượt */
         .js-ready .reveal {
             opacity: 0;
             transform: translateY(20px);
@@ -120,13 +120,13 @@
         }
 
         h1 {
-            color: #f0f6fc;
+            color: #ffffff;
             font-size: 1.35rem;
             margin-bottom: 6px;
         }
 
         p.subtitle {
-            color: #8b949e;
+            color: #ffffff;
             font-size: 0.9rem;
             margin-bottom: 16px;
         }
@@ -143,10 +143,10 @@
         a.btn:visited,
         a.btn:active {
             display: block;
-            background-color: rgba(33, 38, 45, 0.3);
-            color: #c9d1d9 !important;
-            -webkit-text-fill-color: #c9d1d9 !important;
-            border: 1px solid rgba(48, 54, 61, 0.35);
+            background-color: rgba(33, 38, 45, 0.4);
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            border: 1px solid rgba(48, 54, 61, 0.4);
             padding: 10px 14px;
             border-radius: 0px;
             text-decoration: none;
@@ -158,7 +158,7 @@
         .btn:hover,
         a.btn:hover,
         a.btn:focus {
-            background-color: rgba(48, 54, 61, 0.5);
+            background-color: rgba(48, 54, 61, 0.6);
             border-color: #8b949e;
             color: #58a6ff !important;
             -webkit-text-fill-color: #58a6ff !important;
@@ -174,7 +174,7 @@
         .about-section { text-align: left; margin-bottom: 16px; }
 
         .section-title {
-            color: #f0f6fc;
+            color: #ffffff;
             font-size: 1rem;
             font-weight: 700;
             margin-bottom: 8px;
@@ -182,7 +182,7 @@
         }
 
         .about-text {
-            color: #c9d1d9;
+            color: #ffffff;
             font-size: 0.9rem;
             line-height: 1.5;
             text-indent: 16px;
@@ -191,8 +191,8 @@
         .skills-container { margin-top: 12px; margin-bottom: 16px; }
 
         .skills-box {
-            background-color: rgba(13, 17, 23, 0.1);
-            border: 1px solid rgba(48, 54, 61, 0.25);
+            background-color: rgba(13, 17, 23, 0.15);
+            border: 1px solid rgba(48, 54, 61, 0.3);
             border-radius: 0px;
             padding: 12px;
             display: flex;
@@ -215,8 +215,8 @@
 
         .skill-name {
             display: block !important;
-            color: #8b949e !important;
-            -webkit-text-fill-color: #8b949e !important;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
             font-size: 0.8rem;
             font-weight: 500;
         }
@@ -232,10 +232,10 @@
         }
 
         .hobby-tag {
-            background-color: rgba(13, 17, 23, 0.1);
-            border: 1px solid rgba(48, 54, 61, 0.25);
-            color: #8b949e !important;
-            -webkit-text-fill-color: #8b949e !important;
+            background-color: rgba(13, 17, 23, 0.15);
+            border: 1px solid rgba(48, 54, 61, 0.3);
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
             padding: 6px 12px;
             border-radius: 0px;
             font-size: 0.85rem;
@@ -251,8 +251,8 @@
         }
 
         .slider-nav {
-            background-color: rgba(13, 17, 23, 0.1);
-            border: 1px solid rgba(48, 54, 61, 0.25);
+            background-color: rgba(13, 17, 23, 0.15);
+            border: 1px solid rgba(48, 54, 61, 0.3);
             border-radius: 0px;
             padding: 4px;
             display: flex;
@@ -270,8 +270,8 @@
             flex: 1;
             background: none;
             border: none;
-            color: #8b949e !important;
-            -webkit-text-fill-color: #8b949e !important;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
             padding: 8px 14px;
             font-size: 0.85rem;
             font-weight: 600;
@@ -298,10 +298,10 @@
 
         .search-input {
             width: 100%;
-            background-color: rgba(13, 17, 23, 0.15);
-            border: 1px solid rgba(48, 54, 61, 0.25);
-            color: #c9d1d9 !important;
-            -webkit-text-fill-color: #c9d1d9 !important;
+            background-color: rgba(13, 17, 23, 0.2);
+            border: 1px solid rgba(48, 54, 61, 0.3);
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
             padding: 10px 12px;
             border-radius: 0px;
             font-family: inherit;
@@ -321,7 +321,7 @@
         .search-input:focus {
             outline: none;
             border-color: #58a6ff;
-            background-color: rgba(22, 27, 34, 0.5);
+            background-color: rgba(22, 27, 34, 0.6);
         }
 
         .search-input::-webkit-search-decoration,
@@ -333,7 +333,7 @@
         }
 
         .search-empty {
-            color: #8b949e;
+            color: #ffffff;
             font-size: 0.8rem;
             padding: 20px 4px;
             text-align: center;
@@ -352,8 +352,8 @@
         .scroll-container::-webkit-scrollbar-thumb { background: #30363d; border-radius: 0px; }
 
         .app-item {
-            background-color: rgba(13, 17, 23, 0.15);
-            border: 1px solid rgba(48, 54, 61, 0.25);
+            background-color: rgba(13, 17, 23, 0.2);
+            border: 1px solid rgba(48, 54, 61, 0.3);
             border-radius: 0px;
             padding: 12px 14px;
             display: flex;
@@ -417,13 +417,13 @@
         }
 
         .app-title {
-            color: #f0f6fc;
+            color: #ffffff;
             font-size: 1rem;
             font-weight: 700;
         }
 
         .app-desc {
-            color: #8b949e;
+            color: #ffffff;
             font-size: 0.75rem;
             line-height: 1.35;
             word-wrap: break-word;
@@ -432,8 +432,8 @@
         }
 
         .note-item {
-            background-color: rgba(13, 17, 23, 0.15);
-            border: 1px solid rgba(48, 54, 61, 0.25);
+            background-color: rgba(13, 17, 23, 0.2);
+            border: 1px solid rgba(48, 54, 61, 0.3);
             border-radius: 0px;
             padding: 14px;
             margin-bottom: 10px;
@@ -441,7 +441,7 @@
         }
 
         .note-title {
-            color: #f0f6fc;
+            color: #ffffff;
             font-size: 0.95rem;
             font-weight: 700;
             margin-bottom: 6px;
@@ -450,7 +450,7 @@
         .note-list { list-style: none; padding: 0; }
 
         .note-list li {
-            color: #8b949e;
+            color: #ffffff;
             font-size: 0.75rem;
             line-height: 1.4;
             margin-bottom: 4px;
@@ -462,7 +462,7 @@
             content: "-";
             position: absolute;
             left: 0;
-            color: #8b949e;
+            color: #ffffff;
         }
 
         .btn-install,
@@ -534,7 +534,7 @@
         }
 
         .footer-text {
-            color: #8b949e;
+            color: #ffffff;
             font-size: 0.75rem;
             font-weight: 400;
             margin-top: 4px;
@@ -546,7 +546,7 @@
         }
 
         .contributions-section p {
-            color: #8b949e;
+            color: #ffffff;
             font-size: 0.8rem;
             font-weight: 400;
             margin: 0;
@@ -595,7 +595,7 @@
         }
 
         .popup-title {
-            color: #f0f6fc;
+            color: #ffffff;
             font-size: 1.15rem;
             font-weight: 700;
             margin-bottom: 12px;
@@ -603,7 +603,7 @@
         }
 
         .popup-body {
-            color: #c9d1d9;
+            color: #ffffff;
             font-size: 0.85rem;
             line-height: 1.5;
             margin-bottom: 20px;
@@ -818,7 +818,7 @@
                 <p class="popup-body">Join our official Discord community!</p>
                 <div class="popup-actions">
                     <button class="popup-btn" id="popupCypwnCopy" type="button">Copy link</button>
-                    <a class="popup-btn popup-btn--ghost" id="popupCypwnRedirect" href="https://discord.com/invite/UvHZz3HfN9" target="_blank" rel="noopener noreferrer">Redirect to Discord</a>
+                    <a class="popup-btn" id="popupCypwnRedirect" href="https://discord.com/invite/UvHZz3HfN9" target="_blank" rel="noopener noreferrer">Redirect to Discord</a>
                     <button class="popup-btn popup-btn--ghost" id="popupCypwnBack" type="button">Go back...</button>
                 </div>
                 <span class="popup-toast" id="popupCypwnToast">Copied!</span>
@@ -829,8 +829,8 @@
                 <p class="popup-body">Choose an option to add the repo:</p>
                 <div class="popup-actions">
                     <button class="popup-btn" id="popupRepoCopy" type="button">Copy link</button>
-                    <a class="popup-btn popup-btn--ghost" href="https://ipa.cypwn.xyz/cypwn.json" target="_blank" rel="noopener noreferrer">Add to Your signer(Ksign, Feather,..)!</a>
-                    <a class="popup-btn popup-btn--ghost" href="sidestore://source?url=https://ipa.cypwn.xyz/sidestore.json">Add to Sidestore!</a>
+                    <a class="popup-btn" href="https://ipa.cypwn.xyz/cypwn.json" target="_blank" rel="noopener noreferrer">Add to Your signer(Ksign, Feather,..)!</a>
+                    <a class="popup-btn" href="sidestore://source?url=https://ipa.cypwn.xyz/sidestore.json">Add to Sidestore!</a>
                     <button class="popup-btn popup-btn--ghost" id="popupRepoBack" type="button">Go back...</button>
                 </div>
                 <span class="popup-toast" id="popupRepoToast">Copied!</span>
@@ -1962,10 +1962,6 @@
             selectTab(TABS[next].id, true);
         }
 
-        /* ================================================================
-           Scroll Reveal Animation (Tối ưu cho tốc độ lướt)
-           Dùng window.onscroll thay vì IntersectionObserver
-           ================================================================ */
         (function initReveal() {
             var els = document.querySelectorAll('.reveal');
             if (!els.length) return;
@@ -1986,7 +1982,6 @@
                     if (el.classList.contains('is-visible')) continue;
 
                     var rect = el.getBoundingClientRect();
-                    // Hiển thị khi đỉnh phần tử lọt vào 90% chiều cao màn hình
                     if (rect.top < windowHeight * 0.9) {
                         el.classList.add('is-visible');
                     }
@@ -2006,7 +2001,6 @@
                 checkReveal();
             });
 
-            // Chạy lần đầu
             checkReveal();
         })();
 
