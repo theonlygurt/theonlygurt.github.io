@@ -5,9 +5,9 @@
 
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self';
-                   img-src 'self' https://github.com https://raw.githubusercontent.com data:;
+                   img-src 'self' https://github.com https://raw.githubusercontent.com https://avatars.githubusercontent.com data:;
                    style-src 'self' 'unsafe-inline';
-                   script-src 'self' 'sha256-1Q0S5nXhB4KQb6mFy0XyQ8N9T5sJ7L2W3pR4vC6dE8M=';
+                   script-src 'self' 'unsafe-inline';
                    connect-src 'self' https://api.github.com;
                    frame-ancestors 'none';
                    base-uri 'none';
@@ -62,21 +62,22 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
-        /* ---- scroll-reveal ---- */
-        .reveal {
+        /* ---- scroll-reveal ----
+           default = visible. only hide when JS confirms it will reveal. */
+        .js-ready .reveal {
             opacity: 0;
             transform: translateY(12px);
             transition: opacity 0.5s ease, transform 0.5s ease;
             will-change: opacity, transform;
         }
 
-        .reveal.is-visible {
+        .js-ready .reveal.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .reveal {
+            .js-ready .reveal {
                 opacity: 1;
                 transform: none;
                 transition: none;
@@ -163,10 +164,7 @@
             margin: 16px 0;
         }
 
-        .about-section {
-            text-align: left;
-            margin-bottom: 16px;
-        }
+        .about-section { text-align: left; margin-bottom: 16px; }
 
         .section-title {
             color: #f0f6fc;
@@ -183,10 +181,7 @@
             text-indent: 16px;
         }
 
-        .skills-container {
-            margin-top: 12px;
-            margin-bottom: 16px;
-        }
+        .skills-container { margin-top: 12px; margin-bottom: 16px; }
 
         .skills-box {
             background-color: #0d1117;
@@ -198,11 +193,7 @@
             align-items: center;
         }
 
-        .skill-item {
-            display: block;
-            text-align: center;
-            min-width: 64px;
-        }
+        .skill-item { display: block; text-align: center; min-width: 64px; }
 
         .skill-icon {
             display: block !important;
@@ -213,9 +204,7 @@
             margin: 0 auto 6px;
         }
 
-        .color-icon {
-            filter: none;
-        }
+        .color-icon { filter: none; }
 
         .skill-name {
             display: block !important;
@@ -225,10 +214,7 @@
             font-weight: 500;
         }
 
-        .hobbies-container {
-            margin-top: 16px;
-            margin-bottom: 16px;
-        }
+        .hobbies-container { margin-top: 16px; margin-bottom: 16px; }
 
         .hobbies-list {
             list-style: none;
@@ -269,9 +255,7 @@
             scrollbar-width: none;
         }
 
-        .slider-nav::-webkit-scrollbar {
-            display: none;
-        }
+        .slider-nav::-webkit-scrollbar { display: none; }
 
         .slider-btn,
         button.slider-btn,
@@ -298,23 +282,12 @@
             box-shadow: 0 2px 8px rgba(31, 111, 235, 0.4);
         }
 
-        .slider-content {
-            width: 100%;
-            margin-top: 12px;
-            text-align: left;
-        }
+        .slider-content { width: 100%; margin-top: 12px; text-align: left; }
 
-        .tab-pane {
-            display: none;
-        }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
 
-        .tab-pane.active {
-            display: block;
-        }
-
-        .search-wrap {
-            margin-bottom: 10px;
-        }
+        .search-wrap { margin-bottom: 10px; }
 
         .search-input {
             width: 100%;
@@ -367,18 +340,9 @@
             scrollbar-color: #30363d #0d1117;
         }
 
-        .scroll-container::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .scroll-container::-webkit-scrollbar-track {
-            background: #0d1117;
-        }
-
-        .scroll-container::-webkit-scrollbar-thumb {
-            background: #30363d;
-            border-radius: 0px;
-        }
+        .scroll-container::-webkit-scrollbar { width: 4px; }
+        .scroll-container::-webkit-scrollbar-track { background: #0d1117; }
+        .scroll-container::-webkit-scrollbar-thumb { background: #30363d; border-radius: 0px; }
 
         .app-item {
             background-color: #0d1117;
@@ -490,10 +454,7 @@
             margin-bottom: 6px;
         }
 
-        .note-list {
-            list-style: none;
-            padding: 0;
-        }
+        .note-list { list-style: none; padding: 0; }
 
         .note-list li {
             color: #8b949e;
@@ -567,17 +528,13 @@
             margin: 0;
         }
 
-        .contributions-section .note-list li {
-            font-size: 0.8rem;
-        }
+        .contributions-section .note-list li { font-size: 0.8rem; }
 
         @media (prefers-reduced-motion: reduce) {
             .avatar-link,
             .btn,
             .btn-install,
-            .slider-btn {
-                transition: none;
-            }
+            .slider-btn { transition: none; }
         }
     </style>
 </head>
@@ -658,9 +615,9 @@
     (function () {
         'use strict';
 
-        /* ==================================================================
+        /* ================================================================
            0. URL validation
-           ================================================================== */
+           ================================================================ */
 
         var SAFE_HREF = /^(?:https:\/\/|itms-services:\/\/)/i;
         var UNSAFE_SRC = /^\s*(?:javascript|vbscript|data|blob|file|http):/i;
@@ -677,9 +634,9 @@
             return 'https://github.com/' + repo + '/releases/latest/download/' + filename;
         }
 
-        /* ==================================================================
+        /* ================================================================
            1. Data
-           ================================================================== */
+           ================================================================ */
 
         var TABS = [
 
@@ -1022,9 +979,9 @@
             }
         ];
 
-        /* ==================================================================
+        /* ================================================================
            2. Sorting helper
-           ================================================================== */
+           ================================================================ */
 
         function sortTabItems(items, mode) {
             if (mode !== 'az-num-last') return items;
@@ -1040,9 +997,9 @@
             });
         }
 
-        /* ==================================================================
+        /* ================================================================
            3. Rendering
-           ================================================================== */
+           ================================================================ */
 
         var dynamicLinks = [];
 
@@ -1157,9 +1114,9 @@
             return wrap;
         }
 
-        /* ==================================================================
+        /* ================================================================
            4. Search
-           ================================================================== */
+           ================================================================ */
 
         function filterPanel(panel, query) {
             var scroll = panel.querySelector('.scroll-container');
@@ -1217,9 +1174,9 @@
             return wrap;
         }
 
-        /* ==================================================================
+        /* ================================================================
            5. Tab building
-           ================================================================== */
+           ================================================================ */
 
         function buildTabs() {
             var nav = document.querySelector('.slider-nav');
@@ -1277,9 +1234,9 @@
             });
         }
 
-        /* ==================================================================
+        /* ================================================================
            6. Live "latest release" resolution
-           ================================================================== */
+           ================================================================ */
 
         var LATEST_CACHE_KEY = 'gurt-latest-cache-v1';
         var CACHE_TTL = 6 * 60 * 60 * 1000;
@@ -1407,9 +1364,9 @@
             });
         }
 
-        /* ==================================================================
+        /* ================================================================
            7. Tab behaviour
-           ================================================================== */
+           ================================================================ */
 
         function selectTab(tabId, focusTab) {
             var buttons = document.querySelectorAll('.slider-btn');
@@ -1449,9 +1406,9 @@
             selectTab(TABS[next].id, true);
         }
 
-        /* ==================================================================
-           8. Scroll-reveal
-           ================================================================== */
+        /* ================================================================
+           8. Scroll-reveal (safe: default is visible)
+           ================================================================ */
 
         (function initReveal() {
             var els = document.querySelectorAll('.reveal');
@@ -1460,12 +1417,11 @@
             var reduce = window.matchMedia &&
                 window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-            if (reduce || !('IntersectionObserver' in window)) {
-                Array.prototype.forEach.call(els, function (el) {
-                    el.classList.add('is-visible');
-                });
-                return;
-            }
+            /* no IO, or reduced motion -> leave everything visible */
+            if (reduce || !('IntersectionObserver' in window)) return;
+
+            /* mark the document so .js-ready .reveal starts hidden */
+            document.documentElement.classList.add('js-ready');
 
             var io = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
@@ -1485,9 +1441,9 @@
             });
         })();
 
-        /* ==================================================================
+        /* ================================================================
            9. Boot
-           ================================================================== */
+           ================================================================ */
 
         buildTabs();
         refreshLatestLinks();
