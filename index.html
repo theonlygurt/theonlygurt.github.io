@@ -49,7 +49,7 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: #f0f6fc; /* Đổi màu chữ mặc định sáng hơn */
+            color: #f0f6fc;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -70,7 +70,6 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Animation mượt */
         .js-ready .reveal {
             opacity: 0;
             transform: translateY(20px);
@@ -799,7 +798,7 @@
                 <p class="popup-body" id="popupBody2">Copy the link or jump straight to Telegram.</p>
                 <div class="popup-actions">
                     <button class="popup-btn" id="popupCopy" type="button">Copy link</button>
-                    <a class="popup-btn popup-btn--ghost" id="popupRedirect" href="#" target="_blank" rel="noopener noreferrer">Redirect me</a>
+                    <a class="popup-btn" id="popupRedirect" href="#" target="_blank" rel="noopener noreferrer">Redirect me</a>
                 </div>
                 <span class="popup-toast" id="popupToast">Copied!</span>
             </div>
@@ -808,7 +807,7 @@
                 <h2 class="popup-title" id="popupTitle3" style="color: #f85149;">WARNING!</h2>
                 <p class="popup-body" id="popupBody3"></p>
                 <div class="popup-actions">
-                    <button class="popup-btn popup-btn--ghost" id="popupOkay" type="button">Okay!</button>
+                    <button class="popup-btn" id="popupOkay" type="button">Okay!</button>
                     <button class="popup-btn popup-btn--danger" id="popupIgnore" type="button">I don't care.</button>
                 </div>
             </div>
@@ -1091,6 +1090,13 @@
                                 redirectUrl: 'https://t.me/g_tweaks'
                             }
                         }
+                    },
+                    {
+                        title: 'Husk IPA',
+                        icon: 'https://raw.githubusercontent.com/Leviidev/Husk/refs/heads/main/src/app/Husk/Assets.xcassets/AppIcon.appiconset/Icon-Default.png',
+                        iconAlt: 'Husk',
+                        desc: 'Runs APK files and its variations on iOS gpu! requires JIT.',
+                        href: 'https://github.com/Leviidev/Husk/releases/download/3.4/Husk.ipa'
                     },
                     {
                         title: 'OldOS IPA',
