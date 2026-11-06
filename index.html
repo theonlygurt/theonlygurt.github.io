@@ -43,9 +43,9 @@
 
         body {
             background-color: #0d1117;
-            /* background image layer */
+            /* background image: lighter overlay to see the image better */
             background-image:
-                linear-gradient(rgba(13, 17, 23, 0.85), rgba(13, 17, 23, 0.85)),
+                linear-gradient(rgba(13, 17, 23, 0.5), rgba(13, 17, 23, 0.5)),
                 url('https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/main/Images/IMG_1530.jpeg');
             background-size: cover;
             background-position: center;
@@ -59,16 +59,17 @@
         }
 
         .card {
-            background-color: rgba(22, 27, 34, 0.92); /* slight transparency to see bg */
-            border: 1px solid #30363d;
+            /* transparent card to reveal background */
+            background-color: rgba(22, 27, 34, 0.65); 
+            border: 1px solid rgba(48, 54, 61, 0.8);
             border-radius: 0px;
             padding: 20px;
             max-width: 400px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .js-ready .reveal {
@@ -142,10 +143,10 @@
         a.btn:visited,
         a.btn:active {
             display: block;
-            background-color: #21262d;
+            background-color: rgba(33, 38, 45, 0.85);
             color: #c9d1d9 !important;
             -webkit-text-fill-color: #c9d1d9 !important;
-            border: 1px solid #30363d;
+            border: 1px solid rgba(48, 54, 61, 0.9);
             padding: 10px 14px;
             border-radius: 0px;
             text-decoration: none;
@@ -157,7 +158,7 @@
         .btn:hover,
         a.btn:hover,
         a.btn:focus {
-            background-color: #30363d;
+            background-color: rgba(48, 54, 61, 0.9);
             border-color: #8b949e;
             color: #58a6ff !important;
             -webkit-text-fill-color: #58a6ff !important;
@@ -166,7 +167,7 @@
         .divider {
             border: 0;
             height: 1px;
-            background: #30363d;
+            background: rgba(48, 54, 61, 0.7);
             margin: 16px 0;
         }
 
@@ -181,7 +182,7 @@
         }
 
         .about-text {
-            color: #8b949e;
+            color: #c9d1d9;
             font-size: 0.9rem;
             line-height: 1.5;
             text-indent: 16px;
@@ -190,8 +191,8 @@
         .skills-container { margin-top: 12px; margin-bottom: 16px; }
 
         .skills-box {
-            background-color: rgba(13, 17, 23, 0.8);
-            border: 1px solid #30363d;
+            background-color: rgba(13, 17, 23, 0.6);
+            border: 1px solid rgba(48, 54, 61, 0.8);
             border-radius: 0px;
             padding: 12px;
             display: flex;
@@ -231,8 +232,8 @@
         }
 
         .hobby-tag {
-            background-color: rgba(13, 17, 23, 0.8);
-            border: 1px solid #30363d;
+            background-color: rgba(13, 17, 23, 0.6);
+            border: 1px solid rgba(48, 54, 61, 0.8);
             color: #8b949e !important;
             -webkit-text-fill-color: #8b949e !important;
             padding: 6px 12px;
@@ -250,8 +251,8 @@
         }
 
         .slider-nav {
-            background-color: rgba(13, 17, 23, 0.8);
-            border: 1px solid #30363d;
+            background-color: rgba(13, 17, 23, 0.6);
+            border: 1px solid rgba(48, 54, 61, 0.8);
             border-radius: 0px;
             padding: 4px;
             display: flex;
@@ -297,8 +298,8 @@
 
         .search-input {
             width: 100%;
-            background-color: rgba(13, 17, 23, 0.8);
-            border: 1px solid #30363d;
+            background-color: rgba(13, 17, 23, 0.7);
+            border: 1px solid rgba(48, 54, 61, 0.8);
             color: #c9d1d9 !important;
             -webkit-text-fill-color: #c9d1d9 !important;
             padding: 10px 12px;
@@ -320,7 +321,7 @@
         .search-input:focus {
             outline: none;
             border-color: #58a6ff;
-            background-color: #161b22;
+            background-color: rgba(22, 27, 34, 0.9);
         }
 
         .search-input::-webkit-search-decoration,
@@ -343,16 +344,16 @@
             overflow-y: auto;
             padding-right: 4px;
             scrollbar-width: thin;
-            scrollbar-color: #30363d #0d1117;
+            scrollbar-color: #30363d rgba(13, 17, 23, 0.5);
         }
 
         .scroll-container::-webkit-scrollbar { width: 4px; }
-        .scroll-container::-webkit-scrollbar-track { background: #0d1117; }
+        .scroll-container::-webkit-scrollbar-track { background: rgba(13, 17, 23, 0.5); }
         .scroll-container::-webkit-scrollbar-thumb { background: #30363d; border-radius: 0px; }
 
         .app-item {
-            background-color: rgba(13, 17, 23, 0.7);
-            border: 1px solid #30363d;
+            background-color: rgba(13, 17, 23, 0.6);
+            border: 1px solid rgba(48, 54, 61, 0.8);
             border-radius: 0px;
             padding: 12px 14px;
             display: flex;
@@ -407,13 +408,6 @@
             font-size: 28px;
         }
 
-        .app-icon-placeholder--deb {
-            background-color: #6e40c9;
-            border-color: #8957e5;
-            color: #fff;
-            font-size: 0.75rem;
-        }
-
         .app-info {
             display: flex;
             flex-direction: column;
@@ -437,24 +431,9 @@
             overflow-wrap: break-word;
         }
 
-        .app-note {
-            color: #d29922;
-            font-size: 0.7rem;
-            line-height: 1.3;
-            margin-top: 2px;
-        }
-
-        .app-warning {
-            color: #f85149;
-            font-size: 0.7rem;
-            line-height: 1.3;
-            margin-top: 4px;
-            font-weight: 600;
-        }
-
         .note-item {
-            background-color: rgba(13, 17, 23, 0.8);
-            border: 1px solid #30363d;
+            background-color: rgba(13, 17, 23, 0.6);
+            border: 1px solid rgba(48, 54, 61, 0.8);
             border-radius: 0px;
             padding: 14px;
             margin-bottom: 10px;
@@ -514,8 +493,7 @@
             -webkit-text-fill-color: #ffffff !important;
         }
 
-        .btn-install--blocked,
-        .btn-install[data-resolving="true"] {
+        .btn-install--blocked {
             background-color: #21262d;
             color: #6e7681 !important;
             -webkit-text-fill-color: #6e7681 !important;
@@ -523,23 +501,6 @@
             pointer-events: none;
         }
 
-        .btn-install--blocked:hover,
-        .btn-install[data-resolving="true"]:hover {
-            background-color: #21262d;
-        }
-
-        .btn-install--blocked.btn-install--clickable {
-            pointer-events: auto;
-            cursor: pointer;
-        }
-
-        .btn-install--blocked.btn-install--clickable:hover {
-            background-color: #30363d;
-            color: #c9d1d9 !important;
-            -webkit-text-fill-color: #c9d1d9 !important;
-        }
-
-        /* new: orange button style */
         .btn-install--orange {
             background-color: #d29922;
             color: #ffffff !important;
@@ -550,13 +511,14 @@
             background-color: #e3b341;
             border-color: #e3b341;
         }
-        .btn-install--orange.btn-install--clickable {
-            pointer-events: auto;
+        
+        .btn-install--spotify-warn {
+            background-color: #1f6feb;
             cursor: pointer;
         }
 
         .footer-text {
-            color: #484f58;
+            color: #8b949e;
             font-size: 0.75rem;
             font-weight: 400;
             margin-top: 4px;
@@ -585,7 +547,7 @@
             align-items: center;
             justify-content: center;
             padding: 16px;
-            background-color: rgba(13, 17, 23, 0.7);
+            background-color: rgba(13, 17, 23, 0.8);
             -webkit-backdrop-filter: blur(12px) saturate(120%);
             backdrop-filter: blur(12px) saturate(120%);
             opacity: 0;
@@ -667,6 +629,15 @@
             background-color: #21262d;
             border-color: #8b949e;
         }
+        
+        .popup-btn--danger {
+            background-color: #da3633;
+            border-color: #da3633;
+        }
+        .popup-btn--danger:hover {
+            background-color: #f85149;
+            border-color: #f85149;
+        }
 
         .popup-toast {
             display: block;
@@ -680,9 +651,13 @@
 
         .popup-toast.is-shown { opacity: 1; }
 
-        /* view switching — only one popup, two faces */
+        /* view switching */
         .popup-overlay[data-view="view2"] .popup-view1 { display: none; }
         .popup-overlay[data-view="view1"] .popup-view2 { display: none; }
+        .popup-overlay[data-view="view3"] .popup-view1,
+        .popup-overlay[data-view="view3"] .popup-view2 { display: none; }
+        .popup-overlay[data-view="view1"] .popup-view3,
+        .popup-overlay[data-view="view2"] .popup-view3 { display: none; }
 
         @media (prefers-reduced-motion: reduce) {
             .avatar-link,
@@ -768,7 +743,7 @@
 
     <div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle" aria-describedby="popupBody" data-view="view1">
         <div class="popup-box">
-            <!-- view 1 -->
+            <!-- view 1: Blinker / Gtok / Soundcloud -->
             <div class="popup-view1">
                 <h2 class="popup-title" id="popupTitle"></h2>
                 <p class="popup-body" id="popupBody"></p>
@@ -777,7 +752,7 @@
                     <button class="popup-btn popup-btn--ghost" id="popupCancel" type="button">Cancel</button>
                 </div>
             </div>
-            <!-- view 2 -->
+            <!-- view 2: Copy / Redirect -->
             <div class="popup-view2">
                 <h2 class="popup-title" id="popupTitle2">LINK READY</h2>
                 <p class="popup-body" id="popupBody2">Copy the link or jump straight to Telegram.</p>
@@ -786,6 +761,15 @@
                     <a class="popup-btn popup-btn--ghost" id="popupRedirect" href="#" target="_blank" rel="noopener noreferrer">Redirect me</a>
                 </div>
                 <span class="popup-toast" id="popupToast">Copied!</span>
+            </div>
+            <!-- view 3: Spotify Warning -->
+            <div class="popup-view3">
+                <h2 class="popup-title" id="popupTitle3" style="color: #f85149;">WARNING!</h2>
+                <p class="popup-body" id="popupBody3">This specific version on this website is out of date. Please go to their official Telegram server to get the newest ipa file.</p>
+                <div class="popup-actions">
+                    <button class="popup-btn popup-btn--ghost" id="popupOkay" type="button">Okay!</button>
+                    <button class="popup-btn popup-btn--danger" id="popupIgnore" type="button">I don't care.</button>
+                </div>
             </div>
         </div>
     </div>
@@ -971,6 +955,7 @@
                         icon: 'Images/IMG_4357.jpeg',
                         iconAlt: 'EeveeSpotify',
                         desc: 'Spotify modded. From Apptesters',
+                        spotifyWarning: true,
                         href: 'https://github.com/apptesters-org/AppTesters_Repo/releases/download/12-06-2026/EeveeSpotify_9.1.50_Premium_%40thisismanpreets_apptesters.org.ipa',
                         repo: 'apptesters-org/AppTesters_Repo',
                         assetMatch: /EeveeSpotify.*\.ipa$/i
@@ -980,6 +965,7 @@
                         icon: 'Images/IMG_4357.jpeg',
                         iconAlt: 'Eeveespotifyrepublic',
                         desc: 'EeveeSpotify Republic version',
+                        spotifyWarning: true,
                         href: 'https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks/EeveeSpotify-6.6.2-9.1.28-patched.ipa',
                         repo: 'v8vptjgydb-svg/Eeveespotify-IPA-Link',
                         assetMatch: /EeveeSpotify.*patched\.ipa$/i
@@ -989,6 +975,7 @@
                         icon: 'https://raw.githubusercontent.com/SideloadLabs/EeveeSpotifyReincarnated/refs/heads/Master/Assets/AppIcon/EeveeCustom%402x.png',
                         iconAlt: 'Eeveespotify Reincarnated',
                         desc: 'Self-explanatory',
+                        spotifyWarning: true,
                         href: 'https://files.catbox.moe/1qbbn8.ipa'
                     },
                     {
@@ -1227,6 +1214,7 @@
         var POPUP_OPEN_CLASS = 'is-open';
         var popupLastFocus = null;
         var popupCurrentSecondView = null;
+        var pendingSpotifyUrl = null;
 
         function setPopupView(view) {
             var overlay = document.getElementById('popupOverlay');
@@ -1244,6 +1232,7 @@
             /* reset view each open */
             setPopupView('view1');
             popupCurrentSecondView = config.secondView || null;
+            pendingSpotifyUrl = null;
 
             titleEl.textContent = config.title || '';
             bodyEl.textContent = config.body || '';
@@ -1285,6 +1274,19 @@
             goEl.focus();
         }
 
+        function openSpotifyWarning(url) {
+            var overlay = document.getElementById('popupOverlay');
+            if (!overlay) return;
+            
+            setPopupView('view3');
+            pendingSpotifyUrl = url;
+            popupLastFocus = document.activeElement;
+            overlay.classList.add(POPUP_OPEN_CLASS);
+            
+            var btnOkay = document.getElementById('popupOkay');
+            if (btnOkay) btnOkay.focus();
+        }
+
         function closePopup() {
             var overlay = document.getElementById('popupOverlay');
             if (!overlay) return;
@@ -1294,6 +1296,7 @@
             }
             popupLastFocus = null;
             popupCurrentSecondView = null;
+            pendingSpotifyUrl = null;
             var toast = document.getElementById('popupToast');
             if (toast) toast.classList.remove('is-shown');
         }
@@ -1307,7 +1310,6 @@
                 });
                 return;
             }
-            /* fallback for older iOS Safari */
             try {
                 var ta = document.createElement('textarea');
                 ta.value = text;
@@ -1331,11 +1333,23 @@
             var goBtn = document.getElementById('popupGo');
             var copyBtn = document.getElementById('popupCopy');
             var toast = document.getElementById('popupToast');
+            var okayBtn = document.getElementById('popupOkay');
+            var ignoreBtn = document.getElementById('popupIgnore');
+            
             if (!overlay) return;
 
             if (cancelBtn) cancelBtn.addEventListener('click', closePopup);
+            if (okayBtn) okayBtn.addEventListener('click', closePopup);
 
-            /* "Go there!" — if a secondView exists, slide to it; otherwise let the link open */
+            if (ignoreBtn) {
+                ignoreBtn.addEventListener('click', function() {
+                    if (pendingSpotifyUrl) {
+                        window.open(pendingSpotifyUrl, '_blank', 'noopener,noreferrer');
+                    }
+                    closePopup();
+                });
+            }
+
             if (goBtn) {
                 goBtn.addEventListener('click', function (e) {
                     if (popupCurrentSecondView) {
@@ -1344,7 +1358,6 @@
                         var redirect = document.getElementById('popupRedirect');
                         if (redirect) redirect.focus();
                     }
-                    /* no secondView -> default anchor behavior; close on next tick */
                     if (!popupCurrentSecondView) {
                         closePopup();
                     }
@@ -1376,7 +1389,6 @@
                 }
             });
 
-            /* focus trap */
             overlay.addEventListener('keydown', function (e) {
                 if (e.key !== 'Tab') return;
                 var focusable = overlay.querySelectorAll(
@@ -1434,7 +1446,7 @@
             var row = document.createElement('div');
             row.className = 'app-item';
 
-            var haystack = [item.title, item.desc, item.note, item.warning]
+            var haystack = [item.title, item.desc, item.note]
                 .filter(Boolean)
                 .join(' ')
                 .toLowerCase();
@@ -1459,36 +1471,11 @@
                 info.appendChild(desc);
             }
 
-            if (item.note) {
-                var note = document.createElement('span');
-                note.className = 'app-note';
-                note.textContent = item.note;
-                info.appendChild(note);
-            }
-
-            if (item.warning) {
-                var warning = document.createElement('span');
-                warning.className = 'app-warning';
-                warning.textContent = item.warning;
-                info.appendChild(warning);
-            }
-
             left.appendChild(info);
             row.appendChild(left);
 
             var label = item.btn || 'Install';
 
-            /* explicit disabled (non-clickable) */
-            if (item.disabled) {
-                var off = document.createElement('span');
-                off.className = 'btn-install btn-install--blocked';
-                off.textContent = 'Unavailable';
-                off.setAttribute('aria-label', 'Unavailable: ' + item.title);
-                row.appendChild(off);
-                return row;
-            }
-
-            /* popup item — button, styled as Install / Unavailable / orange */
             if (item.popup) {
                 var pbtn = document.createElement('button');
                 pbtn.type = 'button';
@@ -1521,7 +1508,7 @@
             }
 
             var btn = document.createElement('a');
-            btn.className = 'btn-install';
+            btn.className = 'btn-install' + (item.spotifyWarning ? ' btn-install--spotify-warn' : '');
             btn.setAttribute('href', item.href.trim());
             btn.setAttribute('referrerpolicy', 'no-referrer');
             btn.textContent = label;
@@ -1538,29 +1525,16 @@
                 dynamicLinks.push({ item: item, anchor: btn });
             }
 
+            /* Spotify Warning intercept */
+            if (item.spotifyWarning) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openSpotifyWarning(item.href.trim());
+                });
+            }
+
             row.appendChild(btn);
             return row;
-        }
-
-        function buildNotes(notes) {
-            var wrap = document.createElement('div');
-            wrap.className = 'note-item';
-
-            var heading = document.createElement('div');
-            heading.className = 'note-title';
-            heading.textContent = 'NOTE:';
-            wrap.appendChild(heading);
-
-            var ul = document.createElement('ul');
-            ul.className = 'note-list';
-            notes.forEach(function (text) {
-                var li = document.createElement('li');
-                li.textContent = text;
-                ul.appendChild(li);
-            });
-            wrap.appendChild(ul);
-
-            return wrap;
         }
 
         /* ================================================================
