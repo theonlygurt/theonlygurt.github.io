@@ -43,9 +43,9 @@
 
         body {
             background-color: #0d1117;
-            /* background image: lighter overlay to see the image better */
+            /* Nền sáng hơn, lớp phủ mỏng hơn */
             background-image:
-                linear-gradient(rgba(13, 17, 23, 0.5), rgba(13, 17, 23, 0.5)),
+                linear-gradient(rgba(13, 17, 23, 0.35), rgba(13, 17, 23, 0.35)),
                 url('https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/main/Images/IMG_1530.jpeg');
             background-size: cover;
             background-position: center;
@@ -59,17 +59,17 @@
         }
 
         .card {
-            /* transparent card to reveal background */
-            background-color: rgba(22, 27, 34, 0.65); 
-            border: 1px solid rgba(48, 54, 61, 0.8);
+            /* Khung chính mờ hơn */
+            background-color: rgba(22, 27, 34, 0.45); 
+            border: 1px solid rgba(48, 54, 61, 0.6);
             border-radius: 0px;
             padding: 20px;
             max-width: 400px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
         .js-ready .reveal {
@@ -143,10 +143,10 @@
         a.btn:visited,
         a.btn:active {
             display: block;
-            background-color: rgba(33, 38, 45, 0.85);
+            background-color: rgba(33, 38, 45, 0.6);
             color: #c9d1d9 !important;
             -webkit-text-fill-color: #c9d1d9 !important;
-            border: 1px solid rgba(48, 54, 61, 0.9);
+            border: 1px solid rgba(48, 54, 61, 0.7);
             padding: 10px 14px;
             border-radius: 0px;
             text-decoration: none;
@@ -158,7 +158,7 @@
         .btn:hover,
         a.btn:hover,
         a.btn:focus {
-            background-color: rgba(48, 54, 61, 0.9);
+            background-color: rgba(48, 54, 61, 0.8);
             border-color: #8b949e;
             color: #58a6ff !important;
             -webkit-text-fill-color: #58a6ff !important;
@@ -167,7 +167,7 @@
         .divider {
             border: 0;
             height: 1px;
-            background: rgba(48, 54, 61, 0.7);
+            background: rgba(48, 54, 61, 0.6);
             margin: 16px 0;
         }
 
@@ -191,8 +191,8 @@
         .skills-container { margin-top: 12px; margin-bottom: 16px; }
 
         .skills-box {
-            background-color: rgba(13, 17, 23, 0.6);
-            border: 1px solid rgba(48, 54, 61, 0.8);
+            background-color: rgba(13, 17, 23, 0.4);
+            border: 1px solid rgba(48, 54, 61, 0.6);
             border-radius: 0px;
             padding: 12px;
             display: flex;
@@ -232,8 +232,8 @@
         }
 
         .hobby-tag {
-            background-color: rgba(13, 17, 23, 0.6);
-            border: 1px solid rgba(48, 54, 61, 0.8);
+            background-color: rgba(13, 17, 23, 0.4);
+            border: 1px solid rgba(48, 54, 61, 0.6);
             color: #8b949e !important;
             -webkit-text-fill-color: #8b949e !important;
             padding: 6px 12px;
@@ -251,8 +251,8 @@
         }
 
         .slider-nav {
-            background-color: rgba(13, 17, 23, 0.6);
-            border: 1px solid rgba(48, 54, 61, 0.8);
+            background-color: rgba(13, 17, 23, 0.4);
+            border: 1px solid rgba(48, 54, 61, 0.6);
             border-radius: 0px;
             padding: 4px;
             display: flex;
@@ -298,8 +298,8 @@
 
         .search-input {
             width: 100%;
-            background-color: rgba(13, 17, 23, 0.7);
-            border: 1px solid rgba(48, 54, 61, 0.8);
+            background-color: rgba(13, 17, 23, 0.5);
+            border: 1px solid rgba(48, 54, 61, 0.6);
             color: #c9d1d9 !important;
             -webkit-text-fill-color: #c9d1d9 !important;
             padding: 10px 12px;
@@ -313,15 +313,15 @@
         }
 
         .search-input::placeholder {
-            color: #6e7681;
-            -webkit-text-fill-color: #6e7681;
+            color: #8b949e;
+            -webkit-text-fill-color: #8b949e;
             opacity: 1;
         }
 
         .search-input:focus {
             outline: none;
             border-color: #58a6ff;
-            background-color: rgba(22, 27, 34, 0.9);
+            background-color: rgba(22, 27, 34, 0.8);
         }
 
         .search-input::-webkit-search-decoration,
@@ -333,7 +333,7 @@
         }
 
         .search-empty {
-            color: #6e7681;
+            color: #8b949e;
             font-size: 0.8rem;
             padding: 20px 4px;
             text-align: center;
@@ -344,16 +344,16 @@
             overflow-y: auto;
             padding-right: 4px;
             scrollbar-width: thin;
-            scrollbar-color: #30363d rgba(13, 17, 23, 0.5);
+            scrollbar-color: #30363d rgba(13, 17, 23, 0.3);
         }
 
         .scroll-container::-webkit-scrollbar { width: 4px; }
-        .scroll-container::-webkit-scrollbar-track { background: rgba(13, 17, 23, 0.5); }
+        .scroll-container::-webkit-scrollbar-track { background: rgba(13, 17, 23, 0.3); }
         .scroll-container::-webkit-scrollbar-thumb { background: #30363d; border-radius: 0px; }
 
         .app-item {
-            background-color: rgba(13, 17, 23, 0.6);
-            border: 1px solid rgba(48, 54, 61, 0.8);
+            background-color: rgba(13, 17, 23, 0.45);
+            border: 1px solid rgba(48, 54, 61, 0.6);
             border-radius: 0px;
             padding: 12px 14px;
             display: flex;
@@ -432,8 +432,8 @@
         }
 
         .note-item {
-            background-color: rgba(13, 17, 23, 0.6);
-            border: 1px solid rgba(48, 54, 61, 0.8);
+            background-color: rgba(13, 17, 23, 0.45);
+            border: 1px solid rgba(48, 54, 61, 0.6);
             border-radius: 0px;
             padding: 14px;
             margin-bottom: 10px;
@@ -511,9 +511,8 @@
             background-color: #e3b341;
             border-color: #e3b341;
         }
-        
-        .btn-install--spotify-warn {
-            background-color: #1f6feb;
+        .btn-install--orange.btn-install--clickable {
+            pointer-events: auto;
             cursor: pointer;
         }
 
@@ -743,7 +742,7 @@
 
     <div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle" aria-describedby="popupBody" data-view="view1">
         <div class="popup-box">
-            <!-- view 1: Blinker / Gtok / Soundcloud -->
+            <!-- view 1: Blinker / Gtok / Soundcloud / Vibetok -->
             <div class="popup-view1">
                 <h2 class="popup-title" id="popupTitle"></h2>
                 <p class="popup-body" id="popupBody"></p>
@@ -762,7 +761,7 @@
                 </div>
                 <span class="popup-toast" id="popupToast">Copied!</span>
             </div>
-            <!-- view 3: Spotify Warning -->
+            <!-- view 3: Spotify / 3105 Warning -->
             <div class="popup-view3">
                 <h2 class="popup-title" id="popupTitle3" style="color: #f85149;">WARNING!</h2>
                 <p class="popup-body" id="popupBody3">This specific version on this website is out of date. Please go to their official Telegram server to get the newest ipa file.</p>
@@ -955,7 +954,10 @@
                         icon: 'Images/IMG_4357.jpeg',
                         iconAlt: 'EeveeSpotify',
                         desc: 'Spotify modded. From Apptesters',
-                        spotifyWarning: true,
+                        forceUnavailable: true,
+                        warnTitle: 'WARNING!',
+                        warnBody: 'This specific version on this website is out of date. Please go to their official Telegram server to get the newest ipa file.',
+                        btn: 'Unavailable',
                         href: 'https://github.com/apptesters-org/AppTesters_Repo/releases/download/12-06-2026/EeveeSpotify_9.1.50_Premium_%40thisismanpreets_apptesters.org.ipa',
                         repo: 'apptesters-org/AppTesters_Repo',
                         assetMatch: /EeveeSpotify.*\.ipa$/i
@@ -965,7 +967,10 @@
                         icon: 'Images/IMG_4357.jpeg',
                         iconAlt: 'Eeveespotifyrepublic',
                         desc: 'EeveeSpotify Republic version',
-                        spotifyWarning: true,
+                        forceUnavailable: true,
+                        warnTitle: 'WARNING!',
+                        warnBody: 'This specific version on this website is out of date. Please go to their official Telegram server to get the newest ipa file.',
+                        btn: 'Unavailable',
                         href: 'https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks/EeveeSpotify-6.6.2-9.1.28-patched.ipa',
                         repo: 'v8vptjgydb-svg/Eeveespotify-IPA-Link',
                         assetMatch: /EeveeSpotify.*patched\.ipa$/i
@@ -975,8 +980,7 @@
                         icon: 'https://raw.githubusercontent.com/SideloadLabs/EeveeSpotifyReincarnated/refs/heads/Master/Assets/AppIcon/EeveeCustom%402x.png',
                         iconAlt: 'Eeveespotify Reincarnated',
                         desc: 'Self-explanatory',
-                        spotifyWarning: true,
-                        href: 'https://files.catbox.moe/1qbbn8.ipa'
+                        disabled: true
                     },
                     {
                         title: 'Taurus Spotify',
@@ -992,7 +996,20 @@
                         icon: 'Images/IMG_3246.jpeg',
                         iconAlt: 'Vibetok',
                         desc: 'Best tiktok mod for iOS besides BHtiktok+',
-                        href: 'https://github.com/theonlygurt/theonlygurt.github.io/releases/download/1.0.6/VibeTokV1.75.ipa'
+                        btn: 'Unavailable',
+                        blockedStyle: true,
+                        popup: {
+                            title: 'HEADS UP!',
+                            body: "Join their official Telegram channel to get the IPA.",
+                            goText: 'Go there!',
+                            goUrl: 'https://t.me/DENS0R',
+                            secondView: {
+                                title: 'LINK READY',
+                                body: 'Copy the link or jump straight to Telegram.',
+                                copyText: 'https://t.me/DENS0R',
+                                redirectUrl: 'https://t.me/DENS0R'
+                            }
+                        }
                     },
                     {
                         title: 'Gtok DEB',
@@ -1122,7 +1139,11 @@
                         icon: 'https://raw.githubusercontent.com/YangJiiii/3105/refs/heads/main/docs/images/app-icon.png',
                         iconAlt: '3105 cracked',
                         desc: 'Cracked version of 3105',
-                        href: 'https://files.catbox.moe/5ozsac.ipa'
+                        btn: 'Unavailable',
+                        blockedStyle: true,
+                        warnTitle: 'WARNING!',
+                        warnBody: 'This specific app on this website may not work due to it being outdated. Use it with your own risk!',
+                        forceUnavailable: true
                     },
                     {
                         title: 'stikdebug IPA',
@@ -1214,7 +1235,8 @@
         var POPUP_OPEN_CLASS = 'is-open';
         var popupLastFocus = null;
         var popupCurrentSecondView = null;
-        var pendingSpotifyUrl = null;
+        var pendingActionUrl = null;
+        var pendingActionCallback = null;
 
         function setPopupView(view) {
             var overlay = document.getElementById('popupOverlay');
@@ -1229,10 +1251,9 @@
             var goEl = document.getElementById('popupGo');
             if (!overlay || !titleEl || !bodyEl || !goEl) return;
 
-            /* reset view each open */
             setPopupView('view1');
             popupCurrentSecondView = config.secondView || null;
-            pendingSpotifyUrl = null;
+            pendingActionUrl = null;
 
             titleEl.textContent = config.title || '';
             bodyEl.textContent = config.body || '';
@@ -1248,7 +1269,6 @@
                 goEl.style.display = 'none';
             }
 
-            /* view 2 defaults, if secondView supplied */
             if (config.secondView) {
                 var t2 = document.getElementById('popupTitle2');
                 var b2 = document.getElementById('popupBody2');
@@ -1274,16 +1294,34 @@
             goEl.focus();
         }
 
-        function openSpotifyWarning(url) {
+        function openCustomWarning(item) {
             var overlay = document.getElementById('popupOverlay');
+            var t3 = document.getElementById('popupTitle3');
+            var b3 = document.getElementById('popupBody3');
+            var btnOkay = document.getElementById('popupOkay');
+            var btnIgnore = document.getElementById('popupIgnore');
+            
             if (!overlay) return;
             
             setPopupView('view3');
-            pendingSpotifyUrl = url;
+            pendingActionUrl = item.href || null;
+            pendingActionCallback = null;
+            
+            if (t3) t3.textContent = item.warnTitle || 'WARNING!';
+            if (b3) b3.textContent = item.warnBody || '';
+            
+            // For 3105 cracked, we want "Go back" instead of "Okay!" and "I don't care."
+            if (item.warnTitle === 'WARNING!' && item.title.indexOf('3105') !== -1) {
+                if (btnOkay) btnOkay.textContent = 'Go back';
+                if (btnIgnore) btnIgnore.textContent = "I don't care.";
+            } else {
+                if (btnOkay) btnOkay.textContent = 'Okay!';
+                if (btnIgnore) btnIgnore.textContent = "I don't care.";
+            }
+            
             popupLastFocus = document.activeElement;
             overlay.classList.add(POPUP_OPEN_CLASS);
             
-            var btnOkay = document.getElementById('popupOkay');
             if (btnOkay) btnOkay.focus();
         }
 
@@ -1296,7 +1334,8 @@
             }
             popupLastFocus = null;
             popupCurrentSecondView = null;
-            pendingSpotifyUrl = null;
+            pendingActionUrl = null;
+            pendingActionCallback = null;
             var toast = document.getElementById('popupToast');
             if (toast) toast.classList.remove('is-shown');
         }
@@ -1343,8 +1382,8 @@
 
             if (ignoreBtn) {
                 ignoreBtn.addEventListener('click', function() {
-                    if (pendingSpotifyUrl) {
-                        window.open(pendingSpotifyUrl, '_blank', 'noopener,noreferrer');
+                    if (pendingActionUrl) {
+                        window.open(pendingActionUrl, '_blank', 'noopener,noreferrer');
                     }
                     closePopup();
                 });
@@ -1498,6 +1537,34 @@
                 return row;
             }
 
+            if (item.forceUnavailable) {
+                var ubtn = document.createElement('button');
+                ubtn.type = 'button';
+                var uclasses = 'btn-install btn-install--clickable';
+                if (item.blockedStyle) {
+                    uclasses += ' btn-install--orange';
+                } else {
+                    uclasses += ' btn-install--blocked';
+                }
+                ubtn.className = uclasses;
+                ubtn.textContent = 'Unavailable';
+                ubtn.setAttribute('aria-label', 'Unavailable: ' + item.title);
+                ubtn.addEventListener('click', function () {
+                    openCustomWarning(item);
+                });
+                row.appendChild(ubtn);
+                return row;
+            }
+
+            if (item.disabled) {
+                var off = document.createElement('span');
+                off.className = 'btn-install btn-install--blocked';
+                off.textContent = 'Unavailable';
+                off.setAttribute('aria-label', 'Unavailable: ' + item.title);
+                row.appendChild(off);
+                return row;
+            }
+
             if (!isSafeHref(item.href)) {
                 var blocked = document.createElement('span');
                 blocked.className = 'btn-install btn-install--blocked';
@@ -1508,7 +1575,7 @@
             }
 
             var btn = document.createElement('a');
-            btn.className = 'btn-install' + (item.spotifyWarning ? ' btn-install--spotify-warn' : '');
+            btn.className = 'btn-install';
             btn.setAttribute('href', item.href.trim());
             btn.setAttribute('referrerpolicy', 'no-referrer');
             btn.textContent = label;
@@ -1523,14 +1590,6 @@
                 btn.setAttribute('data-resolving', 'true');
                 btn.setAttribute('aria-disabled', 'true');
                 dynamicLinks.push({ item: item, anchor: btn });
-            }
-
-            /* Spotify Warning intercept */
-            if (item.spotifyWarning) {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openSpotifyWarning(item.href.trim());
-                });
             }
 
             row.appendChild(btn);
@@ -1830,7 +1889,7 @@
         }
 
         /* ================================================================
-           9. Scroll-reveal (safe: default is visible)
+           9. Scroll-reveal
            ================================================================ */
 
         (function initReveal() {
