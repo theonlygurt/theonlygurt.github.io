@@ -1096,7 +1096,16 @@
                         icon: 'https://raw.githubusercontent.com/Leviidev/Husk/refs/heads/main/src/app/Husk/Assets.xcassets/AppIcon.appiconset/Icon-Default.png',
                         iconAlt: 'Husk',
                         desc: 'Runs APK files and its variations on iOS gpu! requires JIT.',
-                        href: 'https://github.com/Leviidev/Husk/releases/download/3.4/Husk.ipa'
+                        repo: 'Leviidev/Husk',
+                        assetMatch: /^Husk.*\.ipa$/i
+                    },
+                    {
+                        title: 'Utsuro IPA',
+                        icon: 'https://raw.githubusercontent.com/Leviidev/Utsuro/refs/heads/main/docs/icon.png',
+                        iconAlt: 'Utsuro',
+                        desc: 'Runs Xbox games on iOS and ipadOS! Requires JIT.',
+                        repo: 'Leviidev/Utsuro',
+                        assetMatch: /^Utsuro.*\.ipa$/i
                     },
                     {
                         title: 'OldOS IPA',
@@ -1681,7 +1690,7 @@
 
             var btn = document.createElement('a');
             btn.className = 'btn-install';
-            btn.setAttribute('href', item.href.trim());
+            btn.setAttribute('href', item.href ? item.href.trim() : '#');
             btn.setAttribute('referrerpolicy', 'no-referrer');
             btn.textContent = label;
             btn.setAttribute('aria-label', item.ariaLabel || (label + ': ' + item.title));
