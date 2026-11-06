@@ -43,9 +43,9 @@
 
         body {
             background-color: #0d1117;
-            /* Nền sáng hơn, lớp phủ mỏng hơn */
+            /* Lớp phủ mỏng hơn để background hiện rõ */
             background-image:
-                linear-gradient(rgba(13, 17, 23, 0.35), rgba(13, 17, 23, 0.35)),
+                linear-gradient(rgba(13, 17, 23, 0.25), rgba(13, 17, 23, 0.25)),
                 url('https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/main/Images/IMG_1530.jpeg');
             background-size: cover;
             background-position: center;
@@ -59,23 +59,24 @@
         }
 
         .card {
-            /* Khung chính mờ hơn */
-            background-color: rgba(22, 27, 34, 0.45); 
-            border: 1px solid rgba(48, 54, 61, 0.6);
+            /* Giảm độ đậm của khung chính */
+            background-color: rgba(22, 27, 34, 0.25); 
+            border: 1px solid rgba(48, 54, 61, 0.4);
             border-radius: 0px;
             padding: 20px;
             max-width: 400px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
         }
 
+        /* Animation mượt hơn */
         .js-ready .reveal {
             opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
 
@@ -105,7 +106,7 @@
         .avatar-link {
             display: inline-block;
             border-radius: 0px;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .avatar-link:hover { transform: scale(1.05); }
@@ -143,22 +144,22 @@
         a.btn:visited,
         a.btn:active {
             display: block;
-            background-color: rgba(33, 38, 45, 0.6);
+            background-color: rgba(33, 38, 45, 0.4);
             color: #c9d1d9 !important;
             -webkit-text-fill-color: #c9d1d9 !important;
-            border: 1px solid rgba(48, 54, 61, 0.7);
+            border: 1px solid rgba(48, 54, 61, 0.5);
             padding: 10px 14px;
             border-radius: 0px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .btn:hover,
         a.btn:hover,
         a.btn:focus {
-            background-color: rgba(48, 54, 61, 0.8);
+            background-color: rgba(48, 54, 61, 0.6);
             border-color: #8b949e;
             color: #58a6ff !important;
             -webkit-text-fill-color: #58a6ff !important;
@@ -167,7 +168,7 @@
         .divider {
             border: 0;
             height: 1px;
-            background: rgba(48, 54, 61, 0.6);
+            background: rgba(48, 54, 61, 0.4);
             margin: 16px 0;
         }
 
@@ -191,8 +192,8 @@
         .skills-container { margin-top: 12px; margin-bottom: 16px; }
 
         .skills-box {
-            background-color: rgba(13, 17, 23, 0.4);
-            border: 1px solid rgba(48, 54, 61, 0.6);
+            background-color: rgba(13, 17, 23, 0.2);
+            border: 1px solid rgba(48, 54, 61, 0.4);
             border-radius: 0px;
             padding: 12px;
             display: flex;
@@ -232,8 +233,8 @@
         }
 
         .hobby-tag {
-            background-color: rgba(13, 17, 23, 0.4);
-            border: 1px solid rgba(48, 54, 61, 0.6);
+            background-color: rgba(13, 17, 23, 0.2);
+            border: 1px solid rgba(48, 54, 61, 0.4);
             color: #8b949e !important;
             -webkit-text-fill-color: #8b949e !important;
             padding: 6px 12px;
@@ -251,8 +252,8 @@
         }
 
         .slider-nav {
-            background-color: rgba(13, 17, 23, 0.4);
-            border: 1px solid rgba(48, 54, 61, 0.6);
+            background-color: rgba(13, 17, 23, 0.2);
+            border: 1px solid rgba(48, 54, 61, 0.4);
             border-radius: 0px;
             padding: 4px;
             display: flex;
@@ -277,7 +278,7 @@
             font-weight: 600;
             cursor: pointer;
             border-radius: 0px;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .slider-btn.active,
@@ -298,8 +299,8 @@
 
         .search-input {
             width: 100%;
-            background-color: rgba(13, 17, 23, 0.5);
-            border: 1px solid rgba(48, 54, 61, 0.6);
+            background-color: rgba(13, 17, 23, 0.3);
+            border: 1px solid rgba(48, 54, 61, 0.4);
             color: #c9d1d9 !important;
             -webkit-text-fill-color: #c9d1d9 !important;
             padding: 10px 12px;
@@ -309,7 +310,7 @@
             line-height: 1.2;
             -webkit-appearance: none;
             appearance: none;
-            transition: border-color 0.2s ease, background-color 0.2s ease;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
         }
 
         .search-input::placeholder {
@@ -321,7 +322,7 @@
         .search-input:focus {
             outline: none;
             border-color: #58a6ff;
-            background-color: rgba(22, 27, 34, 0.8);
+            background-color: rgba(22, 27, 34, 0.6);
         }
 
         .search-input::-webkit-search-decoration,
@@ -344,16 +345,16 @@
             overflow-y: auto;
             padding-right: 4px;
             scrollbar-width: thin;
-            scrollbar-color: #30363d rgba(13, 17, 23, 0.3);
+            scrollbar-color: #30363d rgba(13, 17, 23, 0.2);
         }
 
         .scroll-container::-webkit-scrollbar { width: 4px; }
-        .scroll-container::-webkit-scrollbar-track { background: rgba(13, 17, 23, 0.3); }
+        .scroll-container::-webkit-scrollbar-track { background: rgba(13, 17, 23, 0.2); }
         .scroll-container::-webkit-scrollbar-thumb { background: #30363d; border-radius: 0px; }
 
         .app-item {
-            background-color: rgba(13, 17, 23, 0.45);
-            border: 1px solid rgba(48, 54, 61, 0.6);
+            background-color: rgba(13, 17, 23, 0.25);
+            border: 1px solid rgba(48, 54, 61, 0.4);
             border-radius: 0px;
             padding: 12px 14px;
             display: flex;
@@ -432,8 +433,8 @@
         }
 
         .note-item {
-            background-color: rgba(13, 17, 23, 0.45);
-            border: 1px solid rgba(48, 54, 61, 0.6);
+            background-color: rgba(13, 17, 23, 0.25);
+            border: 1px solid rgba(48, 54, 61, 0.4);
             border-radius: 0px;
             padding: 14px;
             margin-bottom: 10px;
@@ -477,13 +478,15 @@
             padding: 8px 16px;
             border-radius: 0px;
             white-space: nowrap;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.1s ease;
             display: inline-block;
             flex-shrink: 0;
             border: none;
             cursor: pointer;
             font-family: inherit;
         }
+
+        .btn-install:active { transform: scale(0.96); }
 
         .btn-install:hover,
         a.btn-install:hover,
@@ -500,6 +503,16 @@
             cursor: not-allowed;
             pointer-events: none;
         }
+        
+        .btn-install--blocked.btn-install--clickable {
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        .btn-install--blocked.btn-install--clickable:hover {
+            background-color: #30363d;
+            color: #c9d1d9 !important;
+            -webkit-text-fill-color: #c9d1d9 !important;
+        }
 
         .btn-install--orange {
             background-color: #d29922;
@@ -511,9 +524,15 @@
             background-color: #e3b341;
             border-color: #e3b341;
         }
-        .btn-install--orange.btn-install--clickable {
-            pointer-events: auto;
-            cursor: pointer;
+        
+        /* Nút Unavailable màu xanh biển */
+        .btn-install--blue-unavailable {
+            background-color: #1f6feb;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+        .btn-install--blue-unavailable:hover {
+            background-color: #388bfd;
         }
 
         .footer-text {
@@ -546,18 +565,18 @@
             align-items: center;
             justify-content: center;
             padding: 16px;
-            background-color: rgba(13, 17, 23, 0.8);
+            background-color: rgba(13, 17, 23, 0.7);
             -webkit-backdrop-filter: blur(12px) saturate(120%);
             backdrop-filter: blur(12px) saturate(120%);
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+            transition: opacity 0.3s ease, visibility 0s linear 0.3s;
         }
 
         .popup-overlay.is-open {
             opacity: 1;
             visibility: visible;
-            transition: opacity 0.2s ease, visibility 0s linear 0s;
+            transition: opacity 0.3s ease, visibility 0s linear 0s;
         }
 
         .popup-box {
@@ -569,6 +588,12 @@
             width: 100%;
             text-align: center;
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .popup-overlay.is-open .popup-box {
+            transform: scale(1);
         }
 
         .popup-title {
@@ -663,7 +688,8 @@
             .btn,
             .btn-install,
             .slider-btn,
-            .popup-overlay { transition: none; }
+            .popup-overlay,
+            .popup-box { transition: none; }
         }
     </style>
 </head>
@@ -980,7 +1006,12 @@
                         icon: 'https://raw.githubusercontent.com/SideloadLabs/EeveeSpotifyReincarnated/refs/heads/Master/Assets/AppIcon/EeveeCustom%402x.png',
                         iconAlt: 'Eeveespotify Reincarnated',
                         desc: 'Self-explanatory',
-                        disabled: true
+                        forceUnavailable: true,
+                        blueUnavailable: true,
+                        warnTitle: 'WARNING!',
+                        warnBody: 'This specific version on this website is out of date. Please go to their official Telegram server to get the newest ipa file.',
+                        btn: 'Unavailable',
+                        href: 'https://files.catbox.moe/1qbbn8.ipa'
                     },
                     {
                         title: 'Taurus Spotify',
@@ -1143,7 +1174,8 @@
                         blockedStyle: true,
                         warnTitle: 'WARNING!',
                         warnBody: 'This specific app on this website may not work due to it being outdated. Use it with your own risk!',
-                        forceUnavailable: true
+                        forceUnavailable: true,
+                        href: 'https://files.catbox.moe/5ozsac.ipa'
                     },
                     {
                         title: 'stikdebug IPA',
@@ -1236,7 +1268,6 @@
         var popupLastFocus = null;
         var popupCurrentSecondView = null;
         var pendingActionUrl = null;
-        var pendingActionCallback = null;
 
         function setPopupView(view) {
             var overlay = document.getElementById('popupOverlay');
@@ -1305,13 +1336,11 @@
             
             setPopupView('view3');
             pendingActionUrl = item.href || null;
-            pendingActionCallback = null;
             
             if (t3) t3.textContent = item.warnTitle || 'WARNING!';
             if (b3) b3.textContent = item.warnBody || '';
             
-            // For 3105 cracked, we want "Go back" instead of "Okay!" and "I don't care."
-            if (item.warnTitle === 'WARNING!' && item.title.indexOf('3105') !== -1) {
+            if (item.title.indexOf('3105') !== -1) {
                 if (btnOkay) btnOkay.textContent = 'Go back';
                 if (btnIgnore) btnIgnore.textContent = "I don't care.";
             } else {
@@ -1335,7 +1364,6 @@
             popupLastFocus = null;
             popupCurrentSecondView = null;
             pendingActionUrl = null;
-            pendingActionCallback = null;
             var toast = document.getElementById('popupToast');
             if (toast) toast.classList.remove('is-shown');
         }
@@ -1541,7 +1569,9 @@
                 var ubtn = document.createElement('button');
                 ubtn.type = 'button';
                 var uclasses = 'btn-install btn-install--clickable';
-                if (item.blockedStyle) {
+                if (item.blueUnavailable) {
+                    uclasses += ' btn-install--blue-unavailable';
+                } else if (item.blockedStyle) {
                     uclasses += ' btn-install--orange';
                 } else {
                     uclasses += ' btn-install--blocked';
