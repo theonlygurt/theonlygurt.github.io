@@ -43,7 +43,6 @@
 
         body {
             background-color: #0d1117;
-            /* Lớp phủ mỏng nhất để background hiện rõ */
             background-image:
                 linear-gradient(rgba(13, 17, 23, 0.15), rgba(13, 17, 23, 0.15)),
                 url('https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/main/Images/IMG_1530.jpeg');
@@ -59,7 +58,6 @@
         }
 
         .card {
-            /* Khung chính siêu mờ */
             background-color: rgba(22, 27, 34, 0.15); 
             border: 1px solid rgba(48, 54, 61, 0.25);
             border-radius: 0px;
@@ -72,11 +70,12 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Animation mượt */
+        /* Animation mới: Phản hồi tức thì, trượt mượt và nhanh */
         .js-ready .reveal {
             opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: opacity, transform;
         }
 
@@ -525,7 +524,6 @@
             border-color: #e3b341;
         }
         
-        /* Nút Unavailable màu xanh biển */
         .btn-install--blue-unavailable {
             background-color: #1f6feb;
             color: #ffffff !important;
@@ -675,13 +673,31 @@
 
         .popup-toast.is-shown { opacity: 1; }
 
-        /* view switching */
-        .popup-overlay[data-view="view2"] .popup-view1 { display: none; }
-        .popup-overlay[data-view="view1"] .popup-view2 { display: none; }
-        .popup-overlay[data-view="view3"] .popup-view1,
-        .popup-overlay[data-view="view3"] .popup-view2 { display: none; }
+        /* View switching */
+        .popup-overlay[data-view="view1"] .popup-view2,
         .popup-overlay[data-view="view1"] .popup-view3,
-        .popup-overlay[data-view="view2"] .popup-view3 { display: none; }
+        .popup-overlay[data-view="view1"] .popup-view4,
+        .popup-overlay[data-view="view1"] .popup-view5 { display: none; }
+        
+        .popup-overlay[data-view="view2"] .popup-view1,
+        .popup-overlay[data-view="view2"] .popup-view3,
+        .popup-overlay[data-view="view2"] .popup-view4,
+        .popup-overlay[data-view="view2"] .popup-view5 { display: none; }
+        
+        .popup-overlay[data-view="view3"] .popup-view1,
+        .popup-overlay[data-view="view3"] .popup-view2,
+        .popup-overlay[data-view="view3"] .popup-view4,
+        .popup-overlay[data-view="view3"] .popup-view5 { display: none; }
+        
+        .popup-overlay[data-view="view4"] .popup-view1,
+        .popup-overlay[data-view="view4"] .popup-view2,
+        .popup-overlay[data-view="view4"] .popup-view3,
+        .popup-overlay[data-view="view4"] .popup-view5 { display: none; }
+
+        .popup-overlay[data-view="view5"] .popup-view1,
+        .popup-overlay[data-view="view5"] .popup-view2,
+        .popup-overlay[data-view="view5"] .popup-view3,
+        .popup-overlay[data-view="view5"] .popup-view4 { display: none; }
 
         @media (prefers-reduced-motion: reduce) {
             .avatar-link,
@@ -768,7 +784,7 @@
 
     <div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle" aria-describedby="popupBody" data-view="view1">
         <div class="popup-box">
-            <!-- view 1: Blinker / Gtok / Soundcloud / Vibetok -->
+            <!-- view 1: Generic Popup -->
             <div class="popup-view1">
                 <h2 class="popup-title" id="popupTitle"></h2>
                 <p class="popup-body" id="popupBody"></p>
@@ -787,14 +803,37 @@
                 </div>
                 <span class="popup-toast" id="popupToast">Copied!</span>
             </div>
-            <!-- view 3: Spotify / 3105 Warning -->
+            <!-- view 3: Warning -->
             <div class="popup-view3">
                 <h2 class="popup-title" id="popupTitle3" style="color: #f85149;">WARNING!</h2>
-                <p class="popup-body" id="popupBody3">This specific version on this website is out of date. Please go to their official Telegram server to get the newest ipa file.</p>
+                <p class="popup-body" id="popupBody3"></p>
                 <div class="popup-actions">
                     <button class="popup-btn popup-btn--ghost" id="popupOkay" type="button">Okay!</button>
                     <button class="popup-btn popup-btn--danger" id="popupIgnore" type="button">I don't care.</button>
                 </div>
+            </div>
+            <!-- view 4: CYPWN Discord special 3 buttons -->
+            <div class="popup-view4">
+                <h2 class="popup-title">CYPWN Server</h2>
+                <p class="popup-body">Join our official Discord community!</p>
+                <div class="popup-actions">
+                    <button class="popup-btn" id="popupCypwnCopy" type="button">Copy link</button>
+                    <a class="popup-btn popup-btn--ghost" id="popupCypwnRedirect" href="https://discord.com/invite/UvHZz3HfN9" target="_blank" rel="noopener noreferrer">Redirect to Discord</a>
+                    <button class="popup-btn popup-btn--ghost" id="popupCypwnBack" type="button">Go back...</button>
+                </div>
+                <span class="popup-toast" id="popupCypwnToast">Copied!</span>
+            </div>
+            <!-- view 5: CYPWN Repo -->
+            <div class="popup-view5">
+                <h2 class="popup-title">CYPWN Repo</h2>
+                <p class="popup-body">Choose an option to add the repo:</p>
+                <div class="popup-actions">
+                    <button class="popup-btn" id="popupRepoCopy" type="button">Copy link</button>
+                    <a class="popup-btn popup-btn--ghost" href="https://ipa.cypwn.xyz/cypwn.json" target="_blank" rel="noopener noreferrer">Add to Your signer(Ksign, Feather,..)!</a>
+                    <a class="popup-btn popup-btn--ghost" href="sidestore://source?url=https://ipa.cypwn.xyz/sidestore.json">Add to Sidestore!</a>
+                    <button class="popup-btn popup-btn--ghost" id="popupRepoBack" type="button">Go back...</button>
+                </div>
+                <span class="popup-toast" id="popupRepoToast">Copied!</span>
             </div>
         </div>
     </div>
@@ -803,11 +842,7 @@
     (function () {
         'use strict';
 
-        /* ================================================================
-           0. URL validation
-           ================================================================ */
-
-        var SAFE_HREF = /^(?:https:\/\/|itms-services:\/\/)/i;
+        var SAFE_HREF = /^(?:https:\/\/|itms-services:\/\/|sidestore:\/\/)/i;
         var UNSAFE_SRC = /^\s*(?:javascript|vbscript|data|blob|file|http):/i;
 
         function isSafeHref(raw) {
@@ -822,12 +857,7 @@
             return 'https://github.com/' + repo + '/releases/latest/download/' + filename;
         }
 
-        /* ================================================================
-           1. Data
-           ================================================================ */
-
         var TABS = [
-
             {
                 id: 'ipas-tipas',
                 label: 'IPAs/TIPAs/DEBs',
@@ -1188,63 +1218,29 @@
                     }
                 ]
             },
-
             {
                 id: 'others',
                 label: 'Others',
                 items: [
                     {
-                        title: 'HSBC Bank plc Cert',
-                        icon: 'Images/IMG_0934.png',
-                        iconAlt: 'Certificate',
-                        desc: 'Password: 1',
-                        href: 'https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/HSBC%20Bank%20plc.zip',
-                        btn: 'Download',
-                        external: true
+                        title: 'CYPWN discord server',
+                        icon: 'Images/IMG_2084.jpeg',
+                        iconAlt: 'CYPWN',
+                        desc: 'Join the official CYPWN Discord community.',
+                        btn: 'Go there!',
+                        specialPopup: 'cypwn'
                     },
                     {
-                        title: 'Jiangsu Simcere Cert',
-                        icon: 'Images/IMG_0934.png',
-                        iconAlt: 'Certificate',
-                        desc: 'Password: 1',
-                        href: 'https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Jiangsu%20Simcere%20Pharmaceutical.zip',
-                        btn: 'Download',
-                        external: true
-                    },
-                    {
-                        title: 'Aramco Services Cert',
-                        icon: 'Images/IMG_0934.png',
-                        iconAlt: 'Certificate',
-                        desc: 'Password: 1',
-                        href: 'https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Aramco%20Services%20Company.zip',
-                        btn: 'Download',
-                        external: true
-                    },
-                    {
-                        title: 'China Telecom Cert',
-                        icon: 'Images/IMG_0934.png',
-                        iconAlt: 'Certificate',
-                        desc: 'Password: 1',
-                        href: 'https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/China%20Telecom%20Corporation%20Limited.zip',
-                        btn: 'Download',
-                        external: true
-                    },
-                    {
-                        title: 'Moving Increasingly Cert',
-                        icon: 'Images/IMG_0934.png',
-                        iconAlt: 'Certificate',
-                        desc: 'Password: 1',
-                        href: 'https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/refs/heads/main/Cert%20files/Moving%20Increasingly%20Interconnection.zip',
-                        btn: 'Download',
-                        external: true
+                        title: 'CYPWN Repo',
+                        icon: 'Images/IMG_2084.jpeg',
+                        iconAlt: 'CYPWN Repo',
+                        desc: 'Add the CYPWN repo to your signer.',
+                        btn: 'Go there!',
+                        specialPopup: 'cypwn-repo'
                     }
                 ]
             }
         ];
-
-        /* ================================================================
-           2. Sorting helper
-           ================================================================ */
 
         function sortTabItems(items, mode) {
             if (mode !== 'az-num-last') return items;
@@ -1259,10 +1255,6 @@
                 });
             });
         }
-
-        /* ================================================================
-           3. Popup
-           ================================================================ */
 
         var POPUP_OPEN_CLASS = 'is-open';
         var popupLastFocus = null;
@@ -1354,6 +1346,26 @@
             if (btnOkay) btnOkay.focus();
         }
 
+        function openCypwnPopup() {
+            var overlay = document.getElementById('popupOverlay');
+            if (!overlay) return;
+            setPopupView('view4');
+            popupLastFocus = document.activeElement;
+            overlay.classList.add(POPUP_OPEN_CLASS);
+            var btn = document.getElementById('popupCypwnRedirect');
+            if (btn) btn.focus();
+        }
+
+        function openRepoPopup() {
+            var overlay = document.getElementById('popupOverlay');
+            if (!overlay) return;
+            setPopupView('view5');
+            popupLastFocus = document.activeElement;
+            overlay.classList.add(POPUP_OPEN_CLASS);
+            var btn = document.getElementById('popupRepoCopy');
+            if (btn) btn.focus();
+        }
+
         function closePopup() {
             var overlay = document.getElementById('popupOverlay');
             if (!overlay) return;
@@ -1364,8 +1376,11 @@
             popupLastFocus = null;
             popupCurrentSecondView = null;
             pendingActionUrl = null;
-            var toast = document.getElementById('popupToast');
-            if (toast) toast.classList.remove('is-shown');
+            
+            var toasts = document.querySelectorAll('.popup-toast');
+            for (var i = 0; i < toasts.length; i++) {
+                toasts[i].classList.remove('is-shown');
+            }
         }
 
         function copyText(text, done) {
@@ -1403,10 +1418,20 @@
             var okayBtn = document.getElementById('popupOkay');
             var ignoreBtn = document.getElementById('popupIgnore');
             
+            var cypwnCopyBtn = document.getElementById('popupCypwnCopy');
+            var cypwnToast = document.getElementById('popupCypwnToast');
+            var cypwnBackBtn = document.getElementById('popupCypwnBack');
+
+            var repoCopyBtn = document.getElementById('popupRepoCopy');
+            var repoToast = document.getElementById('popupRepoToast');
+            var repoBackBtn = document.getElementById('popupRepoBack');
+            
             if (!overlay) return;
 
             if (cancelBtn) cancelBtn.addEventListener('click', closePopup);
             if (okayBtn) okayBtn.addEventListener('click', closePopup);
+            if (cypwnBackBtn) cypwnBackBtn.addEventListener('click', closePopup);
+            if (repoBackBtn) repoBackBtn.addEventListener('click', closePopup);
 
             if (ignoreBtn) {
                 ignoreBtn.addEventListener('click', function() {
@@ -1436,10 +1461,38 @@
                     if (!popupCurrentSecondView || !popupCurrentSecondView.copyText) return;
                     copyText(popupCurrentSecondView.copyText, function (ok) {
                         if (toast) {
-                            toast.textContent = ok ? 'Copied!' : 'Copy failed — copy manually';
+                            toast.textContent = ok ? 'Copied!' : 'Copy failed';
                             toast.classList.add('is-shown');
                             setTimeout(function () {
                                 toast.classList.remove('is-shown');
+                            }, 1600);
+                        }
+                    });
+                });
+            }
+            
+            if (cypwnCopyBtn) {
+                cypwnCopyBtn.addEventListener('click', function() {
+                    copyText('https://discord.com/invite/UvHZz3HfN9', function(ok) {
+                        if (cypwnToast) {
+                            cypwnToast.textContent = ok ? 'Copied!' : 'Copy failed';
+                            cypwnToast.classList.add('is-shown');
+                            setTimeout(function () {
+                                cypwnToast.classList.remove('is-shown');
+                            }, 1600);
+                        }
+                    });
+                });
+            }
+
+            if (repoCopyBtn) {
+                repoCopyBtn.addEventListener('click', function() {
+                    copyText('https://ipa.cypwn.xyz/', function(ok) {
+                        if (repoToast) {
+                            repoToast.textContent = ok ? 'Copied!' : 'Copy failed';
+                            repoToast.classList.add('is-shown');
+                            setTimeout(function () {
+                                repoToast.classList.remove('is-shown');
                             }, 1600);
                         }
                     });
@@ -1477,10 +1530,6 @@
                 }
             });
         }
-
-        /* ================================================================
-           4. Rendering
-           ================================================================ */
 
         var dynamicLinks = [];
 
@@ -1542,6 +1591,26 @@
             row.appendChild(left);
 
             var label = item.btn || 'Install';
+
+            if (item.specialPopup === 'cypwn') {
+                var cbtn = document.createElement('button');
+                cbtn.type = 'button';
+                cbtn.className = 'btn-install';
+                cbtn.textContent = label;
+                cbtn.addEventListener('click', openCypwnPopup);
+                row.appendChild(cbtn);
+                return row;
+            }
+
+            if (item.specialPopup === 'cypwn-repo') {
+                var rbtn = document.createElement('button');
+                rbtn.type = 'button';
+                rbtn.className = 'btn-install';
+                rbtn.textContent = label;
+                rbtn.addEventListener('click', openRepoPopup);
+                row.appendChild(rbtn);
+                return row;
+            }
 
             if (item.popup) {
                 var pbtn = document.createElement('button');
@@ -1626,10 +1695,6 @@
             return row;
         }
 
-        /* ================================================================
-           5. Search
-           ================================================================ */
-
         function filterPanel(panel, query) {
             var scroll = panel.querySelector('.scroll-container');
             if (!scroll) return;
@@ -1643,11 +1708,6 @@
                 var match = !q || hay.indexOf(q) !== -1;
                 row.style.display = match ? '' : 'none';
                 if (match) visible++;
-            });
-
-            var notes = scroll.querySelectorAll('.note-item');
-            Array.prototype.forEach.call(notes, function (n) {
-                n.style.display = q ? 'none' : '';
             });
 
             var empty = scroll.querySelector('.search-empty');
@@ -1685,10 +1745,6 @@
             wrap.appendChild(input);
             return wrap;
         }
-
-        /* ================================================================
-           6. Tab building
-           ================================================================ */
 
         function buildTabs() {
             var nav = document.querySelector('.slider-nav');
@@ -1729,10 +1785,6 @@
                     scroll.appendChild(buildItem(item));
                 });
 
-                if (tab.notes && tab.notes.length) {
-                    scroll.appendChild(buildNotes(tab.notes));
-                }
-
                 if (tab.searchable) {
                     var empty = document.createElement('div');
                     empty.className = 'search-empty';
@@ -1745,10 +1797,6 @@
                 content.appendChild(panel);
             });
         }
-
-        /* ================================================================
-           7. Live "latest release" resolution
-           ================================================================ */
 
         var LATEST_CACHE_KEY = 'gurt-latest-cache-v1';
         var CACHE_TTL = 6 * 60 * 60 * 1000;
@@ -1876,10 +1924,6 @@
             });
         }
 
-        /* ================================================================
-           8. Tab behaviour
-           ================================================================ */
-
         function selectTab(tabId, focusTab) {
             var buttons = document.querySelectorAll('.slider-btn');
             Array.prototype.forEach.call(buttons, function (btn) {
@@ -1919,9 +1963,9 @@
         }
 
         /* ================================================================
-           9. Scroll-reveal
+           Scroll Reveal Animation (Tối ưu cho tốc độ lướt)
+           Dùng window.onscroll thay vì IntersectionObserver
            ================================================================ */
-
         (function initReveal() {
             var els = document.querySelectorAll('.reveal');
             if (!els.length) return;
@@ -1929,31 +1973,42 @@
             var reduce = window.matchMedia &&
                 window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-            if (reduce || !('IntersectionObserver' in window)) return;
+            if (reduce) return;
 
             document.documentElement.classList.add('js-ready');
 
-            var io = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    } else if (entry.boundingClientRect.top > 0) {
-                        entry.target.classList.remove('is-visible');
+            var ticking = false;
+            var windowHeight = window.innerHeight;
+
+            function checkReveal() {
+                for (var i = 0; i < els.length; i++) {
+                    var el = els[i];
+                    if (el.classList.contains('is-visible')) continue;
+
+                    var rect = el.getBoundingClientRect();
+                    // Hiển thị khi đỉnh phần tử lọt vào 90% chiều cao màn hình
+                    if (rect.top < windowHeight * 0.9) {
+                        el.classList.add('is-visible');
                     }
-                });
-            }, {
-                rootMargin: '0px 0px -10% 0px',
-                threshold: 0.1
+                }
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(checkReveal);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            window.addEventListener('resize', function() {
+                windowHeight = window.innerHeight;
+                checkReveal();
             });
 
-            Array.prototype.forEach.call(els, function (el) {
-                io.observe(el);
-            });
+            // Chạy lần đầu
+            checkReveal();
         })();
-
-        /* ================================================================
-           10. Boot
-           ================================================================ */
 
         initPopup();
         buildTabs();
