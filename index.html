@@ -43,9 +43,9 @@
 
         body {
             background-color: #0d1117;
-            /* Lớp phủ mỏng hơn để background hiện rõ */
+            /* Lớp phủ mỏng nhất để background hiện rõ */
             background-image:
-                linear-gradient(rgba(13, 17, 23, 0.25), rgba(13, 17, 23, 0.25)),
+                linear-gradient(rgba(13, 17, 23, 0.15), rgba(13, 17, 23, 0.15)),
                 url('https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/main/Images/IMG_1530.jpeg');
             background-size: cover;
             background-position: center;
@@ -59,20 +59,20 @@
         }
 
         .card {
-            /* Giảm độ đậm của khung chính */
-            background-color: rgba(22, 27, 34, 0.25); 
-            border: 1px solid rgba(48, 54, 61, 0.4);
+            /* Khung chính siêu mờ */
+            background-color: rgba(22, 27, 34, 0.15); 
+            border: 1px solid rgba(48, 54, 61, 0.25);
             border-radius: 0px;
             padding: 20px;
             max-width: 400px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Animation mượt hơn */
+        /* Animation mượt */
         .js-ready .reveal {
             opacity: 0;
             transform: translateY(24px);
@@ -144,10 +144,10 @@
         a.btn:visited,
         a.btn:active {
             display: block;
-            background-color: rgba(33, 38, 45, 0.4);
+            background-color: rgba(33, 38, 45, 0.3);
             color: #c9d1d9 !important;
             -webkit-text-fill-color: #c9d1d9 !important;
-            border: 1px solid rgba(48, 54, 61, 0.5);
+            border: 1px solid rgba(48, 54, 61, 0.35);
             padding: 10px 14px;
             border-radius: 0px;
             text-decoration: none;
@@ -159,7 +159,7 @@
         .btn:hover,
         a.btn:hover,
         a.btn:focus {
-            background-color: rgba(48, 54, 61, 0.6);
+            background-color: rgba(48, 54, 61, 0.5);
             border-color: #8b949e;
             color: #58a6ff !important;
             -webkit-text-fill-color: #58a6ff !important;
@@ -168,7 +168,7 @@
         .divider {
             border: 0;
             height: 1px;
-            background: rgba(48, 54, 61, 0.4);
+            background: rgba(48, 54, 61, 0.3);
             margin: 16px 0;
         }
 
@@ -192,8 +192,8 @@
         .skills-container { margin-top: 12px; margin-bottom: 16px; }
 
         .skills-box {
-            background-color: rgba(13, 17, 23, 0.2);
-            border: 1px solid rgba(48, 54, 61, 0.4);
+            background-color: rgba(13, 17, 23, 0.1);
+            border: 1px solid rgba(48, 54, 61, 0.25);
             border-radius: 0px;
             padding: 12px;
             display: flex;
@@ -233,8 +233,8 @@
         }
 
         .hobby-tag {
-            background-color: rgba(13, 17, 23, 0.2);
-            border: 1px solid rgba(48, 54, 61, 0.4);
+            background-color: rgba(13, 17, 23, 0.1);
+            border: 1px solid rgba(48, 54, 61, 0.25);
             color: #8b949e !important;
             -webkit-text-fill-color: #8b949e !important;
             padding: 6px 12px;
@@ -252,8 +252,8 @@
         }
 
         .slider-nav {
-            background-color: rgba(13, 17, 23, 0.2);
-            border: 1px solid rgba(48, 54, 61, 0.4);
+            background-color: rgba(13, 17, 23, 0.1);
+            border: 1px solid rgba(48, 54, 61, 0.25);
             border-radius: 0px;
             padding: 4px;
             display: flex;
@@ -299,8 +299,8 @@
 
         .search-input {
             width: 100%;
-            background-color: rgba(13, 17, 23, 0.3);
-            border: 1px solid rgba(48, 54, 61, 0.4);
+            background-color: rgba(13, 17, 23, 0.15);
+            border: 1px solid rgba(48, 54, 61, 0.25);
             color: #c9d1d9 !important;
             -webkit-text-fill-color: #c9d1d9 !important;
             padding: 10px 12px;
@@ -322,7 +322,7 @@
         .search-input:focus {
             outline: none;
             border-color: #58a6ff;
-            background-color: rgba(22, 27, 34, 0.6);
+            background-color: rgba(22, 27, 34, 0.5);
         }
 
         .search-input::-webkit-search-decoration,
@@ -345,16 +345,16 @@
             overflow-y: auto;
             padding-right: 4px;
             scrollbar-width: thin;
-            scrollbar-color: #30363d rgba(13, 17, 23, 0.2);
+            scrollbar-color: #30363d rgba(13, 17, 23, 0.1);
         }
 
         .scroll-container::-webkit-scrollbar { width: 4px; }
-        .scroll-container::-webkit-scrollbar-track { background: rgba(13, 17, 23, 0.2); }
+        .scroll-container::-webkit-scrollbar-track { background: rgba(13, 17, 23, 0.1); }
         .scroll-container::-webkit-scrollbar-thumb { background: #30363d; border-radius: 0px; }
 
         .app-item {
-            background-color: rgba(13, 17, 23, 0.25);
-            border: 1px solid rgba(48, 54, 61, 0.4);
+            background-color: rgba(13, 17, 23, 0.15);
+            border: 1px solid rgba(48, 54, 61, 0.25);
             border-radius: 0px;
             padding: 12px 14px;
             display: flex;
@@ -433,8 +433,8 @@
         }
 
         .note-item {
-            background-color: rgba(13, 17, 23, 0.25);
-            border: 1px solid rgba(48, 54, 61, 0.4);
+            background-color: rgba(13, 17, 23, 0.15);
+            border: 1px solid rgba(48, 54, 61, 0.25);
             border-radius: 0px;
             padding: 14px;
             margin-bottom: 10px;
@@ -580,7 +580,7 @@
         }
 
         .popup-box {
-            background-color: #161b22;
+            background-color: rgba(22, 27, 34, 0.95);
             border: 1px solid #30363d;
             border-radius: 0px;
             padding: 24px 20px 20px;
