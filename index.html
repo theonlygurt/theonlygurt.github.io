@@ -62,8 +62,6 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
-        /* ---- scroll-reveal ----
-           default = visible. only hide when JS confirms it will reveal. */
         .js-ready .reveal {
             opacity: 0;
             transform: translateY(12px);
@@ -88,7 +86,8 @@
         .btn-install:focus-visible,
         .slider-btn:focus-visible,
         .avatar-link:focus-visible,
-        .search-input:focus-visible {
+        .search-input:focus-visible,
+        .popup-btn:focus-visible {
             outline: 2px solid #58a6ff;
             outline-offset: 2px;
         }
@@ -99,9 +98,7 @@
             transition: transform 0.2s ease;
         }
 
-        .avatar-link:hover {
-            transform: scale(1.05);
-        }
+        .avatar-link:hover { transform: scale(1.05); }
 
         .avatar {
             width: 80px;
@@ -438,6 +435,14 @@
             margin-top: 2px;
         }
 
+        .app-warning {
+            color: #f85149;
+            font-size: 0.7rem;
+            line-height: 1.3;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
         .note-item {
             background-color: #0d1117;
             border: 1px solid #30363d;
@@ -473,7 +478,8 @@
         }
 
         .btn-install,
-        a.btn-install {
+        a.btn-install,
+        button.btn-install {
             background-color: #1f6feb;
             color: #ffffff !important;
             -webkit-text-fill-color: #ffffff !important;
@@ -486,10 +492,14 @@
             transition: background-color 0.2s ease;
             display: inline-block;
             flex-shrink: 0;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
         }
 
         .btn-install:hover,
-        a.btn-install:hover {
+        a.btn-install:hover,
+        button.btn-install:hover {
             background-color: #388bfd;
             color: #ffffff !important;
             -webkit-text-fill-color: #ffffff !important;
@@ -507,6 +517,17 @@
         .btn-install--blocked:hover,
         .btn-install[data-resolving="true"]:hover {
             background-color: #21262d;
+        }
+
+        .btn-install--blocked.btn-install--clickable {
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        .btn-install--blocked.btn-install--clickable:hover {
+            background-color: #30363d;
+            color: #c9d1d9 !important;
+            -webkit-text-fill-color: #c9d1d9 !important;
         }
 
         .footer-text {
@@ -530,11 +551,120 @@
 
         .contributions-section .note-list li { font-size: 0.8rem; }
 
+        /* ---- popup ---- */
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            background-color: rgba(13, 17, 23, 0.7);
+            -webkit-backdrop-filter: blur(12px) saturate(120%);
+            backdrop-filter: blur(12px) saturate(120%);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+        }
+
+        .popup-overlay.is-open {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease, visibility 0s linear 0s;
+        }
+
+        .popup-box {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 0px;
+            padding: 24px 20px 20px;
+            max-width: 360px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+        }
+
+        .popup-title {
+            color: #f0f6fc;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 0.02em;
+        }
+
+        .popup-body {
+            color: #c9d1d9;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .popup-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .popup-btn {
+            display: block;
+            width: 100%;
+            background-color: #1f6feb;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            border: 1px solid #1f6feb;
+            padding: 12px 16px;
+            border-radius: 0px;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.9rem;
+            line-height: 1.3;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .popup-btn:hover {
+            background-color: #388bfd;
+            border-color: #388bfd;
+        }
+
+        .popup-btn--ghost {
+            background-color: transparent;
+            color: #8b949e !important;
+            -webkit-text-fill-color: #8b949e !important;
+            border: 1px solid #30363d;
+            font-weight: 600;
+        }
+
+        .popup-btn--ghost:hover {
+            background-color: #21262d;
+            border-color: #8b949e;
+        }
+
+        .popup-toast {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: #3fb950;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            height: 1em;
+        }
+
+        .popup-toast.is-shown { opacity: 1; }
+
+        /* view switching — only one popup, two faces */
+        .popup-overlay[data-view="view2"] .popup-view1 { display: none; }
+        .popup-overlay[data-view="view1"] .popup-view2 { display: none; }
+
         @media (prefers-reduced-motion: reduce) {
             .avatar-link,
             .btn,
             .btn-install,
-            .slider-btn { transition: none; }
+            .slider-btn,
+            .popup-overlay { transition: none; }
         }
     </style>
 </head>
@@ -609,6 +739,30 @@
 
         <hr class="divider reveal">
         <p class="footer-text reveal">Made with ❤️ by Gurt</p>
+    </div>
+
+    <div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle" aria-describedby="popupBody" data-view="view1">
+        <div class="popup-box">
+            <!-- view 1 -->
+            <div class="popup-view1">
+                <h2 class="popup-title" id="popupTitle"></h2>
+                <p class="popup-body" id="popupBody"></p>
+                <div class="popup-actions">
+                    <a class="popup-btn" id="popupGo" href="#" target="_blank" rel="noopener noreferrer">Go there!</a>
+                    <button class="popup-btn popup-btn--ghost" id="popupCancel" type="button">Cancel</button>
+                </div>
+            </div>
+            <!-- view 2 -->
+            <div class="popup-view2">
+                <h2 class="popup-title" id="popupTitle2">LINK READY</h2>
+                <p class="popup-body" id="popupBody2">Copy the link or jump straight to Telegram.</p>
+                <div class="popup-actions">
+                    <button class="popup-btn" id="popupCopy" type="button">Copy link</button>
+                    <a class="popup-btn popup-btn--ghost" id="popupRedirect" href="#" target="_blank" rel="noopener noreferrer">Redirect me</a>
+                </div>
+                <span class="popup-toast" id="popupToast">Copied!</span>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -760,9 +914,12 @@
                         title: 'Blinker Fluid IPA',
                         placeholder: 'Browser',
                         desc: "An experimental Chromium Blink + V8 browser for iOS. Runs without Apple's WebKit engine. Requires JIT",
-                        href: 'https://github.com/Nodesclock/Blinker-Fluid/releases/download/v.0.3/Blinker.Fluid.v.0.3.JIT.ipa',
-                        repo: 'Nodesclock/Blinker-Fluid',
-                        assetMatch: /\.ipa$/i
+                        popup: {
+                            title: 'HEADS UP!',
+                            body: 'Download the ipa/tipa suitable for your phone then (sign and) install it!',
+                            goText: 'Go there!',
+                            goUrl: 'https://github.com/Nodesclock/Blinker-Fluid/releases/tag/v.0.3.1'
+                        }
                     },
                     {
                         title: 'Soundcloud modded IPA',
@@ -776,6 +933,7 @@
                         icon: 'Images/IMG_4357.jpeg',
                         iconAlt: 'EeveeSpotify',
                         desc: 'Spotify modded. From Apptesters',
+                        warning: 'This version is outdated. Use with your own risk!',
                         href: 'https://github.com/apptesters-org/AppTesters_Repo/releases/download/12-06-2026/EeveeSpotify_9.1.50_Premium_%40thisismanpreets_apptesters.org.ipa',
                         repo: 'apptesters-org/AppTesters_Repo',
                         assetMatch: /EeveeSpotify.*\.ipa$/i
@@ -785,9 +943,27 @@
                         icon: 'Images/IMG_4357.jpeg',
                         iconAlt: 'Eeveespotifyrepublic',
                         desc: 'EeveeSpotify Republic version',
+                        warning: 'This version is outdated. Use with your own risk!',
                         href: 'https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks/EeveeSpotify-6.6.2-9.1.28-patched.ipa',
                         repo: 'v8vptjgydb-svg/Eeveespotify-IPA-Link',
                         assetMatch: /EeveeSpotify.*patched\.ipa$/i
+                    },
+                    {
+                        title: 'Eeveespotify Reincarnated IPA',
+                        icon: 'https://raw.githubusercontent.com/SideloadLabs/EeveeSpotifyReincarnated/refs/heads/Master/Assets/AppIcon/EeveeCustom%402x.png',
+                        iconAlt: 'Eeveespotify Reincarnated',
+                        desc: 'Self-explanatory',
+                        warning: 'This version is outdated. Use with your own risk!',
+                        href: 'https://files.catbox.moe/1qbbn8.ipa'
+                    },
+                    {
+                        title: 'Taurus Spotify',
+                        icon: 'Images/IMG_4357.jpeg',
+                        iconAlt: 'Taurus Spotify',
+                        desc: 'A better spotify mod, recommended',
+                        href: 'https://drive.google.com/drive/folders/1t4_9uHxkEvNb_kaJYROa64U5VGzoRoqc?usp=sharing',
+                        btn: 'Download',
+                        external: true
                     },
                     {
                         title: 'Vibetok IPA',
@@ -801,8 +977,19 @@
                         icon: 'Images/IMG_2084.jpeg',
                         iconAlt: 'Gtok',
                         desc: 'A tiktok mod better than vibetok. inject this using Ksign/Feather or any signer than can inject. works well on rootless jailbroken phones but not on roothide(may not work properly)',
-                        href: 'https://github.com/theonlygurt/theonlygurt.github.io/releases/download/1.0.75/com.gtok.rootless_2.2_iphoneos-arm64.deb',
-                        btn: 'Download'
+                        btn: 'Unavailable',
+                        popup: {
+                            title: 'HEADS UP!',
+                            body: "Due to the fact that i can't keep up with the updates, Kindly go to their official Telegram channel for ipa/deb files!",
+                            goText: 'Go there!',
+                            goUrl: 'https://t.me/g_tweaks',
+                            secondView: {
+                                title: 'LINK READY',
+                                body: 'Copy the link or jump straight to Telegram.',
+                                copyText: 'https://t.me/g_tweaks',
+                                redirectUrl: 'https://t.me/g_tweaks'
+                            }
+                        }
                     },
                     {
                         title: 'OldOS IPA',
@@ -837,6 +1024,13 @@
                         href: ghLatest('EduAlexxis/ByeTunes', 'ByeTunes.ipa')
                     },
                     {
+                        title: 'IbisPaint prime X',
+                        icon: 'Images/IMG_2084.jpeg',
+                        iconAlt: 'IbisPaint prime X',
+                        desc: 'IbisPaint X++ premium unlocked. Signed by LeTi.',
+                        href: 'https://github.com/theonlygurt/theonlygurt.github.io/releases/download/1.0.11/ibis.Paint.X++_14.0.0_15.0_LeTi.ipa'
+                    },
+                    {
                         title: 'YouProEXTRA',
                         icon: 'https://raw.githubusercontent.com/dayanch96/YTLite/refs/heads/main/Resources/icon.png',
                         iconAlt: 'YouProEXTRA',
@@ -869,13 +1063,6 @@
                         href: 'https://github.com/nfzerox/VirtualMacOniPad/releases/download/1.2.3/VirtualMac_1.2.3.deb',
                         repo: 'nfzerox/VirtualMacOniPad',
                         assetMatch: /^VirtualMac_.*\.deb$/i
-                    },
-                    {
-                        title: 'Eeveespotify Reincarnated IPA',
-                        icon: 'https://raw.githubusercontent.com/SideloadLabs/EeveeSpotifyReincarnated/refs/heads/Master/Assets/AppIcon/EeveeCustom%402x.png',
-                        iconAlt: 'Eeveespotify Reincarnated',
-                        desc: 'Self-explanatory',
-                        href: 'https://files.catbox.moe/1qbbn8.ipa'
                     },
                     {
                         title: 'TrollApps IPA',
@@ -998,7 +1185,186 @@
         }
 
         /* ================================================================
-           3. Rendering
+           3. Popup
+           ================================================================ */
+
+        var POPUP_OPEN_CLASS = 'is-open';
+        var popupLastFocus = null;
+        var popupCurrentSecondView = null;
+
+        function setPopupView(view) {
+            var overlay = document.getElementById('popupOverlay');
+            if (!overlay) return;
+            overlay.setAttribute('data-view', view);
+        }
+
+        function openPopup(config) {
+            var overlay = document.getElementById('popupOverlay');
+            var titleEl = document.getElementById('popupTitle');
+            var bodyEl = document.getElementById('popupBody');
+            var goEl = document.getElementById('popupGo');
+            if (!overlay || !titleEl || !bodyEl || !goEl) return;
+
+            /* reset view each open */
+            setPopupView('view1');
+            popupCurrentSecondView = config.secondView || null;
+
+            titleEl.textContent = config.title || '';
+            bodyEl.textContent = config.body || '';
+            goEl.textContent = config.goText || 'Go there!';
+
+            if (isSafeHref(config.goUrl)) {
+                goEl.setAttribute('href', config.goUrl.trim());
+                goEl.setAttribute('target', '_blank');
+                goEl.setAttribute('rel', 'noopener noreferrer');
+                goEl.style.display = '';
+            } else {
+                goEl.removeAttribute('href');
+                goEl.style.display = 'none';
+            }
+
+            /* view 2 defaults, if secondView supplied */
+            if (config.secondView) {
+                var t2 = document.getElementById('popupTitle2');
+                var b2 = document.getElementById('popupBody2');
+                var r2 = document.getElementById('popupRedirect');
+                var copyBtn = document.getElementById('popupCopy');
+
+                if (t2) t2.textContent = config.secondView.title || 'LINK READY';
+                if (b2) b2.textContent = config.secondView.body || '';
+                if (r2 && isSafeHref(config.secondView.redirectUrl)) {
+                    r2.setAttribute('href', config.secondView.redirectUrl.trim());
+                    r2.setAttribute('target', '_blank');
+                    r2.setAttribute('rel', 'noopener noreferrer');
+                    r2.style.display = '';
+                } else if (r2) {
+                    r2.removeAttribute('href');
+                    r2.style.display = 'none';
+                }
+                if (copyBtn) copyBtn.style.display = '';
+            }
+
+            popupLastFocus = document.activeElement;
+            overlay.classList.add(POPUP_OPEN_CLASS);
+            goEl.focus();
+        }
+
+        function closePopup() {
+            var overlay = document.getElementById('popupOverlay');
+            if (!overlay) return;
+            overlay.classList.remove(POPUP_OPEN_CLASS);
+            if (popupLastFocus && typeof popupLastFocus.focus === 'function') {
+                popupLastFocus.focus();
+            }
+            popupLastFocus = null;
+            popupCurrentSecondView = null;
+            var toast = document.getElementById('popupToast');
+            if (toast) toast.classList.remove('is-shown');
+        }
+
+        function copyText(text, done) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function () {
+                    done(true);
+                }).catch(function () {
+                    done(false);
+                });
+                return;
+            }
+            /* fallback for older iOS Safari */
+            try {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'fixed';
+                ta.style.top = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                ta.setSelectionRange(0, ta.value.length);
+                var ok = document.execCommand('copy');
+                document.body.removeChild(ta);
+                done(ok);
+            } catch (e) {
+                done(false);
+            }
+        }
+
+        function initPopup() {
+            var overlay = document.getElementById('popupOverlay');
+            var cancelBtn = document.getElementById('popupCancel');
+            var goBtn = document.getElementById('popupGo');
+            var copyBtn = document.getElementById('popupCopy');
+            var toast = document.getElementById('popupToast');
+            if (!overlay) return;
+
+            if (cancelBtn) cancelBtn.addEventListener('click', closePopup);
+
+            /* "Go there!" — if a secondView exists, slide to it; otherwise let the link open */
+            if (goBtn) {
+                goBtn.addEventListener('click', function (e) {
+                    if (popupCurrentSecondView) {
+                        e.preventDefault();
+                        setPopupView('view2');
+                        var redirect = document.getElementById('popupRedirect');
+                        if (redirect) redirect.focus();
+                    }
+                    /* no secondView -> default anchor behavior; close on next tick */
+                    if (!popupCurrentSecondView) {
+                        closePopup();
+                    }
+                });
+            }
+
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function () {
+                    if (!popupCurrentSecondView || !popupCurrentSecondView.copyText) return;
+                    copyText(popupCurrentSecondView.copyText, function (ok) {
+                        if (toast) {
+                            toast.textContent = ok ? 'Copied!' : 'Copy failed — copy manually';
+                            toast.classList.add('is-shown');
+                            setTimeout(function () {
+                                toast.classList.remove('is-shown');
+                            }, 1600);
+                        }
+                    });
+                });
+            }
+
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) closePopup();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && overlay.classList.contains(POPUP_OPEN_CLASS)) {
+                    closePopup();
+                }
+            });
+
+            /* focus trap */
+            overlay.addEventListener('keydown', function (e) {
+                if (e.key !== 'Tab') return;
+                var focusable = overlay.querySelectorAll(
+                    'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])'
+                );
+                var visible = [];
+                Array.prototype.forEach.call(focusable, function (el) {
+                    if (el.offsetParent !== null) visible.push(el);
+                });
+                if (!visible.length) return;
+                var first = visible[0];
+                var last = visible[visible.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            });
+        }
+
+        /* ================================================================
+           4. Rendering
            ================================================================ */
 
         var dynamicLinks = [];
@@ -1011,6 +1377,13 @@
                 img.setAttribute('loading', 'lazy');
                 img.setAttribute('decoding', 'async');
                 img.className = 'app-icon';
+                img.addEventListener('error', function () {
+                    var ph = document.createElement('div');
+                    ph.className = 'app-icon-placeholder';
+                    ph.setAttribute('aria-hidden', 'true');
+                    ph.textContent = item.placeholder || '?';
+                    if (img.parentNode) img.parentNode.replaceChild(ph, img);
+                });
                 return img;
             }
             var ph = document.createElement('div');
@@ -1025,7 +1398,7 @@
             var row = document.createElement('div');
             row.className = 'app-item';
 
-            var haystack = [item.title, item.desc, item.note]
+            var haystack = [item.title, item.desc, item.note, item.warning]
                 .filter(Boolean)
                 .join(' ')
                 .toLowerCase();
@@ -1057,10 +1430,42 @@
                 info.appendChild(note);
             }
 
+            if (item.warning) {
+                var warning = document.createElement('span');
+                warning.className = 'app-warning';
+                warning.textContent = item.warning;
+                info.appendChild(warning);
+            }
+
             left.appendChild(info);
             row.appendChild(left);
 
             var label = item.btn || 'Install';
+
+            /* explicit disabled (non-clickable) */
+            if (item.disabled) {
+                var off = document.createElement('span');
+                off.className = 'btn-install btn-install--blocked';
+                off.textContent = 'Unavailable';
+                off.setAttribute('aria-label', 'Unavailable: ' + item.title);
+                row.appendChild(off);
+                return row;
+            }
+
+            /* popup item — button, styled as Install or Unavailable, both clickable */
+            if (item.popup) {
+                var pbtn = document.createElement('button');
+                pbtn.type = 'button';
+                var isBlockedStyle = label === 'Unavailable';
+                pbtn.className = 'btn-install' + (isBlockedStyle ? ' btn-install--blocked btn-install--clickable' : '');
+                pbtn.textContent = label;
+                pbtn.setAttribute('aria-label', label + ': ' + item.title);
+                pbtn.addEventListener('click', function () {
+                    openPopup(item.popup);
+                });
+                row.appendChild(pbtn);
+                return row;
+            }
 
             if (!isSafeHref(item.href)) {
                 var blocked = document.createElement('span');
@@ -1115,7 +1520,7 @@
         }
 
         /* ================================================================
-           4. Search
+           5. Search
            ================================================================ */
 
         function filterPanel(panel, query) {
@@ -1175,7 +1580,7 @@
         }
 
         /* ================================================================
-           5. Tab building
+           6. Tab building
            ================================================================ */
 
         function buildTabs() {
@@ -1235,7 +1640,7 @@
         }
 
         /* ================================================================
-           6. Live "latest release" resolution
+           7. Live "latest release" resolution
            ================================================================ */
 
         var LATEST_CACHE_KEY = 'gurt-latest-cache-v1';
@@ -1365,7 +1770,7 @@
         }
 
         /* ================================================================
-           7. Tab behaviour
+           8. Tab behaviour
            ================================================================ */
 
         function selectTab(tabId, focusTab) {
@@ -1407,7 +1812,7 @@
         }
 
         /* ================================================================
-           8. Scroll-reveal (safe: default is visible)
+           9. Scroll-reveal (safe: default is visible)
            ================================================================ */
 
         (function initReveal() {
@@ -1417,10 +1822,8 @@
             var reduce = window.matchMedia &&
                 window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-            /* no IO, or reduced motion -> leave everything visible */
             if (reduce || !('IntersectionObserver' in window)) return;
 
-            /* mark the document so .js-ready .reveal starts hidden */
             document.documentElement.classList.add('js-ready');
 
             var io = new IntersectionObserver(function (entries) {
@@ -1442,9 +1845,10 @@
         })();
 
         /* ================================================================
-           9. Boot
+           10. Boot
            ================================================================ */
 
+        initPopup();
         buildTabs();
         refreshLatestLinks();
     })();
