@@ -43,6 +43,13 @@
 
         body {
             background-color: #0d1117;
+            /* background image layer */
+            background-image:
+                linear-gradient(rgba(13, 17, 23, 0.85), rgba(13, 17, 23, 0.85)),
+                url('https://raw.githubusercontent.com/theonlygurt/theonlygurt.github.io/main/Images/IMG_1530.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: #c9d1d9;
             display: flex;
             justify-content: center;
@@ -52,7 +59,7 @@
         }
 
         .card {
-            background-color: #161b22;
+            background-color: rgba(22, 27, 34, 0.92); /* slight transparency to see bg */
             border: 1px solid #30363d;
             border-radius: 0px;
             padding: 20px;
@@ -60,6 +67,8 @@
             width: 100%;
             text-align: center;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
         .js-ready .reveal {
@@ -181,7 +190,7 @@
         .skills-container { margin-top: 12px; margin-bottom: 16px; }
 
         .skills-box {
-            background-color: #0d1117;
+            background-color: rgba(13, 17, 23, 0.8);
             border: 1px solid #30363d;
             border-radius: 0px;
             padding: 12px;
@@ -222,7 +231,7 @@
         }
 
         .hobby-tag {
-            background-color: #0d1117;
+            background-color: rgba(13, 17, 23, 0.8);
             border: 1px solid #30363d;
             color: #8b949e !important;
             -webkit-text-fill-color: #8b949e !important;
@@ -241,7 +250,7 @@
         }
 
         .slider-nav {
-            background-color: #0d1117;
+            background-color: rgba(13, 17, 23, 0.8);
             border: 1px solid #30363d;
             border-radius: 0px;
             padding: 4px;
@@ -288,7 +297,7 @@
 
         .search-input {
             width: 100%;
-            background-color: #0d1117;
+            background-color: rgba(13, 17, 23, 0.8);
             border: 1px solid #30363d;
             color: #c9d1d9 !important;
             -webkit-text-fill-color: #c9d1d9 !important;
@@ -342,7 +351,7 @@
         .scroll-container::-webkit-scrollbar-thumb { background: #30363d; border-radius: 0px; }
 
         .app-item {
-            background-color: #0d1117;
+            background-color: rgba(13, 17, 23, 0.7);
             border: 1px solid #30363d;
             border-radius: 0px;
             padding: 12px 14px;
@@ -444,7 +453,7 @@
         }
 
         .note-item {
-            background-color: #0d1117;
+            background-color: rgba(13, 17, 23, 0.8);
             border: 1px solid #30363d;
             border-radius: 0px;
             padding: 14px;
@@ -528,6 +537,22 @@
             background-color: #30363d;
             color: #c9d1d9 !important;
             -webkit-text-fill-color: #c9d1d9 !important;
+        }
+
+        /* new: orange button style */
+        .btn-install--orange {
+            background-color: #d29922;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            border: 1px solid #d29922;
+        }
+        .btn-install--orange:hover {
+            background-color: #e3b341;
+            border-color: #e3b341;
+        }
+        .btn-install--orange.btn-install--clickable {
+            pointer-events: auto;
+            cursor: pointer;
         }
 
         .footer-text {
@@ -926,14 +951,26 @@
                         icon: 'Images/IMG_3210.jpeg',
                         iconAlt: 'Soundcloud',
                         desc: 'Modded version of Soundcloud. Made by GLESign',
-                        href: 'https://github.com/theonlygurt/theonlygurt.github.io/releases/download/1.0.5/SoundCloud.v8.75.0.ipa'
+                        btn: 'Unavailable',
+                        blockedStyle: true,
+                        popup: {
+                            title: 'HEADS UP!',
+                            body: "Join their official Telegram group to get the IPA.",
+                            goText: 'Go there!',
+                            goUrl: 'https://t.me/glesign',
+                            secondView: {
+                                title: 'LINK READY',
+                                body: 'Copy the link or jump straight to Telegram.',
+                                copyText: 'https://t.me/glesign',
+                                redirectUrl: 'https://t.me/glesign'
+                            }
+                        }
                     },
                     {
                         title: 'EeveeSpotify IPA',
                         icon: 'Images/IMG_4357.jpeg',
                         iconAlt: 'EeveeSpotify',
                         desc: 'Spotify modded. From Apptesters',
-                        warning: 'This version is outdated. Use with your own risk!',
                         href: 'https://github.com/apptesters-org/AppTesters_Repo/releases/download/12-06-2026/EeveeSpotify_9.1.50_Premium_%40thisismanpreets_apptesters.org.ipa',
                         repo: 'apptesters-org/AppTesters_Repo',
                         assetMatch: /EeveeSpotify.*\.ipa$/i
@@ -943,7 +980,6 @@
                         icon: 'Images/IMG_4357.jpeg',
                         iconAlt: 'Eeveespotifyrepublic',
                         desc: 'EeveeSpotify Republic version',
-                        warning: 'This version is outdated. Use with your own risk!',
                         href: 'https://github.com/v8vptjgydb-svg/Eeveespotify-IPA-Link/releases/download/Cracks/EeveeSpotify-6.6.2-9.1.28-patched.ipa',
                         repo: 'v8vptjgydb-svg/Eeveespotify-IPA-Link',
                         assetMatch: /EeveeSpotify.*patched\.ipa$/i
@@ -953,7 +989,6 @@
                         icon: 'https://raw.githubusercontent.com/SideloadLabs/EeveeSpotifyReincarnated/refs/heads/Master/Assets/AppIcon/EeveeCustom%402x.png',
                         iconAlt: 'Eeveespotify Reincarnated',
                         desc: 'Self-explanatory',
-                        warning: 'This version is outdated. Use with your own risk!',
                         href: 'https://files.catbox.moe/1qbbn8.ipa'
                     },
                     {
@@ -978,6 +1013,7 @@
                         iconAlt: 'Gtok',
                         desc: 'A tiktok mod better than vibetok. inject this using Ksign/Feather or any signer than can inject. works well on rootless jailbroken phones but not on roothide(may not work properly)',
                         btn: 'Unavailable',
+                        blockedStyle: true,
                         popup: {
                             title: 'HEADS UP!',
                             body: "Due to the fact that i can't keep up with the updates, Kindly go to their official Telegram channel for ipa/deb files!",
@@ -1452,12 +1488,20 @@
                 return row;
             }
 
-            /* popup item — button, styled as Install or Unavailable, both clickable */
+            /* popup item — button, styled as Install / Unavailable / orange */
             if (item.popup) {
                 var pbtn = document.createElement('button');
                 pbtn.type = 'button';
                 var isBlockedStyle = label === 'Unavailable';
-                pbtn.className = 'btn-install' + (isBlockedStyle ? ' btn-install--blocked btn-install--clickable' : '');
+                var classes = 'btn-install';
+
+                if (item.blockedStyle) {
+                    classes += ' btn-install--orange btn-install--clickable';
+                } else if (isBlockedStyle) {
+                    classes += ' btn-install--blocked btn-install--clickable';
+                }
+
+                pbtn.className = classes;
                 pbtn.textContent = label;
                 pbtn.setAttribute('aria-label', label + ': ' + item.title);
                 pbtn.addEventListener('click', function () {
