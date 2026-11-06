@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
 
-    <!-- CSP removed — was blocking the inline <style> block on iOS Safari. -->
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self';
+                   img-src 'self' https://github.com https://raw.githubusercontent.com data:;
+                   style-src 'self' 'unsafe-inline';
+                   script-src 'self' 'sha256-1Q0S5nXhB4KQb6mFy0XyQ8N9T5sJ7L2W3pR4vC6dE8M=';
+                   connect-src 'self' https://api.github.com;
+                   frame-ancestors 'none';
+                   base-uri 'none';
+                   form-action 'none';">
 
     <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,10 +51,6 @@
             padding: 16px;
         }
 
-        body.modal-open {
-            overflow: hidden;
-        }
-
         .card {
             background-color: #161b22;
             border: 1px solid #30363d;
@@ -58,12 +62,31 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
+        /* ---- scroll-reveal ---- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            will-change: opacity, transform;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+
         .btn:focus-visible,
         .btn-install:focus-visible,
         .slider-btn:focus-visible,
         .avatar-link:focus-visible,
-        .warning-btn:focus-visible,
-        .warning-dismiss input:focus-visible,
         .search-input:focus-visible {
             outline: 2px solid #58a6ff;
             outline-offset: 2px;
@@ -511,14 +534,17 @@
             -webkit-text-fill-color: #ffffff !important;
         }
 
-        .btn-install--blocked {
+        .btn-install--blocked,
+        .btn-install[data-resolving="true"] {
             background-color: #21262d;
             color: #6e7681 !important;
             -webkit-text-fill-color: #6e7681 !important;
             cursor: not-allowed;
+            pointer-events: none;
         }
 
-        .btn-install--blocked:hover {
+        .btn-install--blocked:hover,
+        .btn-install[data-resolving="true"]:hover {
             background-color: #21262d;
         }
 
@@ -545,157 +571,7 @@
             font-size: 0.8rem;
         }
 
-        .warning-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            background-color: rgba(13, 17, 23, 0.55);
-            -webkit-backdrop-filter: blur(16px) saturate(120%);
-            backdrop-filter: blur(16px) saturate(120%);
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.3s ease, visibility 0s linear 0s;
-        }
-
-        .warning-overlay.is-dismissed {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0s linear 0.3s;
-        }
-
-        .warning-box {
-            background-color: #161b22;
-            border: 1px solid #f85149;
-            border-radius: 0px;
-            padding: 28px 22px 22px;
-            max-width: 380px;
-            width: 100%;
-            text-align: center;
-            box-shadow:
-                0 0 0 1px rgba(248, 81, 73, 0.15),
-                0 0 40px rgba(248, 81, 73, 0.18),
-                0 16px 48px rgba(0, 0, 0, 0.7);
-        }
-
-        .warning-title {
-            color: #f85149;
-            font-size: 2.1rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            line-height: 1.1;
-            margin-bottom: 14px;
-            text-shadow: 0 0 24px rgba(248, 81, 73, 0.45);
-        }
-
-        .warning-sub {
-            color: #c9d1d9;
-            font-size: 0.85rem;
-            line-height: 1.5;
-            margin-bottom: 22px;
-        }
-
-        .warning-btn {
-            width: 100%;
-            background-color: #1f6feb;
-            color: #ffffff !important;
-            -webkit-text-fill-color: #ffffff !important;
-            border: 1px solid #1f6feb;
-            padding: 12px 16px;
-            border-radius: 0px;
-            font-family: inherit;
-            font-weight: 700;
-            font-size: 0.9rem;
-            line-height: 1.3;
-            cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-        }
-
-        .warning-btn:hover:not(:disabled) {
-            background-color: #388bfd;
-            border-color: #388bfd;
-        }
-
-        .warning-btn:disabled {
-            background-color: #21262d;
-            border-color: #30363d;
-            color: #6e7681 !important;
-            -webkit-text-fill-color: #6e7681 !important;
-            cursor: not-allowed;
-        }
-
-        .warning-count {
-            font-variant-numeric: tabular-nums;
-            opacity: 0.85;
-        }
-
-        .warning-dismiss {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 14px;
-            padding: 6px 4px;
-            font-size: 0.75rem;
-            color: #8b949e !important;
-            -webkit-text-fill-color: #8b949e !important;
-            cursor: pointer;
-            user-select: none;
-            -webkit-user-select: none;
-            opacity: 0.55;
-            filter: blur(0.25px);
-            transition: opacity 0.2s ease, filter 0.2s ease;
-        }
-
-        .warning-dismiss:hover,
-        .warning-dismiss:focus-within {
-            opacity: 0.9;
-            filter: blur(0);
-        }
-
-        .warning-dismiss input[type="checkbox"] {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
-            margin: 0;
-            border: 1px solid #30363d;
-            background-color: #0d1117;
-            border-radius: 0px;
-            cursor: pointer;
-            flex-shrink: 0;
-            position: relative;
-            transition: background-color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .warning-dismiss input[type="checkbox"]:checked {
-            background-color: #1f6feb;
-            border-color: #1f6feb;
-        }
-
-        .warning-dismiss input[type="checkbox"]:checked::after {
-            content: "";
-            position: absolute;
-            left: 4px;
-            top: 1px;
-            width: 4px;
-            height: 8px;
-            border: solid #fff;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
-
-        .warning-dismiss-text {
-            line-height: 1.3;
-            text-align: left;
-        }
-
         @media (prefers-reduced-motion: reduce) {
-            .warning-overlay,
-            .warning-overlay.is-dismissed,
             .avatar-link,
             .btn,
             .btn-install,
@@ -705,31 +581,31 @@
         }
     </style>
 </head>
-<body class="modal-open">
+<body>
 
     <div class="card">
-        <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" class="avatar-link">
+        <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" class="avatar-link reveal">
             <img src="https://github.com/theonlygurt.png" alt="Gurt's avatar" class="avatar">
         </a>
 
-        <h1>Welcome to Gurt's Space</h1>
-        <p class="subtitle">Personal website and stuff</p>
+        <h1 class="reveal">Welcome to Gurt's Space</h1>
+        <p class="subtitle reveal">Personal website and stuff</p>
 
-        <div class="links">
+        <div class="links reveal">
             <a href="https://github.com/theonlygurt" class="btn" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">GitHub Profile</a>
             <a href="https://on.soundcloud.com/Q988Svjj6KCiInlOk0" class="btn" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Soundcloud profile</a>
             <a href="https://x.com/gurtygur?s=11" class="btn" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">X contact</a>
             <a href="https://discord.com/users/917762961240621067" class="btn" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Discord contact</a>
         </div>
 
-        <hr class="divider">
+        <hr class="divider reveal">
 
-        <div class="about-section">
+        <div class="about-section reveal">
             <h2 class="section-title">About</h2>
             <p class="about-text">Hello, I am Gurt! I am a 15 years old student who learns about coding in Rust, Javascript and HTML!</p>
         </div>
 
-        <div class="skills-container">
+        <div class="skills-container reveal">
             <h2 class="section-title">Skills</h2>
             <div class="skills-box">
                 <div class="skill-item">
@@ -747,7 +623,7 @@
             </div>
         </div>
 
-        <div class="hobbies-container">
+        <div class="hobbies-container reveal">
             <h2 class="section-title">Hobbies / Interests</h2>
             <ul class="hobbies-list">
                 <li class="hobby-tag">Jailbreaking</li>
@@ -760,12 +636,12 @@
             </ul>
         </div>
 
-        <div class="slider-section">
+        <div class="slider-section reveal">
             <div class="slider-nav" role="tablist" aria-label="Download categories"></div>
             <div class="slider-content"></div>
         </div>
 
-        <div class="contributions-section">
+        <div class="contributions-section reveal">
             <h2 class="section-title">Contributions</h2>
             <ul class="note-list">
                 <li>@kysonloll, @pizzaman590, @2p4j, @3v9h, @oed6, @khoilovesyou: suggesting IPAs, helping me getting IPAs</li>
@@ -774,26 +650,8 @@
             </ul>
         </div>
 
-        <hr class="divider">
-        <p class="footer-text">Made with ❤️ by Gurt</p>
-    </div>
-
-    <div class="warning-overlay" id="warningOverlay"
-         role="dialog" aria-modal="true"
-         aria-labelledby="warningTitle" aria-describedby="warningSub">
-        <div class="warning-box">
-            <h2 class="warning-title" id="warningTitle">WARNING</h2>
-            <p class="warning-sub" id="warningSub">This page is Vibe-Coded and supports Piracy.</p>
-            <button class="warning-btn" id="warningBtn" type="button" disabled>
-                I understand and accept the risk.
-                <span class="warning-count" id="warningCount">(5)</span>
-            </button>
-
-            <label class="warning-dismiss" for="warningDismissBox">
-                <input type="checkbox" id="warningDismissBox">
-                <span class="warning-dismiss-text">Don't show this again for 7 days</span>
-            </label>
-        </div>
+        <hr class="divider reveal">
+        <p class="footer-text reveal">Made with ❤️ by Gurt</p>
     </div>
 
     <script>
@@ -805,7 +663,7 @@
            ================================================================== */
 
         var SAFE_HREF = /^(?:https:\/\/|itms-services:\/\/)/i;
-        var UNSAFE_SRC = /^\s*(?:javascript|vbscript|data|blob|file):/i;
+        var UNSAFE_SRC = /^\s*(?:javascript|vbscript|data|blob|file|http):/i;
 
         function isSafeHref(raw) {
             return typeof raw === 'string' && SAFE_HREF.test(raw.trim());
@@ -820,141 +678,10 @@
         }
 
         /* ==================================================================
-           1. Warning gate
-           ================================================================== */
-
-        var ACCEPT_DELAY = 5;
-        var SNOOZE_MS = 7 * 24 * 60 * 60 * 1000;
-        var STORAGE_KEY = 'gurt-warn-dismissed-until';
-
-        function readSnoozeUntil() {
-            try {
-                var n = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
-                return isFinite(n) ? n : 0;
-            } catch (e) { return 0; }
-        }
-
-        function writeSnoozeUntil(ms) {
-            try { localStorage.setItem(STORAGE_KEY, String(ms)); } catch (e) {}
-        }
-
-        (function initWarning() {
-            var overlay = document.getElementById('warningOverlay');
-            var btn     = document.getElementById('warningBtn');
-            var count   = document.getElementById('warningCount');
-            var snooze  = document.getElementById('warningDismissBox');
-            var card    = document.querySelector('.card');
-            if (!overlay || !btn || !card) return;
-
-            if (readSnoozeUntil() > Date.now()) {
-                document.body.classList.remove('modal-open');
-                if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-                return;
-            }
-
-            var remaining = ACCEPT_DELAY;
-
-            card.setAttribute('aria-hidden', 'true');
-            if ('inert' in HTMLElement.prototype) card.inert = true;
-
-            btn.focus();
-
-            var timer = setInterval(function () {
-                remaining -= 1;
-                if (remaining > 0) {
-                    count.textContent = '(' + remaining + ')';
-                    return;
-                }
-                clearInterval(timer);
-                count.remove();
-                btn.disabled = false;
-                btn.focus();
-            }, 1000);
-
-            btn.addEventListener('click', function () {
-                if (btn.disabled) return;
-
-                if (snooze && snooze.checked) writeSnoozeUntil(Date.now() + SNOOZE_MS);
-
-                overlay.classList.add('is-dismissed');
-                document.body.classList.remove('modal-open');
-                card.removeAttribute('aria-hidden');
-                if ('inert' in HTMLElement.prototype) card.inert = false;
-
-                var removed = false;
-                function remove() {
-                    if (removed) return;
-                    removed = true;
-                    if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-                }
-                overlay.addEventListener('transitionend', function (e) {
-                    if (e.target === overlay) remove();
-                });
-                setTimeout(remove, 700);
-            });
-        })();
-
-        /* ==================================================================
-           2. Shared snippets
-           ================================================================== */
-
-        var KSIGN_NOTE = 'if it doesnt show Install popup, turn off adblocker, or switch wifi/browser';
-        var KSIGN_ICON = 'Images/1373903153535258745.webp';
-
-        function ksign(cert, plist) {
-            return {
-                title: 'Ksign',
-                icon: KSIGN_ICON,
-                iconAlt: 'Ksign',
-                desc: 'certificate: ' + cert,
-                note: KSIGN_NOTE,
-                href: 'itms-services://?action=download-manifest&url=https://website.khoindvn.io.vn/plists/' + plist + '.plist',
-                ariaLabel: 'Install Ksign certificate: ' + cert
-            };
-        }
-
-        /* ==================================================================
-           3. Data
+           1. Data
            ================================================================== */
 
         var TABS = [
-
-            {
-                id: 'dns-ksign',
-                label: 'DNS & Ksign',
-                items: [
-                    {
-                        title: 'DNS',
-                        icon: 'Images/IMG_2084.jpeg',
-                        iconAlt: 'DNS profile',
-                        desc: 'DNS profile, must install before installing ksign. after installing, go to Settings -> general -> VPN and device management -> click on khoindvn -> install',
-                        href: 'https://github.com/dns-khoindvn/oci-auto-vm/releases/download/DNS/khoindvn.mobileconfig'
-                    },
-
-                    ksign('HSBC bank', 'pbemcddlcpho'),
-                    ksign('Central Power', 'lcfpeiedkheg'),
-                    ksign('Central Power(different MP)', 'dnnpggekacnm'),
-                    ksign('Viet Nam Rubber', 'idjbbheelkpp'),
-                    ksign('Jiangsu simcere', 'mlieeiadepah'),
-                    ksign('Jiangsu Simcere(different MP)', 'lodjpjcljdpi'),
-                    ksign('Moving Increasingly', 'imppbfhicihh'),
-                    ksign('Moving Increasingly(different MP)', 'lcfpeiedkheg'),
-                    ksign('China telecom', 'phcfgoaomgja'),
-                    ksign('Qingdao Rural', 'lkcmbkcaibjd'),
-                    ksign('National Oilwell', 'mhgbkhplggio'),
-                    ksign('BOC', 'lmmjphdncjkf'),
-                    ksign('BOC(second MP)', 'dgiepohhpeff'),
-                    ksign('BOC(third MP)', 'hchbhebffgmj'),
-                    ksign('BOC(fourth MP)', 'joabkofbfegf'),
-                    ksign('Beihang', 'hpcdeagiebej'),
-                    ksign('Beihang(different MP)', 'gdkhlfchmfof'),
-                    ksign('VINWASH', 'gmkhipcnkilk')
-                ],
-                notes: [
-                    'DNS and all Ksign download links belong to Khoindvn and super duper cute nyasami.',
-                    'if any certificate expires, please report to me so i can remove it off the website.'
-                ]
-            },
 
             {
                 id: 'ipas-tipas',
@@ -1296,7 +1023,7 @@
         ];
 
         /* ==================================================================
-           4. Sorting helper
+           2. Sorting helper
            ================================================================== */
 
         function sortTabItems(items, mode) {
@@ -1314,7 +1041,7 @@
         }
 
         /* ==================================================================
-           5. Rendering
+           3. Rendering
            ================================================================== */
 
         var dynamicLinks = [];
@@ -1400,6 +1127,8 @@
             }
 
             if (item.repo && item.assetMatch instanceof RegExp) {
+                btn.setAttribute('data-resolving', 'true');
+                btn.setAttribute('aria-disabled', 'true');
                 dynamicLinks.push({ item: item, anchor: btn });
             }
 
@@ -1429,7 +1158,7 @@
         }
 
         /* ==================================================================
-           6. Search
+           4. Search
            ================================================================== */
 
         function filterPanel(panel, query) {
@@ -1489,7 +1218,7 @@
         }
 
         /* ==================================================================
-           7. Tab building
+           5. Tab building
            ================================================================== */
 
         function buildTabs() {
@@ -1549,7 +1278,7 @@
         }
 
         /* ==================================================================
-           8. Live "latest release" resolution
+           6. Live "latest release" resolution
            ================================================================== */
 
         var LATEST_CACHE_KEY = 'gurt-latest-cache-v1';
@@ -1581,10 +1310,22 @@
                     var a = assets[i];
                     if (entry.item.assetMatch.test(a.name) && isSafeHref(a.url)) {
                         entry.anchor.setAttribute('href', a.url);
+                        entry.anchor.removeAttribute('data-resolving');
+                        entry.anchor.removeAttribute('aria-disabled');
                         return;
                     }
                 }
+                markBlocked(entry);
             });
+        }
+
+        function markBlocked(entry) {
+            var btn = entry.anchor;
+            btn.setAttribute('data-resolving', 'true');
+            btn.setAttribute('aria-disabled', 'true');
+            btn.removeAttribute('href');
+            btn.textContent = 'Unavailable';
+            btn.className = 'btn-install btn-install--blocked';
         }
 
         function fetchRepoAssets(repo, done) {
@@ -1605,6 +1346,10 @@
             fetch('https://api.github.com/repos/' + repo + '/releases/latest', opts)
                 .then(function (res) {
                     clearTimeout(timeout);
+                    if (res.status === 403) {
+                        var reset = res.headers.get('X-RateLimit-Reset');
+                        if (reset) console.warn('[docket] GitHub rate-limited; reset at', new Date(parseInt(reset, 10) * 1000).toISOString());
+                    }
                     if (!res.ok) throw new Error('HTTP ' + res.status);
                     return res.json();
                 })
@@ -1642,9 +1387,19 @@
                 }
             });
 
+            if (pending.length > MAX_REQUESTS) {
+                console.warn('[docket] MAX_REQUESTS=' + MAX_REQUESTS +
+                    '; dropped repos:', pending.slice(MAX_REQUESTS));
+            }
+
             pending.slice(0, MAX_REQUESTS).forEach(function (repo) {
                 fetchRepoAssets(repo, function (assets) {
-                    if (!assets) return;
+                    if (!assets) {
+                        dynamicLinks.forEach(function (entry) {
+                            if (entry.item.repo === repo) markBlocked(entry);
+                        });
+                        return;
+                    }
                     cache[repo] = assets;
                     writeLatestCache(cache);
                     applyRepoAssets(repo, assets);
@@ -1653,7 +1408,7 @@
         }
 
         /* ==================================================================
-           9. Tab behaviour
+           7. Tab behaviour
            ================================================================== */
 
         function selectTab(tabId, focusTab) {
@@ -1693,6 +1448,46 @@
 
             selectTab(TABS[next].id, true);
         }
+
+        /* ==================================================================
+           8. Scroll-reveal
+           ================================================================== */
+
+        (function initReveal() {
+            var els = document.querySelectorAll('.reveal');
+            if (!els.length) return;
+
+            var reduce = window.matchMedia &&
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (reduce || !('IntersectionObserver' in window)) {
+                Array.prototype.forEach.call(els, function (el) {
+                    el.classList.add('is-visible');
+                });
+                return;
+            }
+
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    } else if (entry.boundingClientRect.top > 0) {
+                        entry.target.classList.remove('is-visible');
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px -10% 0px',
+                threshold: 0.1
+            });
+
+            Array.prototype.forEach.call(els, function (el) {
+                io.observe(el);
+            });
+        })();
+
+        /* ==================================================================
+           9. Boot
+           ================================================================== */
 
         buildTabs();
         refreshLatestLinks();
