@@ -21,7 +21,6 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="icon" href="https://github.com/theonlygurt.png">
     
-    <!-- Pako for compression -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
 
     <script>
@@ -1545,6 +1544,12 @@
                     <div class="shop-desc">Boosts your luck (10x) for the next 50 rolls.</div>
                     <button class="shop-buy-btn" id="buyPotionBtn" type="button">Buy - 10,000 Coins</button>
                 </div>
+                
+                <div class="shop-item">
+                    <div class="shop-title">Permanent Luck</div>
+                    <div class="shop-desc">Permanently increases your base luck multiplier by +0.1x.</div>
+                    <button class="shop-buy-btn" id="buyPermLuckBtn" type="button">Buy - 50,000 Coins</button>
+                </div>
 
                 <div class="popup-actions" style="margin-top: 10px;">
                     <button class="popup-btn popup-btn--ghost" id="popupShopBack" type="button">Go back...</button>
@@ -2672,6 +2677,7 @@
                                     <div class="rng-stats">
                                         <div class="rng-stat">Rolls: <span id="rngRolls">0</span></div>
                                         <div class="rng-stat">Coins: <span id="rngCoins" style="color:#e3b341">0</span></div>
+                                        <div class="rng-stat">Base Luck: <span id="rngBaseLuck" style="color:#3fb950">1.0x</span></div>
                                     </div>
                                     
                                     <div class="rng-backup-actions">
@@ -3229,6 +3235,7 @@
             var rngLuckText = document.getElementById('rngLuckText');
             var rngRollsEl = document.getElementById('rngRolls');
             var rngCoinsEl = document.getElementById('rngCoins');
+            var rngBaseLuckEl = document.getElementById('rngBaseLuck');
             var rngInventory = document.getElementById('rngInventory');
             var rngDisplay = document.querySelector('.rng-display');
             var rngShopBtn = document.getElementById('rngShopBtn');
@@ -3265,7 +3272,8 @@
             var rolls = parseInt(localStorage.getItem('gurt-rng-rolls')) || 0;
             var coins = parseInt(localStorage.getItem('gurt-rng-coins')) || 0;
             var pityCounter = parseInt(localStorage.getItem('gurt-rng-pity')) || 0;
-            var luckPotions = parseInt(localStorage.getItem('gurt-rng-luckpotion')) || 0; // remaining rolls
+            var luckPotions = parseInt(localStorage.getItem('gurt-rng-luckpotion')) || 0;
+            var permLuck = parseFloat(localStorage.getItem('gurt-rng-permluck')) || 0;
             var inventory = {};
             try {
                 inventory = JSON.parse(localStorage.getItem('gurt-rng-inv')) || {};
@@ -3276,6 +3284,7 @@
             function updateStats() {
                 rngRollsEl.textContent = rolls;
                 rngCoinsEl.textContent = coins.toLocaleString();
+                rngBaseLuckEl.textContent = (1.0 + permLuck).toFixed(1) + 'x';
                 
                 if (pityCounter >= 29) {
                     rngPityText.textContent = 'PITY ACTIVE! (10x Luck)';
@@ -3390,7 +3399,7 @@
             function roll() {
                 var isPity = (pityCounter >= 29);
                 var isPotion = (luckPotions > 0);
-                var isLucky = isPity || isPotion;
+                var isLucky = isPity || isPotion || (permLuck > 0); // Luck is active if pity, potion, or perm luck
                 
                 var rolledAura = getWeightedRarity(isLucky);
 
@@ -3447,7 +3456,10 @@
             function renderShop() {
                 var shopCoinsEl = document.getElementById('shopCoins');
                 var buyBtn = document.getElementById('buyPotionBtn');
+                var buyPermBtn = document.getElementById('buyPermLuckBtn');
+                
                 if (shopCoinsEl) shopCoinsEl.textContent = coins.toLocaleString();
+                
                 if (buyBtn) {
                     if (coins >= 10000) {
                         buyBtn.disabled = false;
@@ -3457,6 +3469,18 @@
                         buyBtn.disabled = true;
                         buyBtn.style.background = '#21262d';
                         buyBtn.style.color = '#6e7681';
+                    }
+                }
+                
+                if (buyPermBtn) {
+                    if (coins >= 50000) {
+                        buyPermBtn.disabled = false;
+                        buyPermBtn.style.background = '#238636';
+                        buyPermBtn.style.color = '#fff';
+                    } else {
+                        buyPermBtn.disabled = true;
+                        buyPermBtn.style.background = '#21262d';
+                        buyPermBtn.style.color = '#6e7681';
                     }
                 }
             }
@@ -3486,6 +3510,20 @@
                     }
                 });
             }
+            
+            var buyPermLuckBtn = document.getElementById('buyPermLuckBtn');
+            if (buyPermLuckBtn) {
+                buyPermLuckBtn.addEventListener('click', function() {
+                    if (coins >= 50000) {
+                        coins -= 50000;
+                        permLuck += 0.1;
+                        localStorage.setItem('gurt-rng-coins', coins);
+                        localStorage.setItem('gurt-rng-permluck', permLuck);
+                        updateStats();
+                        renderShop();
+                    }
+                });
+            }
 
             /* Backup & Import Logic */
             if (rngBackupBtn) {
@@ -3500,7 +3538,7 @@
             if (backupContinueBtn) {
                 backupContinueBtn.addEventListener('click', function() {
                     setPopupView('view9');
-                    var code = generateSaveCode(rolls, coins, pityCounter, luckPotions, inventory);
+                    var code = generateSaveCode(rolls, coins, pityCounter, luckPotions, permLuck, inventory);
                     document.getElementById('backupOutputCode').value = code;
                 });
             }
@@ -3546,12 +3584,14 @@
                             coins = data.c;
                             pityCounter = data.p;
                             luckPotions = data.l;
+                            permLuck = data.pl || 0;
                             inventory = data.i;
                             
                             localStorage.setItem('gurt-rng-rolls', rolls);
                             localStorage.setItem('gurt-rng-coins', coins);
                             localStorage.setItem('gurt-rng-pity', pityCounter);
                             localStorage.setItem('gurt-rng-luckpotion', luckPotions);
+                            localStorage.setItem('gurt-rng-permluck', permLuck);
                             localStorage.setItem('gurt-rng-inv', JSON.stringify(inventory));
                             
                             updateStats();
@@ -3589,19 +3629,15 @@
         /* ================================================================
            Save Code Generator & Parser (Base64 Compressed)
            ================================================================ */
-        function generateSaveCode(r, c, p, l, inv) {
-            // Minify keys to save space
-            var data = { r: r, c: c, p: p, l: l, i: inv };
+        function generateSaveCode(r, c, p, l, pl, inv) {
+            var data = { r: r, c: c, p: p, l: l, pl: pl, i: inv };
             var str = JSON.stringify(data);
             
-            // Compress and Base64 encode
             try {
                 var binary = pako.deflate(str, { to: 'string' });
                 var b64 = btoa(binary);
-                // Make it URL safe just in case
                 return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
             } catch (e) {
-                console.error("Pako compression failed, falling back to raw Base64.", e);
                 return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
             }
         }
@@ -3609,9 +3645,7 @@
         function parseSaveCode(code) {
             if (!code) return null;
             try {
-                // Restore URL safe chars
-                var b64 = code.replace(/-/g, '+').replace(/_/g, '/');
-                // Add padding
+                var b64 = code.replace(/-/g, '+').replace(/_/g, '/').replace(/\s+/g, ''); // Strip whitespace
                 while (b64.length % 4) {
                     b64 += '=';
                 }
@@ -3619,16 +3653,13 @@
                 var binary = atob(b64);
                 var jsonStr;
                 
-                // Try to decompress with Pako
                 try {
                     jsonStr = pako.inflate(binary, { to: 'string' });
                 } catch (e) {
-                    // Fallback to just parsing Base64 (in case pako failed during save)
                     jsonStr = binary;
                 }
                 
                 var data = JSON.parse(jsonStr);
-                // Basic validation
                 if (typeof data.r !== 'undefined' && typeof data.c !== 'undefined' && data.i) {
                     return data;
                 }
