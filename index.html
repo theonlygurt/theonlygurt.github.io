@@ -946,7 +946,7 @@
             width: 100%;
             background: rgba(13, 17, 23, 0.4);
             border: 1px solid rgba(48, 54, 61, 0.4);
-            max-height: 120px;
+            max-height: 160px;
             overflow-y: auto;
             text-align: left;
             padding: 8px;
@@ -957,10 +957,23 @@
         .rng-inv-item {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding: 4px 0;
+            padding: 6px 4px;
             font-family: monospace;
         }
+        
+        .rng-inv-sell {
+            background: #da3633;
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            border-radius: 2px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .rng-inv-sell:hover { background: #f85149; }
 
         /* Rarity Effects */
         .shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
@@ -971,14 +984,21 @@
             40%, 60% { transform: translate3d(4px, 0, 0); }
         }
 
-        .glow-common { text-shadow: 0 0 10px rgba(255,255,255,0.2); color: #ffffff; }
+        .glow-common { text-shadow: 0 0 5px rgba(255,255,255,0.2); color: #ffffff; }
         .glow-uncommon { text-shadow: 0 0 10px rgba(63,185,80,0.5); color: #3fb950; }
-        .glow-good { text-shadow: 0 0 10px rgba(88,166,255,0.6); color: #58a6ff; }
-        .glow-natural { text-shadow: 0 0 10px rgba(210,153,34,0.6); color: #d29922; }
+        .glow-good { text-shadow: 0 0 12px rgba(88,166,255,0.6); color: #58a6ff; }
+        .glow-natural { text-shadow: 0 0 14px rgba(210,153,34,0.6); color: #d29922; }
         .glow-rare { text-shadow: 0 0 15px rgba(31,111,235,0.8); color: #1f6feb; }
-        .glow-divine { text-shadow: 0 0 15px rgba(163,113,247,0.8); color: #a371f7; }
+        .glow-divine { text-shadow: 0 0 18px rgba(163,113,247,0.8); color: #a371f7; }
         .glow-exotic { text-shadow: 0 0 20px rgba(248,81,73,0.8); color: #f85149; }
         .glow-mythic { text-shadow: 0 0 25px #ffffff, 0 0 15px #e3b341; color: #e3b341; font-size: 1.8rem; }
+        .glow-legendary { text-shadow: 0 0 30px #ffffff, 0 0 20px #ff00ff; color: #ff00ff; font-size: 1.9rem; animation: pulse 1.5s infinite; }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.9; }
+        }
 
         /* ---- popup ---- */
         .popup-overlay {
@@ -2282,7 +2302,7 @@
                                 <div class="rng-container">
                                     <div class="rng-stats">
                                         <div class="rng-stat">Rolls: <span id="rngRolls">0</span></div>
-                                        <div class="rng-stat">Auras: <span id="rngAuras">0</span></div>
+                                        <div class="rng-stat">Coins: <span id="rngCoins" style="color:#e3b341">0</span></div>
                                     </div>
                                     <div class="rng-display">
                                         <div class="rng-aura-name" id="rngResult">-</div>
@@ -2823,24 +2843,27 @@
             var rngAutoBtn = document.getElementById('rngAutoBtn');
             var rngResult = document.getElementById('rngResult');
             var rngRollsEl = document.getElementById('rngRolls');
-            var rngAurasEl = document.getElementById('rngAuras');
+            var rngCoinsEl = document.getElementById('rngCoins');
             var rngInventory = document.getElementById('rngInventory');
             var rngDisplay = document.querySelector('.rng-display');
 
             if (!rngRollBtn) return;
 
+            // Added more auras
             var RARITIES = [
-                { name: 'Common', chance: 50, class: 'glow-common' },
-                { name: 'Uncommon', chance: 25, class: 'glow-uncommon' },
-                { name: 'Good', chance: 15, class: 'glow-good' },
-                { name: 'Natural', chance: 6, class: 'glow-natural' },
-                { name: 'Rare', chance: 2.5, class: 'glow-rare' },
-                { name: 'Divine', chance: 1, class: 'glow-divine' },
-                { name: 'Exotic', chance: 0.4, class: 'glow-exotic' },
-                { name: 'Mythic', chance: 0.1, class: 'glow-mythic' }
+                { name: 'Common', chance: 50, class: 'glow-common', value: 1 },
+                { name: 'Uncommon', chance: 25, class: 'glow-uncommon', value: 5 },
+                { name: 'Good', chance: 15, class: 'glow-good', value: 15 },
+                { name: 'Natural', chance: 6, class: 'glow-natural', value: 50 },
+                { name: 'Rare', chance: 2.5, class: 'glow-rare', value: 150 },
+                { name: 'Divine', chance: 1, class: 'glow-divine', value: 500 },
+                { name: 'Exotic', chance: 0.4, class: 'glow-exotic', value: 2500 },
+                { name: 'Mythic', chance: 0.09, class: 'glow-mythic', value: 10000 },
+                { name: 'Legendary', chance: 0.01, class: 'glow-legendary', value: 50000 }
             ];
 
             var rolls = parseInt(localStorage.getItem('gurt-rng-rolls')) || 0;
+            var coins = parseInt(localStorage.getItem('gurt-rng-coins')) || 0;
             var inventory = {};
             try {
                 inventory = JSON.parse(localStorage.getItem('gurt-rng-inv')) || {};
@@ -2850,8 +2873,7 @@
 
             function updateStats() {
                 rngRollsEl.textContent = rolls;
-                var uniqueAuras = Object.keys(inventory).length;
-                rngAurasEl.textContent = uniqueAuras;
+                rngCoinsEl.textContent = coins.toLocaleString();
                 renderInventory();
             }
 
@@ -2864,14 +2886,39 @@
                 // Sort by rarity (highest first)
                 for (var i = RARITIES.length - 1; i >= 0; i--) {
                     var r = RARITIES[i];
-                    if (inventory[r.name]) {
+                    if (inventory[r.name] > 0) {
+                        var inv = 100 / r.chance;
+                        var invStr = inv % 1 === 0 ? inv.toLocaleString() : inv.toFixed(1);
+                        
                         html += '<div class="rng-inv-item">';
-                        html += '<span class="' + r.class + '" style="font-size:0.8rem">' + r.name + '</span>';
+                        html += '<div>';
+                        html += '<span class="' + r.class + '" style="font-size:0.8rem">' + r.name + '</span> ';
+                        html += '<span style="color:#666; font-size:0.7rem;">(1/' + invStr + ')</span>';
+                        html += '</div>';
+                        html += '<div style="display:flex; align-items:center; gap:8px;">';
                         html += '<span>x' + inventory[r.name] + '</span>';
+                        html += '<button class="rng-inv-sell" data-aura="'+r.name+'" data-val="'+r.value+'">Sell ('+r.value+')</button>';
+                        html += '</div>';
                         html += '</div>';
                     }
                 }
                 rngInventory.innerHTML = html;
+
+                // Attach sell events
+                var sellBtns = rngInventory.querySelectorAll('.rng-inv-sell');
+                Array.prototype.forEach.call(sellBtns, function(btn) {
+                    btn.addEventListener('click', function() {
+                        var auraName = this.getAttribute('data-aura');
+                        var val = parseInt(this.getAttribute('data-val'), 10);
+                        if (inventory[auraName] > 0) {
+                            inventory[auraName]--;
+                            coins += val;
+                            localStorage.setItem('gurt-rng-inv', JSON.stringify(inventory));
+                            localStorage.setItem('gurt-rng-coins', coins);
+                            updateStats();
+                        }
+                    });
+                });
             }
 
             function roll() {
@@ -2893,14 +2940,17 @@
                 localStorage.setItem('gurt-rng-rolls', rolls);
                 localStorage.setItem('gurt-rng-inv', JSON.stringify(inventory));
 
-                rngResult.textContent = rolledAura.name;
+                var inv = 100 / rolledAura.chance;
+                var invStr = inv % 1 === 0 ? inv.toLocaleString() : inv.toFixed(1);
+                
+                rngResult.innerHTML = rolledAura.name + '<br><span style="font-size:0.8rem; font-weight:normal; opacity:0.8;">(1/' + invStr + ')</span>';
                 rngResult.className = 'rng-aura-name ' + rolledAura.class;
 
                 // Animation
                 rngDisplay.classList.remove('shake');
                 void rngDisplay.offsetWidth; // trigger reflow
                 
-                if (rolledAura.name === 'Mythic' || rolledAura.name === 'Exotic') {
+                if (rolledAura.name === 'Mythic' || rolledAura.name === 'Exotic' || rolledAura.name === 'Legendary') {
                     rngDisplay.classList.add('shake');
                 }
 
