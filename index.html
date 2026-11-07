@@ -7,7 +7,7 @@
           content="default-src 'self';
                    img-src 'self' https://github.com https://raw.githubusercontent.com https://avatars.githubusercontent.com data:;
                    style-src 'self' 'unsafe-inline';
-                   script-src 'self' 'unsafe-inline';
+                   script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
                    connect-src 'self' https://api.github.com;
                    frame-ancestors 'none';
                    base-uri 'none';
@@ -20,6 +20,9 @@
     <meta name="theme-color" content="#0d1117">
     <meta name="format-detection" content="telephone=no">
     <link rel="icon" href="https://github.com/theonlygurt.png">
+    
+    <!-- Pako for compression -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
 
     <script>
     (function () {
@@ -103,7 +106,8 @@
         .snake-dpad:focus-visible,
         .rng-btn:focus-visible,
         .rng-inv-sell:focus-visible,
-        .shop-buy-btn:focus-visible {
+        .shop-buy-btn:focus-visible,
+        .backup-input:focus-visible {
             outline: 2px solid #58a6ff;
             outline-offset: 2px;
         }
@@ -918,13 +922,35 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
             font-size: 0.9rem;
             color: #c9d1d9;
             background: rgba(13, 17, 23, 0.3);
             padding: 8px 12px;
             border: 1px solid rgba(48, 54, 61, 0.3);
         }
+        
+        .rng-backup-actions {
+            display: flex;
+            width: 100%;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .rng-backup-btn {
+            flex: 1;
+            background: rgba(33, 38, 45, 0.6);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            color: #c9d1d9;
+            padding: 8px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+        .rng-backup-btn:hover { background: rgba(48, 54, 61, 0.8); color: #fff; }
 
         .rng-stat span {
             font-weight: bold;
@@ -1111,6 +1137,23 @@
             cursor: not-allowed;
         }
 
+        /* Backup / Import Inputs */
+        .backup-input {
+            width: 100%;
+            background: rgba(13, 17, 23, 0.6);
+            border: 1px solid #30363d;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            text-align: center;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            resize: none;
+            height: 80px;
+        }
+
         /* ---- popup ---- */
         .popup-overlay {
             position: fixed;
@@ -1236,49 +1279,121 @@
         .popup-overlay[data-view="view1"] .popup-view4,
         .popup-overlay[data-view="view1"] .popup-view5,
         .popup-overlay[data-view="view1"] .popup-view6,
-        .popup-overlay[data-view="view1"] .popup-view7 { display: none; }
+        .popup-overlay[data-view="view1"] .popup-view7,
+        .popup-overlay[data-view="view1"] .popup-view8,
+        .popup-overlay[data-view="view1"] .popup-view9,
+        .popup-overlay[data-view="view1"] .popup-view10,
+        .popup-overlay[data-view="view1"] .popup-view11 { display: none; }
         
         .popup-overlay[data-view="view2"] .popup-view1,
         .popup-overlay[data-view="view2"] .popup-view3,
         .popup-overlay[data-view="view2"] .popup-view4,
         .popup-overlay[data-view="view2"] .popup-view5,
         .popup-overlay[data-view="view2"] .popup-view6,
-        .popup-overlay[data-view="view2"] .popup-view7 { display: none; }
+        .popup-overlay[data-view="view2"] .popup-view7,
+        .popup-overlay[data-view="view2"] .popup-view8,
+        .popup-overlay[data-view="view2"] .popup-view9,
+        .popup-overlay[data-view="view2"] .popup-view10,
+        .popup-overlay[data-view="view2"] .popup-view11 { display: none; }
         
         .popup-overlay[data-view="view3"] .popup-view1,
         .popup-overlay[data-view="view3"] .popup-view2,
         .popup-overlay[data-view="view3"] .popup-view4,
         .popup-overlay[data-view="view3"] .popup-view5,
         .popup-overlay[data-view="view3"] .popup-view6,
-        .popup-overlay[data-view="view3"] .popup-view7 { display: none; }
+        .popup-overlay[data-view="view3"] .popup-view7,
+        .popup-overlay[data-view="view3"] .popup-view8,
+        .popup-overlay[data-view="view3"] .popup-view9,
+        .popup-overlay[data-view="view3"] .popup-view10,
+        .popup-overlay[data-view="view3"] .popup-view11 { display: none; }
         
         .popup-overlay[data-view="view4"] .popup-view1,
         .popup-overlay[data-view="view4"] .popup-view2,
         .popup-overlay[data-view="view4"] .popup-view3,
         .popup-overlay[data-view="view4"] .popup-view5,
         .popup-overlay[data-view="view4"] .popup-view6,
-        .popup-overlay[data-view="view4"] .popup-view7 { display: none; }
+        .popup-overlay[data-view="view4"] .popup-view7,
+        .popup-overlay[data-view="view4"] .popup-view8,
+        .popup-overlay[data-view="view4"] .popup-view9,
+        .popup-overlay[data-view="view4"] .popup-view10,
+        .popup-overlay[data-view="view4"] .popup-view11 { display: none; }
 
         .popup-overlay[data-view="view5"] .popup-view1,
         .popup-overlay[data-view="view5"] .popup-view2,
         .popup-overlay[data-view="view5"] .popup-view3,
         .popup-overlay[data-view="view5"] .popup-view4,
         .popup-overlay[data-view="view5"] .popup-view6,
-        .popup-overlay[data-view="view5"] .popup-view7 { display: none; }
+        .popup-overlay[data-view="view5"] .popup-view7,
+        .popup-overlay[data-view="view5"] .popup-view8,
+        .popup-overlay[data-view="view5"] .popup-view9,
+        .popup-overlay[data-view="view5"] .popup-view10,
+        .popup-overlay[data-view="view5"] .popup-view11 { display: none; }
 
         .popup-overlay[data-view="view6"] .popup-view1,
         .popup-overlay[data-view="view6"] .popup-view2,
         .popup-overlay[data-view="view6"] .popup-view3,
         .popup-overlay[data-view="view6"] .popup-view4,
         .popup-overlay[data-view="view6"] .popup-view5,
-        .popup-overlay[data-view="view6"] .popup-view7 { display: none; }
+        .popup-overlay[data-view="view6"] .popup-view7,
+        .popup-overlay[data-view="view6"] .popup-view8,
+        .popup-overlay[data-view="view6"] .popup-view9,
+        .popup-overlay[data-view="view6"] .popup-view10,
+        .popup-overlay[data-view="view6"] .popup-view11 { display: none; }
 
         .popup-overlay[data-view="view7"] .popup-view1,
         .popup-overlay[data-view="view7"] .popup-view2,
         .popup-overlay[data-view="view7"] .popup-view3,
         .popup-overlay[data-view="view7"] .popup-view4,
         .popup-overlay[data-view="view7"] .popup-view5,
-        .popup-overlay[data-view="view7"] .popup-view6 { display: none; }
+        .popup-overlay[data-view="view7"] .popup-view6,
+        .popup-overlay[data-view="view7"] .popup-view8,
+        .popup-overlay[data-view="view7"] .popup-view9,
+        .popup-overlay[data-view="view7"] .popup-view10,
+        .popup-overlay[data-view="view7"] .popup-view11 { display: none; }
+        
+        .popup-overlay[data-view="view8"] .popup-view1,
+        .popup-overlay[data-view="view8"] .popup-view2,
+        .popup-overlay[data-view="view8"] .popup-view3,
+        .popup-overlay[data-view="view8"] .popup-view4,
+        .popup-overlay[data-view="view8"] .popup-view5,
+        .popup-overlay[data-view="view8"] .popup-view6,
+        .popup-overlay[data-view="view8"] .popup-view7,
+        .popup-overlay[data-view="view8"] .popup-view9,
+        .popup-overlay[data-view="view8"] .popup-view10,
+        .popup-overlay[data-view="view8"] .popup-view11 { display: none; }
+
+        .popup-overlay[data-view="view9"] .popup-view1,
+        .popup-overlay[data-view="view9"] .popup-view2,
+        .popup-overlay[data-view="view9"] .popup-view3,
+        .popup-overlay[data-view="view9"] .popup-view4,
+        .popup-overlay[data-view="view9"] .popup-view5,
+        .popup-overlay[data-view="view9"] .popup-view6,
+        .popup-overlay[data-view="view9"] .popup-view7,
+        .popup-overlay[data-view="view9"] .popup-view8,
+        .popup-overlay[data-view="view9"] .popup-view10,
+        .popup-overlay[data-view="view9"] .popup-view11 { display: none; }
+
+        .popup-overlay[data-view="view10"] .popup-view1,
+        .popup-overlay[data-view="view10"] .popup-view2,
+        .popup-overlay[data-view="view10"] .popup-view3,
+        .popup-overlay[data-view="view10"] .popup-view4,
+        .popup-overlay[data-view="view10"] .popup-view5,
+        .popup-overlay[data-view="view10"] .popup-view6,
+        .popup-overlay[data-view="view10"] .popup-view7,
+        .popup-overlay[data-view="view10"] .popup-view8,
+        .popup-overlay[data-view="view10"] .popup-view9,
+        .popup-overlay[data-view="view10"] .popup-view11 { display: none; }
+
+        .popup-overlay[data-view="view11"] .popup-view1,
+        .popup-overlay[data-view="view11"] .popup-view2,
+        .popup-overlay[data-view="view11"] .popup-view3,
+        .popup-overlay[data-view="view11"] .popup-view4,
+        .popup-overlay[data-view="view11"] .popup-view5,
+        .popup-overlay[data-view="view11"] .popup-view6,
+        .popup-overlay[data-view="view11"] .popup-view7,
+        .popup-overlay[data-view="view11"] .popup-view8,
+        .popup-overlay[data-view="view11"] .popup-view9,
+        .popup-overlay[data-view="view11"] .popup-view10 { display: none; }
 
         @media (prefers-reduced-motion: reduce) {
             .avatar-link,
@@ -1446,6 +1561,45 @@
                     <button class="popup-btn popup-btn--ghost" id="popupAuraListBack" type="button">Go back...</button>
                 </div>
             </div>
+            
+            <!-- view 8: Backup Confirm -->
+            <div class="popup-view8">
+                <h2 class="popup-title">Backup Data</h2>
+                <p class="popup-body">This will back up all your Rolls, Coins & Auras.</p>
+                <div class="popup-actions">
+                    <button class="popup-btn" id="backupContinueBtn" type="button">Continue</button>
+                    <button class="popup-btn popup-btn--ghost" id="backupCancelBtn" type="button">No, thanks.</button>
+                </div>
+            </div>
+            
+            <!-- view 9: Backup Show Code -->
+            <div class="popup-view9">
+                <h2 class="popup-title">Your Save Code</h2>
+                <p class="popup-body" style="margin-bottom: 10px;">Copy this string to keep your data safe.</p>
+                <textarea class="backup-input" id="backupOutputCode" readonly></textarea>
+                <div class="popup-actions">
+                    <button class="popup-btn" id="backupCopyBtn" type="button">Copy to Clipboard</button>
+                    <button class="popup-btn popup-btn--ghost" id="backupCloseBtn" type="button">Done</button>
+                </div>
+            </div>
+            
+            <!-- view 10: Import Data -->
+            <div class="popup-view10">
+                <h2 class="popup-title">Import Data</h2>
+                <p class="popup-body" style="margin-bottom: 10px;">Paste your Save Code below.</p>
+                <textarea class="backup-input" id="importInputCode" placeholder="Paste string here..."></textarea>
+                <div class="popup-actions">
+                    <button class="popup-btn" id="importContinueBtn" type="button">Continue</button>
+                    <button class="popup-btn popup-btn--ghost" id="importCancelBtn" type="button">Cancel</button>
+                </div>
+            </div>
+            
+            <!-- view 11: Importing Status -->
+            <div class="popup-view11">
+                <h2 class="popup-title" id="importStatusTitle">Importing data...</h2>
+                <p class="popup-body" id="importStatusBody" style="color: #8b949e;">Please wait.</p>
+            </div>
+
         </div>
     </div>
 
@@ -2107,6 +2261,10 @@
             var shopBackBtn = document.getElementById('popupShopBack');
             var auraListBackBtn = document.getElementById('popupAuraListBack');
             
+            var backupCancelBtn = document.getElementById('backupCancelBtn');
+            var backupCloseBtn = document.getElementById('backupCloseBtn');
+            var importCancelBtn = document.getElementById('importCancelBtn');
+            
             if (!overlay) return;
 
             if (cancelBtn) cancelBtn.addEventListener('click', closePopup);
@@ -2115,6 +2273,9 @@
             if (repoBackBtn) repoBackBtn.addEventListener('click', closePopup);
             if (shopBackBtn) shopBackBtn.addEventListener('click', closePopup);
             if (auraListBackBtn) auraListBackBtn.addEventListener('click', closePopup);
+            if (backupCancelBtn) backupCancelBtn.addEventListener('click', closePopup);
+            if (backupCloseBtn) backupCloseBtn.addEventListener('click', closePopup);
+            if (importCancelBtn) importCancelBtn.addEventListener('click', closePopup);
 
             if (ignoreBtn) {
                 ignoreBtn.addEventListener('click', function() {
@@ -2464,7 +2625,7 @@
                                     <option value="none" disabled selected>Choose your game...</option>
                                     <option value="ms">Minesweeper</option>
                                     <option value="snake">Snake</option>
-                                    <option value="rng">Randomizer (Sol's RNG)</option>
+                                    <option value="rng">Randomizer</option>
                                 </select>
                             </div>
                             
@@ -2512,6 +2673,12 @@
                                         <div class="rng-stat">Rolls: <span id="rngRolls">0</span></div>
                                         <div class="rng-stat">Coins: <span id="rngCoins" style="color:#e3b341">0</span></div>
                                     </div>
+                                    
+                                    <div class="rng-backup-actions">
+                                        <button class="rng-backup-btn" id="rngBackupBtn" type="button">Backup Data</button>
+                                        <button class="rng-backup-btn" id="rngImportBtn" type="button">Import Data</button>
+                                    </div>
+
                                     <div class="rng-display">
                                         <div class="rng-aura-name" id="rngResult">-</div>
                                         <div class="rng-pity-text" id="rngPityText"></div>
@@ -3066,6 +3233,9 @@
             var rngDisplay = document.querySelector('.rng-display');
             var rngShopBtn = document.getElementById('rngShopBtn');
             var rngAuraListBtn = document.getElementById('rngAuraListBtn');
+            
+            var rngBackupBtn = document.getElementById('rngBackupBtn');
+            var rngImportBtn = document.getElementById('rngImportBtn');
 
             if (!rngRollBtn) return;
 
@@ -3184,24 +3354,21 @@
                 var cumulative = 0;
                 
                 if (isLuckActive) {
-                    // 10x luck algorithm:
-                    // Drastically reduce Common/Uncommon chances, multiply higher tier chances
                     var boostedRates = [];
                     var totalBoosted = 0;
                     
                     for (var i = 0; i < RARITIES.length; i++) {
                         var boost = 1;
-                        if (RARITIES[i].name === 'Common') boost = 0.02; // heavily nerfed
+                        if (RARITIES[i].name === 'Common') boost = 0.02; 
                         else if (RARITIES[i].name === 'Uncommon') boost = 0.1;
                         else if (RARITIES[i].name === 'Good') boost = 0.5;
-                        else boost = 10; // 10x for rare stuff
+                        else boost = 10; 
                         
                         var newChance = RARITIES[i].chance * boost;
                         boostedRates.push({ item: RARITIES[i], rate: newChance });
                         totalBoosted += newChance;
                     }
                     
-                    // Normalize back to 100%
                     rand = Math.random() * totalBoosted;
                     for (var i = 0; i < boostedRates.length; i++) {
                         cumulative += boostedRates[i].rate;
@@ -3251,9 +3418,8 @@
                 rngResult.innerHTML = rolledAura.name + '<br><span style="font-size:0.8rem; font-weight:normal; opacity:0.8;">(1/' + invStr + ')</span>';
                 rngResult.className = 'rng-aura-name ' + rolledAura.class;
 
-                // Animation
                 rngDisplay.classList.remove('shake');
-                void rngDisplay.offsetWidth; // trigger reflow
+                void rngDisplay.offsetWidth; 
                 
                 if (rolledAura.chance <= 0.01 || isLucky) {
                     rngDisplay.classList.add('shake');
@@ -3321,7 +3487,155 @@
                 });
             }
 
+            /* Backup & Import Logic */
+            if (rngBackupBtn) {
+                rngBackupBtn.addEventListener('click', function() {
+                    setPopupView('view8');
+                    var overlay = document.getElementById('popupOverlay');
+                    overlay.classList.add(POPUP_OPEN_CLASS);
+                });
+            }
+            
+            var backupContinueBtn = document.getElementById('backupContinueBtn');
+            if (backupContinueBtn) {
+                backupContinueBtn.addEventListener('click', function() {
+                    setPopupView('view9');
+                    var code = generateSaveCode(rolls, coins, pityCounter, luckPotions, inventory);
+                    document.getElementById('backupOutputCode').value = code;
+                });
+            }
+            
+            var backupCopyBtn = document.getElementById('backupCopyBtn');
+            if (backupCopyBtn) {
+                backupCopyBtn.addEventListener('click', function() {
+                    var input = document.getElementById('backupOutputCode');
+                    input.select();
+                    input.setSelectionRange(0, 99999);
+                    copyText(input.value, function(ok) {
+                        if (ok) {
+                            backupCopyBtn.textContent = 'Copied!';
+                            setTimeout(function() { backupCopyBtn.textContent = 'Copy to Clipboard'; }, 2000);
+                        }
+                    });
+                });
+            }
+            
+            if (rngImportBtn) {
+                rngImportBtn.addEventListener('click', function() {
+                    setPopupView('view10');
+                    document.getElementById('importInputCode').value = '';
+                    var overlay = document.getElementById('popupOverlay');
+                    overlay.classList.add(POPUP_OPEN_CLASS);
+                });
+            }
+            
+            var importContinueBtn = document.getElementById('importContinueBtn');
+            if (importContinueBtn) {
+                importContinueBtn.addEventListener('click', function() {
+                    var code = document.getElementById('importInputCode').value.trim();
+                    
+                    setPopupView('view11');
+                    document.getElementById('importStatusTitle').textContent = 'Importing data...';
+                    document.getElementById('importStatusTitle').style.color = '#ffffff';
+                    document.getElementById('importStatusBody').textContent = 'Please wait...';
+                    
+                    setTimeout(function() {
+                        var data = parseSaveCode(code);
+                        if (data) {
+                            rolls = data.r;
+                            coins = data.c;
+                            pityCounter = data.p;
+                            luckPotions = data.l;
+                            inventory = data.i;
+                            
+                            localStorage.setItem('gurt-rng-rolls', rolls);
+                            localStorage.setItem('gurt-rng-coins', coins);
+                            localStorage.setItem('gurt-rng-pity', pityCounter);
+                            localStorage.setItem('gurt-rng-luckpotion', luckPotions);
+                            localStorage.setItem('gurt-rng-inv', JSON.stringify(inventory));
+                            
+                            updateStats();
+                            showImportResult(true);
+                        } else {
+                            showImportResult(false);
+                        }
+                    }, 500);
+                });
+            }
+            
+            function showImportResult(success) {
+                setPopupView('view11');
+                var title = document.getElementById('importStatusTitle');
+                var body = document.getElementById('importStatusBody');
+                
+                if (success) {
+                    title.textContent = 'Import successful!';
+                    title.style.color = '#3fb950';
+                    body.textContent = 'Your data has been restored.';
+                } else {
+                    title.textContent = 'Import failed!';
+                    title.style.color = '#f85149';
+                    body.textContent = 'Invalid code or code not found.';
+                }
+                
+                setTimeout(function() {
+                    closePopup();
+                }, 5000);
+            }
+
             updateStats();
+        }
+        
+        /* ================================================================
+           Save Code Generator & Parser (Base64 Compressed)
+           ================================================================ */
+        function generateSaveCode(r, c, p, l, inv) {
+            // Minify keys to save space
+            var data = { r: r, c: c, p: p, l: l, i: inv };
+            var str = JSON.stringify(data);
+            
+            // Compress and Base64 encode
+            try {
+                var binary = pako.deflate(str, { to: 'string' });
+                var b64 = btoa(binary);
+                // Make it URL safe just in case
+                return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+            } catch (e) {
+                console.error("Pako compression failed, falling back to raw Base64.", e);
+                return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+            }
+        }
+        
+        function parseSaveCode(code) {
+            if (!code) return null;
+            try {
+                // Restore URL safe chars
+                var b64 = code.replace(/-/g, '+').replace(/_/g, '/');
+                // Add padding
+                while (b64.length % 4) {
+                    b64 += '=';
+                }
+                
+                var binary = atob(b64);
+                var jsonStr;
+                
+                // Try to decompress with Pako
+                try {
+                    jsonStr = pako.inflate(binary, { to: 'string' });
+                } catch (e) {
+                    // Fallback to just parsing Base64 (in case pako failed during save)
+                    jsonStr = binary;
+                }
+                
+                var data = JSON.parse(jsonStr);
+                // Basic validation
+                if (typeof data.r !== 'undefined' && typeof data.c !== 'undefined' && data.i) {
+                    return data;
+                }
+                return null;
+            } catch (e) {
+                return null;
+            }
         }
 
         /* ================================================================
