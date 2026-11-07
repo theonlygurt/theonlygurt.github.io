@@ -101,7 +101,8 @@
         .popup-btn:focus-visible,
         .ms-cell:focus-visible,
         .snake-dpad:focus-visible,
-        .rng-btn:focus-visible {
+        .rng-btn:focus-visible,
+        .rng-inv-sell:focus-visible {
             outline: 2px solid #58a6ff;
             outline-offset: 2px;
         }
@@ -890,6 +891,7 @@
             padding: 0 10px;
             transition: all 0.3s ease;
             z-index: 2;
+            line-height: 1.2;
         }
 
         .rng-stats {
@@ -929,6 +931,7 @@
             box-shadow: 0 4px 0 #196c2e;
             transition: all 0.1s;
             user-select: none;
+            touch-action: manipulation;
         }
         
         .rng-btn:active {
@@ -946,7 +949,7 @@
             width: 100%;
             background: rgba(13, 17, 23, 0.4);
             border: 1px solid rgba(48, 54, 61, 0.4);
-            max-height: 160px;
+            max-height: 200px;
             overflow-y: auto;
             text-align: left;
             padding: 8px;
@@ -961,6 +964,7 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
             padding: 6px 4px;
             font-family: monospace;
+            touch-action: manipulation;
         }
         
         .rng-inv-sell {
@@ -972,6 +976,7 @@
             border-radius: 2px;
             cursor: pointer;
             font-weight: bold;
+            touch-action: manipulation;
         }
         .rng-inv-sell:hover { background: #f85149; }
 
@@ -993,7 +998,18 @@
         .glow-exotic { text-shadow: 0 0 20px rgba(248,81,73,0.8); color: #f85149; }
         .glow-mythic { text-shadow: 0 0 25px #ffffff, 0 0 15px #e3b341; color: #e3b341; font-size: 1.8rem; }
         .glow-legendary { text-shadow: 0 0 30px #ffffff, 0 0 20px #ff00ff; color: #ff00ff; font-size: 1.9rem; animation: pulse 1.5s infinite; }
-        
+        .glow-celestial { text-shadow: 0 0 30px #fff, 0 0 20px #00ffff; color: #00ffff; font-size: 1.9rem; }
+        .glow-ethereal { text-shadow: 0 0 30px #fff, 0 0 20px #a8ffb2; color: #a8ffb2; font-size: 1.9rem; }
+        .glow-glitched { text-shadow: 2px 0 0 #ff00ff, -2px 0 0 #00ffff; color: #ffffff; font-size: 1.9rem; }
+        .glow-chromatic { text-shadow: 0 0 20px #ff0000, 0 0 20px #00ff00, 0 0 20px #0000ff; color: #ffffff; font-size: 1.9rem; }
+        .glow-starlight { text-shadow: 0 0 30px #fff, 0 0 20px #ffd700; color: #ffd700; font-size: 1.9rem; }
+        .glow-corrupted { text-shadow: 0 0 30px #fff, 0 0 20px #8b0000; color: #8b0000; font-size: 1.9rem; }
+        .glow-abyssal { text-shadow: 0 0 30px #fff, 0 0 20px #00008b; color: #00008b; font-size: 1.9rem; }
+        .glow-timeless { text-shadow: 0 0 30px #fff, 0 0 20px #c0c0c0; color: #c0c0c0; font-size: 1.9rem; }
+        .glow-genesis { text-shadow: 0 0 30px #fff, 0 0 20px #00ff00; color: #00ff00; font-size: 1.9rem; }
+        .glow-omnipotent { text-shadow: 0 0 30px #fff, 0 0 20px #ffffff; color: #ffffff; font-size: 2rem; font-weight: 900; animation: pulse 1s infinite; }
+        .glow-transcendent { text-shadow: 0 0 40px #fff, 0 0 30px #ff00ff, 0 0 20px #00ffff; color: #fff; font-size: 2.1rem; font-weight: 900; animation: pulse 0.5s infinite; }
+
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.9; }
             50% { transform: scale(1.05); opacity: 1; }
@@ -2849,7 +2865,7 @@
 
             if (!rngRollBtn) return;
 
-            // Added more auras
+            // Added many more auras
             var RARITIES = [
                 { name: 'Common', chance: 50, class: 'glow-common', value: 1 },
                 { name: 'Uncommon', chance: 25, class: 'glow-uncommon', value: 5 },
@@ -2859,7 +2875,18 @@
                 { name: 'Divine', chance: 1, class: 'glow-divine', value: 500 },
                 { name: 'Exotic', chance: 0.4, class: 'glow-exotic', value: 2500 },
                 { name: 'Mythic', chance: 0.09, class: 'glow-mythic', value: 10000 },
-                { name: 'Legendary', chance: 0.01, class: 'glow-legendary', value: 50000 }
+                { name: 'Legendary', chance: 0.01, class: 'glow-legendary', value: 50000 },
+                { name: 'Celestial', chance: 0.005, class: 'glow-celestial', value: 100000 },
+                { name: 'Ethereal', chance: 0.001, class: 'glow-ethereal', value: 500000 },
+                { name: 'Glitched', chance: 0.0005, class: 'glow-glitched', value: 1000000 },
+                { name: 'Chromatic', chance: 0.0001, class: 'glow-chromatic', value: 5000000 },
+                { name: 'Starlight', chance: 0.00005, class: 'glow-starlight', value: 10000000 },
+                { name: 'Corrupted', chance: 0.00001, class: 'glow-corrupted', value: 20000000 },
+                { name: 'Abyssal', chance: 0.000005, class: 'glow-abyssal', value: 30000000 },
+                { name: 'Timeless', chance: 0.000001, class: 'glow-timeless', value: 40000000 },
+                { name: 'Genesis', chance: 0.0000005, class: 'glow-genesis', value: 50000000 },
+                { name: 'Omnipotent', chance: 0.0000001, class: 'glow-omnipotent', value: 100000000 },
+                { name: 'Transcendent', chance: 0.0000001, class: 'glow-transcendent', value: 500000000 }
             ];
 
             var rolls = parseInt(localStorage.getItem('gurt-rng-rolls')) || 0;
@@ -2907,18 +2934,30 @@
                 // Attach sell events
                 var sellBtns = rngInventory.querySelectorAll('.rng-inv-sell');
                 Array.prototype.forEach.call(sellBtns, function(btn) {
-                    btn.addEventListener('click', function() {
-                        var auraName = this.getAttribute('data-aura');
-                        var val = parseInt(this.getAttribute('data-val'), 10);
-                        if (inventory[auraName] > 0) {
-                            inventory[auraName]--;
-                            coins += val;
-                            localStorage.setItem('gurt-rng-inv', JSON.stringify(inventory));
-                            localStorage.setItem('gurt-rng-coins', coins);
-                            updateStats();
-                        }
+                    btn.addEventListener('touchstart', function(e) {
+                        e.preventDefault(); // Prevent zoom on double tap
+                        if (navigator.vibrate) navigator.vibrate(10); // subtle haptic feedback
+                        handleSell(this);
+                    }, { passive: false });
+
+                    btn.addEventListener('click', function(e) {
+                        // Prevent click firing twice on mobile after touchstart
+                        if (e.detail === 0) return; 
+                        handleSell(this);
                     });
                 });
+            }
+
+            function handleSell(btn) {
+                var auraName = btn.getAttribute('data-aura');
+                var val = parseInt(btn.getAttribute('data-val'), 10);
+                if (inventory[auraName] > 0) {
+                    inventory[auraName]--;
+                    coins += val;
+                    localStorage.setItem('gurt-rng-inv', JSON.stringify(inventory));
+                    localStorage.setItem('gurt-rng-coins', coins);
+                    updateStats();
+                }
             }
 
             function roll() {
@@ -2950,7 +2989,7 @@
                 rngDisplay.classList.remove('shake');
                 void rngDisplay.offsetWidth; // trigger reflow
                 
-                if (rolledAura.name === 'Mythic' || rolledAura.name === 'Exotic' || rolledAura.name === 'Legendary') {
+                if (rolledAura.chance <= 0.01) {
                     rngDisplay.classList.add('shake');
                 }
 
