@@ -95,12 +95,13 @@
         .btn:focus-visible,
         .btn-install:focus-visible,
         .slider-btn:focus-visible,
-        .sub-tab:focus-visible,
+        .game-select:focus-visible,
         .avatar-link:focus-visible,
         .search-input:focus-visible,
         .popup-btn:focus-visible,
         .ms-cell:focus-visible,
-        .snake-dpad:focus-visible {
+        .snake-dpad:focus-visible,
+        .rng-btn:focus-visible {
             outline: 2px solid #58a6ff;
             outline-offset: 2px;
         }
@@ -557,48 +558,41 @@
 
         .contributions-section .note-list li { font-size: 0.8rem; }
 
-        /* ---- Mini-game Container & Sub-tabs ---- */
+        /* ---- Mini-game Container & Select ---- */
         .game-wrapper {
             display: flex;
             flex-direction: column;
             width: 100%;
         }
 
-        .game-subtabs {
-            display: flex;
+        .game-select-wrapper {
             width: 100%;
-            gap: 8px;
-            margin-bottom: 12px;
-            background: rgba(13, 17, 23, 0.3);
-            padding: 4px;
-            border: 1px solid rgba(48, 54, 61, 0.3);
-            border-radius: 0px;
+            margin-bottom: 16px;
         }
 
-        .sub-tab {
-            flex: 1; /* Forces equal width */
-            display: block;
-            background: transparent;
-            border: none;
-            color: #8b949e;
-            padding: 10px 8px; /* Better touch target */
-            font-size: 0.85rem;
+        .game-select {
+            width: 100%;
+            background-color: rgba(13, 17, 23, 0.4);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
             border-radius: 0px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            outline: none;
             text-align: center;
-            box-sizing: border-box;
+            transition: all 0.2s;
         }
 
-        .sub-tab:hover {
-            color: #ffffff;
-        }
-
-        .sub-tab.active {
-            background: #238636;
-            color: #ffffff;
-            box-shadow: 0 2px 6px rgba(35, 134, 54, 0.3);
+        .game-select:focus {
+            border-color: #58a6ff;
+            background-color: rgba(22, 27, 34, 0.6);
         }
 
         .game-pane {
@@ -739,14 +733,13 @@
             padding: 4px;
             border: 4px solid #2a3a26;
             position: relative;
-            /* Width 15 cols * 16px = 240px. Height 17 rows * 16px = 272px */
-            width: 248px; /* 240 + 8px padding */
-            height: 280px; /* 272 + 8px padding */
+            width: 248px; 
+            height: 280px; 
         }
 
         .snake-board {
             display: grid;
-            gap: 0; /* Removed gap to fix overflow */
+            gap: 0; 
             background: #9bbc0f;
             width: 100%;
             height: 100%;
@@ -756,7 +749,6 @@
             width: 16px;
             height: 16px;
             background-color: #9bbc0f;
-            /* Draw grid lines without taking up layout space */
             border-right: 1px solid rgba(15, 56, 15, 0.15);
             border-bottom: 1px solid rgba(15, 56, 15, 0.15);
             box-sizing: border-box;
@@ -865,6 +857,128 @@
         .snake-dpad.left { grid-column: 1; grid-row: 2; }
         .snake-dpad.down { grid-column: 2; grid-row: 2; }
         .snake-dpad.right { grid-column: 3; grid-row: 2; }
+
+        /* ---- Randomizer CSS ---- */
+        .rng-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .rng-display {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(13, 17, 23, 0.5);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .rng-aura-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 0 10px;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .rng-stats {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            color: #c9d1d9;
+            background: rgba(13, 17, 23, 0.3);
+            padding: 8px 12px;
+            border: 1px solid rgba(48, 54, 61, 0.3);
+        }
+
+        .rng-stat span {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .rng-buttons {
+            display: flex;
+            width: 100%;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .rng-btn {
+            flex: 1;
+            background-color: #238636;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 0 #196c2e;
+            transition: all 0.1s;
+            user-select: none;
+        }
+        
+        .rng-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #196c2e;
+        }
+
+        .rng-btn.secondary {
+            background-color: #1f6feb;
+            box-shadow: 0 4px 0 #1656b8;
+        }
+        .rng-btn.secondary:active { box-shadow: 0 0 0 #1656b8; }
+
+        .rng-inventory {
+            width: 100%;
+            background: rgba(13, 17, 23, 0.4);
+            border: 1px solid rgba(48, 54, 61, 0.4);
+            max-height: 120px;
+            overflow-y: auto;
+            text-align: left;
+            padding: 8px;
+            font-size: 0.8rem;
+            color: #8b949e;
+        }
+        
+        .rng-inv-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 4px 0;
+            font-family: monospace;
+        }
+
+        /* Rarity Effects */
+        .shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .glow-common { text-shadow: 0 0 10px rgba(255,255,255,0.2); color: #ffffff; }
+        .glow-uncommon { text-shadow: 0 0 10px rgba(63,185,80,0.5); color: #3fb950; }
+        .glow-good { text-shadow: 0 0 10px rgba(88,166,255,0.6); color: #58a6ff; }
+        .glow-natural { text-shadow: 0 0 10px rgba(210,153,34,0.6); color: #d29922; }
+        .glow-rare { text-shadow: 0 0 15px rgba(31,111,235,0.8); color: #1f6feb; }
+        .glow-divine { text-shadow: 0 0 15px rgba(163,113,247,0.8); color: #a371f7; }
+        .glow-exotic { text-shadow: 0 0 20px rgba(248,81,73,0.8); color: #f85149; }
+        .glow-mythic { text-shadow: 0 0 25px #ffffff, 0 0 15px #e3b341; color: #e3b341; font-size: 1.8rem; }
 
         /* ---- popup ---- */
         .popup-overlay {
@@ -2117,13 +2231,17 @@
                 if (tab.customContent === 'game-hub') {
                     panel.innerHTML = `
                         <div class="game-wrapper">
-                            <div class="game-subtabs">
-                                <button class="sub-tab active" id="subtab-ms">Minesweeper</button>
-                                <button class="sub-tab" id="subtab-snake">Snake</button>
+                            <div class="game-select-wrapper">
+                                <select class="game-select" id="gameSelect">
+                                    <option value="none" disabled selected>Choose your game...</option>
+                                    <option value="ms">Minesweeper</option>
+                                    <option value="snake">Snake</option>
+                                    <option value="rng">Randomizer (Sol's RNG)</option>
+                                </select>
                             </div>
                             
                             <!-- Minesweeper Pane -->
-                            <div class="game-pane active" id="game-ms">
+                            <div class="game-pane" id="game-ms">
                                 <div class="ms-container">
                                     <div class="ms-header">
                                         <div class="ms-status" id="msMines">💣 10</div>
@@ -2158,6 +2276,26 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Randomizer Pane -->
+                            <div class="game-pane" id="game-rng">
+                                <div class="rng-container">
+                                    <div class="rng-stats">
+                                        <div class="rng-stat">Rolls: <span id="rngRolls">0</span></div>
+                                        <div class="rng-stat">Auras: <span id="rngAuras">0</span></div>
+                                    </div>
+                                    <div class="rng-display">
+                                        <div class="rng-aura-name" id="rngResult">-</div>
+                                    </div>
+                                    <div class="rng-buttons">
+                                        <button class="rng-btn secondary" id="rngAutoBtn" type="button">Auto Roll</button>
+                                        <button class="rng-btn" id="rngRollBtn" type="button">Roll!</button>
+                                    </div>
+                                    <div class="rng-inventory" id="rngInventory">
+                                        <div style="text-align:center; padding: 10px;">No auras yet.</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     `;
                 } else {
@@ -2187,24 +2325,18 @@
                 content.appendChild(panel);
             });
 
-            /* Sub-tab logic */
-            var subtabMs = document.getElementById('subtab-ms');
-            var subtabSnake = document.getElementById('subtab-snake');
-            var gameMs = document.getElementById('game-ms');
-            var gameSnake = document.getElementById('game-snake');
+            /* Dropdown logic */
+            var gameSelect = document.getElementById('gameSelect');
+            var gamePanes = document.querySelectorAll('.game-pane');
 
-            if (subtabMs && subtabSnake) {
-                subtabMs.addEventListener('click', function() {
-                    subtabMs.classList.add('active');
-                    subtabSnake.classList.remove('active');
-                    gameMs.classList.add('active');
-                    gameSnake.classList.remove('active');
-                });
-                subtabSnake.addEventListener('click', function() {
-                    subtabSnake.classList.add('active');
-                    subtabMs.classList.remove('active');
-                    gameSnake.classList.add('active');
-                    gameMs.classList.remove('active');
+            if (gameSelect) {
+                gameSelect.addEventListener('change', function() {
+                    var val = this.value;
+                    Array.prototype.forEach.call(gamePanes, function(pane) {
+                        pane.classList.remove('active');
+                    });
+                    var selectedPane = document.getElementById('game-' + val);
+                    if (selectedPane) selectedPane.classList.add('active');
                 });
             }
         }
@@ -2659,12 +2791,11 @@
                 else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') changeDir({x:1, y:0});
             });
 
-            // Touch controls (Optimized for instant response)
+            // Touch controls
             var dpads = document.querySelectorAll('.snake-dpad');
             Array.prototype.forEach.call(dpads, function(btn) {
-                // Use touchstart for mobile to bypass 300ms delay
                 btn.addEventListener('touchstart', function(e) {
-                    e.preventDefault(); // Prevent double-tap zoom
+                    e.preventDefault(); 
                     if (!isPlaying) return;
                     var d = this.getAttribute('data-dir');
                     if (d === 'up') changeDir({x:0, y:-1});
@@ -2673,7 +2804,6 @@
                     if (d === 'right') changeDir({x:1, y:0});
                 }, { passive: false });
 
-                // Fallback for mouse clicks on desktop
                 btn.addEventListener('mousedown', function(e) {
                     if (!isPlaying) return;
                     var d = this.getAttribute('data-dir');
@@ -2683,6 +2813,116 @@
                     if (d === 'right') changeDir({x:1, y:0});
                 });
             });
+        }
+
+        /* ================================================================
+           Randomizer Logic (Sol's RNG Clone)
+           ================================================================ */
+        function initRandomizer() {
+            var rngRollBtn = document.getElementById('rngRollBtn');
+            var rngAutoBtn = document.getElementById('rngAutoBtn');
+            var rngResult = document.getElementById('rngResult');
+            var rngRollsEl = document.getElementById('rngRolls');
+            var rngAurasEl = document.getElementById('rngAuras');
+            var rngInventory = document.getElementById('rngInventory');
+            var rngDisplay = document.querySelector('.rng-display');
+
+            if (!rngRollBtn) return;
+
+            var RARITIES = [
+                { name: 'Common', chance: 50, class: 'glow-common' },
+                { name: 'Uncommon', chance: 25, class: 'glow-uncommon' },
+                { name: 'Good', chance: 15, class: 'glow-good' },
+                { name: 'Natural', chance: 6, class: 'glow-natural' },
+                { name: 'Rare', chance: 2.5, class: 'glow-rare' },
+                { name: 'Divine', chance: 1, class: 'glow-divine' },
+                { name: 'Exotic', chance: 0.4, class: 'glow-exotic' },
+                { name: 'Mythic', chance: 0.1, class: 'glow-mythic' }
+            ];
+
+            var rolls = parseInt(localStorage.getItem('gurt-rng-rolls')) || 0;
+            var inventory = {};
+            try {
+                inventory = JSON.parse(localStorage.getItem('gurt-rng-inv')) || {};
+            } catch (e) { inventory = {}; }
+
+            var autoRollInterval = null;
+
+            function updateStats() {
+                rngRollsEl.textContent = rolls;
+                var uniqueAuras = Object.keys(inventory).length;
+                rngAurasEl.textContent = uniqueAuras;
+                renderInventory();
+            }
+
+            function renderInventory() {
+                if (Object.keys(inventory).length === 0) {
+                    rngInventory.innerHTML = '<div style="text-align:center; padding: 10px;">No auras yet.</div>';
+                    return;
+                }
+                var html = '';
+                // Sort by rarity (highest first)
+                for (var i = RARITIES.length - 1; i >= 0; i--) {
+                    var r = RARITIES[i];
+                    if (inventory[r.name]) {
+                        html += '<div class="rng-inv-item">';
+                        html += '<span class="' + r.class + '" style="font-size:0.8rem">' + r.name + '</span>';
+                        html += '<span>x' + inventory[r.name] + '</span>';
+                        html += '</div>';
+                    }
+                }
+                rngInventory.innerHTML = html;
+            }
+
+            function roll() {
+                var rand = Math.random() * 100;
+                var cumulative = 0;
+                var rolledAura = RARITIES[0];
+
+                for (var i = 0; i < RARITIES.length; i++) {
+                    cumulative += RARITIES[i].chance;
+                    if (rand <= cumulative) {
+                        rolledAura = RARITIES[i];
+                        break;
+                    }
+                }
+
+                rolls++;
+                inventory[rolledAura.name] = (inventory[rolledAura.name] || 0) + 1;
+
+                localStorage.setItem('gurt-rng-rolls', rolls);
+                localStorage.setItem('gurt-rng-inv', JSON.stringify(inventory));
+
+                rngResult.textContent = rolledAura.name;
+                rngResult.className = 'rng-aura-name ' + rolledAura.class;
+
+                // Animation
+                rngDisplay.classList.remove('shake');
+                void rngDisplay.offsetWidth; // trigger reflow
+                
+                if (rolledAura.name === 'Mythic' || rolledAura.name === 'Exotic') {
+                    rngDisplay.classList.add('shake');
+                }
+
+                updateStats();
+            }
+
+            rngRollBtn.addEventListener('click', roll);
+
+            rngAutoBtn.addEventListener('click', function() {
+                if (autoRollInterval) {
+                    clearInterval(autoRollInterval);
+                    autoRollInterval = null;
+                    rngAutoBtn.textContent = 'Auto Roll';
+                    rngAutoBtn.style.backgroundColor = '#1f6feb';
+                } else {
+                    autoRollInterval = setInterval(roll, 300);
+                    rngAutoBtn.textContent = 'Stop Auto';
+                    rngAutoBtn.style.backgroundColor = '#da3633';
+                }
+            });
+
+            updateStats();
         }
 
         /* ================================================================
@@ -2899,6 +3139,7 @@
         buildTabs();
         initMinesweeper();
         initSnake();
+        initRandomizer();
         refreshLatestLinks();
     })();
     </script>
