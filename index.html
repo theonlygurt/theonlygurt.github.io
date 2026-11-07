@@ -876,7 +876,7 @@
             align-items: center;
             background: rgba(13, 17, 23, 0.5);
             border: 1px solid rgba(48, 54, 61, 0.5);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             position: relative;
             overflow: hidden;
             border-radius: 4px;
@@ -944,6 +944,20 @@
             box-shadow: 0 4px 0 #1656b8;
         }
         .rng-btn.secondary:active { box-shadow: 0 0 0 #1656b8; }
+        
+        .rng-btn.tiny {
+            padding: 8px;
+            font-size: 0.8rem;
+            box-shadow: 0 3px 0 #1656b8;
+        }
+        .rng-btn.tiny:active { box-shadow: 0 0 0 #1656b8; }
+
+        .rng-shop-actions {
+            display: flex;
+            width: 100%;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
 
         .rng-inventory {
             width: 100%;
@@ -1014,6 +1028,26 @@
             0% { transform: scale(1); opacity: 0.9; }
             50% { transform: scale(1.05); opacity: 1; }
             100% { transform: scale(1); opacity: 0.9; }
+        }
+
+        /* Aura List Modal */
+        .aura-list-container {
+            text-align: left;
+            max-height: 250px;
+            overflow-y: auto;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border: 1px solid #30363d;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+        
+        .aura-list-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         /* ---- popup ---- */
@@ -1139,27 +1173,51 @@
         .popup-overlay[data-view="view1"] .popup-view2,
         .popup-overlay[data-view="view1"] .popup-view3,
         .popup-overlay[data-view="view1"] .popup-view4,
-        .popup-overlay[data-view="view1"] .popup-view5 { display: none; }
+        .popup-overlay[data-view="view1"] .popup-view5,
+        .popup-overlay[data-view="view1"] .popup-view6,
+        .popup-overlay[data-view="view1"] .popup-view7 { display: none; }
         
         .popup-overlay[data-view="view2"] .popup-view1,
         .popup-overlay[data-view="view2"] .popup-view3,
         .popup-overlay[data-view="view2"] .popup-view4,
-        .popup-overlay[data-view="view2"] .popup-view5 { display: none; }
+        .popup-overlay[data-view="view2"] .popup-view5,
+        .popup-overlay[data-view="view2"] .popup-view6,
+        .popup-overlay[data-view="view2"] .popup-view7 { display: none; }
         
         .popup-overlay[data-view="view3"] .popup-view1,
         .popup-overlay[data-view="view3"] .popup-view2,
         .popup-overlay[data-view="view3"] .popup-view4,
-        .popup-overlay[data-view="view3"] .popup-view5 { display: none; }
+        .popup-overlay[data-view="view3"] .popup-view5,
+        .popup-overlay[data-view="view3"] .popup-view6,
+        .popup-overlay[data-view="view3"] .popup-view7 { display: none; }
         
         .popup-overlay[data-view="view4"] .popup-view1,
         .popup-overlay[data-view="view4"] .popup-view2,
         .popup-overlay[data-view="view4"] .popup-view3,
-        .popup-overlay[data-view="view4"] .popup-view5 { display: none; }
+        .popup-overlay[data-view="view4"] .popup-view5,
+        .popup-overlay[data-view="view4"] .popup-view6,
+        .popup-overlay[data-view="view4"] .popup-view7 { display: none; }
 
         .popup-overlay[data-view="view5"] .popup-view1,
         .popup-overlay[data-view="view5"] .popup-view2,
         .popup-overlay[data-view="view5"] .popup-view3,
-        .popup-overlay[data-view="view5"] .popup-view4 { display: none; }
+        .popup-overlay[data-view="view5"] .popup-view4,
+        .popup-overlay[data-view="view5"] .popup-view6,
+        .popup-overlay[data-view="view5"] .popup-view7 { display: none; }
+
+        .popup-overlay[data-view="view6"] .popup-view1,
+        .popup-overlay[data-view="view6"] .popup-view2,
+        .popup-overlay[data-view="view6"] .popup-view3,
+        .popup-overlay[data-view="view6"] .popup-view4,
+        .popup-overlay[data-view="view6"] .popup-view5,
+        .popup-overlay[data-view="view6"] .popup-view7 { display: none; }
+
+        .popup-overlay[data-view="view7"] .popup-view1,
+        .popup-overlay[data-view="view7"] .popup-view2,
+        .popup-overlay[data-view="view7"] .popup-view3,
+        .popup-overlay[data-view="view7"] .popup-view4,
+        .popup-overlay[data-view="view7"] .popup-view5,
+        .popup-overlay[data-view="view7"] .popup-view6 { display: none; }
 
         @media (prefers-reduced-motion: reduce) {
             .avatar-link,
@@ -1296,6 +1354,25 @@
                     <button class="popup-btn popup-btn--ghost" id="popupRepoBack" type="button">Go back...</button>
                 </div>
                 <span class="popup-toast" id="popupRepoToast">Copied!</span>
+            </div>
+            <!-- view 6: Shop Coming Soon -->
+            <div class="popup-view6">
+                <h2 class="popup-title">Shop</h2>
+                <p class="popup-body">Coming Soon!</p>
+                <div class="popup-actions">
+                    <button class="popup-btn popup-btn--ghost" id="popupShopBack" type="button">Go back...</button>
+                </div>
+            </div>
+            <!-- view 7: Aura List -->
+            <div class="popup-view7">
+                <h2 class="popup-title">Aura List</h2>
+                <p class="popup-body" style="margin-bottom: 5px;">All auras available.</p>
+                <div class="aura-list-container" id="auraListContainer">
+                    <!-- Injected by JS -->
+                </div>
+                <div class="popup-actions" style="margin-top: 15px;">
+                    <button class="popup-btn popup-btn--ghost" id="popupAuraListBack" type="button">Go back...</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1856,6 +1933,40 @@
             var btn = document.getElementById('popupRepoCopy');
             if (btn) btn.focus();
         }
+        
+        function openShopPopup() {
+            var overlay = document.getElementById('popupOverlay');
+            if (!overlay) return;
+            setPopupView('view6');
+            popupLastFocus = document.activeElement;
+            overlay.classList.add(POPUP_OPEN_CLASS);
+            var btn = document.getElementById('popupShopBack');
+            if (btn) btn.focus();
+        }
+        
+        function openAuraListPopup(rarities) {
+            var overlay = document.getElementById('popupOverlay');
+            var container = document.getElementById('auraListContainer');
+            if (!overlay || !container) return;
+            
+            var html = '';
+            for (var i = 0; i < rarities.length; i++) {
+                var r = rarities[i];
+                var inv = 100 / r.chance;
+                var invStr = inv % 1 === 0 ? inv.toLocaleString() : inv.toFixed(1);
+                html += '<div class="aura-list-item">';
+                html += '<span class="' + r.class + '">' + r.name + '</span>';
+                html += '<span>1/' + invStr + '</span>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
+            
+            setPopupView('view7');
+            popupLastFocus = document.activeElement;
+            overlay.classList.add(POPUP_OPEN_CLASS);
+            var btn = document.getElementById('popupAuraListBack');
+            if (btn) btn.focus();
+        }
 
         function closePopup() {
             var overlay = document.getElementById('popupOverlay');
@@ -1989,6 +2100,11 @@
                     });
                 });
             }
+            
+            var shopBackBtn = document.getElementById('popupShopBack');
+            var auraListBackBtn = document.getElementById('popupAuraListBack');
+            if (shopBackBtn) shopBackBtn.addEventListener('click', closePopup);
+            if (auraListBackBtn) auraListBackBtn.addEventListener('click', closePopup);
 
             overlay.addEventListener('click', function (e) {
                 if (e.target === overlay) closePopup();
@@ -2323,6 +2439,12 @@
                                     <div class="rng-display">
                                         <div class="rng-aura-name" id="rngResult">-</div>
                                     </div>
+                                    
+                                    <div class="rng-shop-actions">
+                                        <button class="rng-btn secondary tiny" id="rngShopBtn" type="button">Shop</button>
+                                        <button class="rng-btn secondary tiny" id="rngAuraListBtn" type="button">Aura list</button>
+                                    </div>
+
                                     <div class="rng-buttons">
                                         <button class="rng-btn secondary" id="rngAutoBtn" type="button">Auto Roll</button>
                                         <button class="rng-btn" id="rngRollBtn" type="button">Roll!</button>
@@ -2862,10 +2984,11 @@
             var rngCoinsEl = document.getElementById('rngCoins');
             var rngInventory = document.getElementById('rngInventory');
             var rngDisplay = document.querySelector('.rng-display');
+            var rngShopBtn = document.getElementById('rngShopBtn');
+            var rngAuraListBtn = document.getElementById('rngAuraListBtn');
 
             if (!rngRollBtn) return;
 
-            // Added many more auras
             var RARITIES = [
                 { name: 'Common', chance: 50, class: 'glow-common', value: 1 },
                 { name: 'Uncommon', chance: 25, class: 'glow-uncommon', value: 5 },
@@ -2910,7 +3033,6 @@
                     return;
                 }
                 var html = '';
-                // Sort by rarity (highest first)
                 for (var i = RARITIES.length - 1; i >= 0; i--) {
                     var r = RARITIES[i];
                     if (inventory[r.name] > 0) {
@@ -2931,17 +3053,15 @@
                 }
                 rngInventory.innerHTML = html;
 
-                // Attach sell events
                 var sellBtns = rngInventory.querySelectorAll('.rng-inv-sell');
                 Array.prototype.forEach.call(sellBtns, function(btn) {
                     btn.addEventListener('touchstart', function(e) {
-                        e.preventDefault(); // Prevent zoom on double tap
-                        if (navigator.vibrate) navigator.vibrate(10); // subtle haptic feedback
+                        e.preventDefault(); 
+                        if (navigator.vibrate) navigator.vibrate(10); 
                         handleSell(this);
                     }, { passive: false });
 
                     btn.addEventListener('click', function(e) {
-                        // Prevent click firing twice on mobile after touchstart
                         if (e.detail === 0) return; 
                         handleSell(this);
                     });
@@ -3010,6 +3130,13 @@
                     rngAutoBtn.style.backgroundColor = '#da3633';
                 }
             });
+            
+            if (rngShopBtn) rngShopBtn.addEventListener('click', openShopPopup);
+            if (rngAuraListBtn) {
+                rngAuraListBtn.addEventListener('click', function() {
+                    openAuraListPopup(RARITIES);
+                });
+            }
 
             updateStats();
         }
