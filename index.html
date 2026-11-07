@@ -100,7 +100,7 @@
         .search-input:focus-visible,
         .popup-btn:focus-visible,
         .ms-cell:focus-visible,
-        .snake-dpad button:focus-visible {
+        .snake-dpad:focus-visible {
             outline: 2px solid #58a6ff;
             outline-offset: 2px;
         }
@@ -566,6 +566,7 @@
 
         .game-subtabs {
             display: flex;
+            width: 100%;
             gap: 8px;
             margin-bottom: 12px;
             background: rgba(13, 17, 23, 0.3);
@@ -575,17 +576,19 @@
         }
 
         .sub-tab {
-            flex: 1;
+            flex: 1; /* Forces equal width */
+            display: block;
             background: transparent;
             border: none;
             color: #8b949e;
-            padding: 8px 10px;
-            font-size: 0.8rem;
+            padding: 10px 8px; /* Better touch target */
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
             border-radius: 0px;
             text-align: center;
+            box-sizing: border-box;
         }
 
         .sub-tab:hover {
@@ -717,11 +720,11 @@
         }
 
         .snake-header {
-            width: 100%;
+            width: 240px; /* Match board width exactly */
             display: flex;
             justify-content: space-between;
-            background: #435b3e; /* Nokia green dark */
-            color: #9bbc0f; /* Nokia screen green */
+            background: #435b3e;
+            color: #9bbc0f;
             padding: 8px 12px;
             font-family: monospace;
             font-weight: bold;
@@ -732,16 +735,21 @@
         }
 
         .snake-board-wrap {
-            background: #9bbc0f; /* Nokia screen background */
+            background: #9bbc0f;
             padding: 4px;
             border: 4px solid #2a3a26;
             position: relative;
+            /* Width 15 cols * 16px = 240px. Height 17 rows * 16px = 272px */
+            width: 248px; /* 240 + 8px padding */
+            height: 280px; /* 272 + 8px padding */
         }
 
         .snake-board {
             display: grid;
             gap: 1px;
             background: #8ba80c;
+            width: 100%;
+            height: 100%;
         }
 
         .snake-cell {
@@ -751,7 +759,7 @@
         }
 
         .snake-body {
-            background-color: #0f380f; /* Dark pixel */
+            background-color: #0f380f;
         }
 
         .snake-head {
@@ -775,7 +783,7 @@
         .snake-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(155, 188, 15, 0.85);
+            background: rgba(155, 188, 15, 0.9);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -789,13 +797,15 @@
 
         .snake-overlay h2 {
             font-size: 1.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            line-height: 1.1;
         }
 
         .snake-overlay p {
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            line-height: 1.4;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            line-height: 1.3;
+            padding: 0 10px;
         }
 
         .snake-overlay button {
@@ -816,9 +826,9 @@
 
         .snake-controls {
             display: grid;
-            grid-template-columns: repeat(3, 48px);
-            grid-template-rows: repeat(2, 48px);
-            gap: 8px;
+            grid-template-columns: repeat(3, 52px);
+            grid-template-rows: repeat(2, 52px);
+            gap: 10px;
             margin-top: 16px;
         }
 
@@ -826,7 +836,7 @@
             background: #30363d;
             border: none;
             color: #ffffff;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             border-radius: 8px;
             cursor: pointer;
             display: flex;
@@ -836,6 +846,7 @@
             transition: transform 0.1s, box-shadow 0.1s;
             user-select: none;
             -webkit-user-select: none;
+            touch-action: manipulation; /* Fixes iOS delay */
         }
 
         .snake-dpad:active {
@@ -1246,7 +1257,7 @@
                         icon: 'Images/IMG_3133.jpeg',
                         iconAlt: 'ClassiCube',
                         desc: 'a minecraft old beta emulator(pretty light)',
-                        href: 'https://cdn.classiccube.net/client/latest/ClassiCube.ipa'
+                        href: 'https://cdn.classicube.net/client/latest/ClassiCube.ipa'
                     },
                     {
                         title: 'Nyxian IPA',
@@ -2609,7 +2620,14 @@
                     <p>Score: ${score}</p>
                     <button type="button" id="snakeStartBtn">TRY AGAIN</button>
                 `;
-                document.getElementById('snakeStartBtn').addEventListener('click', start);
+                var newBtn = document.getElementById('snakeStartBtn');
+                if (newBtn) {
+                    newBtn.addEventListener('click', start);
+                    newBtn.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        start();
+                    }, {passive: false});
+                }
             }
 
             function changeDir(newDir) {
@@ -2619,6 +2637,10 @@
             }
 
             startBtn.addEventListener('click', start);
+            startBtn.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                start();
+            }, {passive: false});
 
             // Keyboard controls
             document.addEventListener('keydown', function(e) {
@@ -2629,13 +2651,24 @@
                 else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') changeDir({x:1, y:0});
             });
 
-            // Touch controls
+            // Touch controls (Optimized for instant response)
             var dpads = document.querySelectorAll('.snake-dpad');
             Array.prototype.forEach.call(dpads, function(btn) {
-                btn.addEventListener('click', function(e) {
+                // Use touchstart for mobile to bypass 300ms delay
+                btn.addEventListener('touchstart', function(e) {
                     e.preventDefault(); // Prevent double-tap zoom
                     if (!isPlaying) return;
-                    var d = e.currentTarget.dataset.dir;
+                    var d = this.getAttribute('data-dir');
+                    if (d === 'up') changeDir({x:0, y:-1});
+                    if (d === 'down') changeDir({x:0, y:1});
+                    if (d === 'left') changeDir({x:-1, y:0});
+                    if (d === 'right') changeDir({x:1, y:0});
+                }, { passive: false });
+
+                // Fallback for mouse clicks on desktop
+                btn.addEventListener('mousedown', function(e) {
+                    if (!isPlaying) return;
+                    var d = this.getAttribute('data-dir');
                     if (d === 'up') changeDir({x:0, y:-1});
                     if (d === 'down') changeDir({x:0, y:1});
                     if (d === 'left') changeDir({x:-1, y:0});
