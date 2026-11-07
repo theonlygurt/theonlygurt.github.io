@@ -102,7 +102,8 @@
         .ms-cell:focus-visible,
         .snake-dpad:focus-visible,
         .rng-btn:focus-visible,
-        .rng-inv-sell:focus-visible {
+        .rng-inv-sell:focus-visible,
+        .shop-buy-btn:focus-visible {
             outline: 2px solid #58a6ff;
             outline-offset: 2px;
         }
@@ -870,8 +871,9 @@
 
         .rng-display {
             width: 100%;
-            height: 100px;
+            height: 110px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             background: rgba(13, 17, 23, 0.5);
@@ -892,6 +894,24 @@
             transition: all 0.3s ease;
             z-index: 2;
             line-height: 1.2;
+        }
+        
+        .rng-pity-text {
+            font-size: 0.75rem;
+            color: #e3b341;
+            margin-top: 6px;
+            font-weight: bold;
+            z-index: 2;
+            text-shadow: 0 0 5px rgba(227, 179, 65, 0.5);
+        }
+        
+        .rng-luck-text {
+            font-size: 0.75rem;
+            color: #3fb950;
+            margin-top: 4px;
+            font-weight: bold;
+            z-index: 2;
+            text-shadow: 0 0 5px rgba(63, 185, 80, 0.5);
         }
 
         .rng-stats {
@@ -1048,6 +1068,47 @@
             justify-content: space-between;
             padding: 4px 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Shop Modal */
+        .shop-item {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            background: rgba(13, 17, 23, 0.4);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+        }
+        .shop-title {
+            color: #e3b341;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .shop-desc {
+            color: #8b949e;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+        .shop-buy-btn {
+            background: #238636;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 2px;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+        .shop-buy-btn:hover { background: #2ea043; }
+        .shop-buy-btn:disabled {
+            background: #21262d;
+            color: #6e7681;
+            cursor: not-allowed;
         }
 
         /* ---- popup ---- */
@@ -1355,11 +1416,22 @@
                 </div>
                 <span class="popup-toast" id="popupRepoToast">Copied!</span>
             </div>
-            <!-- view 6: Shop Coming Soon -->
+            <!-- view 6: Shop -->
             <div class="popup-view6">
                 <h2 class="popup-title">Shop</h2>
-                <p class="popup-body">Coming Soon!</p>
-                <div class="popup-actions">
+                <p class="popup-body" style="margin-bottom: 10px;">Spend your hard-earned coins!</p>
+                
+                <div style="text-align: left; font-size: 0.85rem; margin-bottom: 16px; color: #e3b341; font-weight: bold;">
+                    Your Coins: <span id="shopCoins" style="color:#fff;">0</span>
+                </div>
+
+                <div class="shop-item">
+                    <div class="shop-title">Lucky Potion</div>
+                    <div class="shop-desc">Boosts your luck (10x) for the next 50 rolls.</div>
+                    <button class="shop-buy-btn" id="buyPotionBtn" type="button">Buy - 10,000 Coins</button>
+                </div>
+
+                <div class="popup-actions" style="margin-top: 10px;">
                     <button class="popup-btn popup-btn--ghost" id="popupShopBack" type="button">Go back...</button>
                 </div>
             </div>
@@ -1934,12 +2006,15 @@
             if (btn) btn.focus();
         }
         
-        function openShopPopup() {
+        var currentShopUpdate = null;
+        function openShopPopup(updateCb) {
             var overlay = document.getElementById('popupOverlay');
             if (!overlay) return;
             setPopupView('view6');
             popupLastFocus = document.activeElement;
             overlay.classList.add(POPUP_OPEN_CLASS);
+            currentShopUpdate = updateCb;
+            if (updateCb) updateCb(); // Initial render
             var btn = document.getElementById('popupShopBack');
             if (btn) btn.focus();
         }
@@ -1978,6 +2053,7 @@
             popupLastFocus = null;
             popupCurrentSecondView = null;
             pendingActionUrl = null;
+            currentShopUpdate = null;
             
             var toasts = document.querySelectorAll('.popup-toast');
             for (var i = 0; i < toasts.length; i++) {
@@ -2028,12 +2104,17 @@
             var repoToast = document.getElementById('popupRepoToast');
             var repoBackBtn = document.getElementById('popupRepoBack');
             
+            var shopBackBtn = document.getElementById('popupShopBack');
+            var auraListBackBtn = document.getElementById('popupAuraListBack');
+            
             if (!overlay) return;
 
             if (cancelBtn) cancelBtn.addEventListener('click', closePopup);
             if (okayBtn) okayBtn.addEventListener('click', closePopup);
             if (cypwnBackBtn) cypwnBackBtn.addEventListener('click', closePopup);
             if (repoBackBtn) repoBackBtn.addEventListener('click', closePopup);
+            if (shopBackBtn) shopBackBtn.addEventListener('click', closePopup);
+            if (auraListBackBtn) auraListBackBtn.addEventListener('click', closePopup);
 
             if (ignoreBtn) {
                 ignoreBtn.addEventListener('click', function() {
@@ -2100,11 +2181,6 @@
                     });
                 });
             }
-            
-            var shopBackBtn = document.getElementById('popupShopBack');
-            var auraListBackBtn = document.getElementById('popupAuraListBack');
-            if (shopBackBtn) shopBackBtn.addEventListener('click', closePopup);
-            if (auraListBackBtn) auraListBackBtn.addEventListener('click', closePopup);
 
             overlay.addEventListener('click', function (e) {
                 if (e.target === overlay) closePopup();
@@ -2438,6 +2514,8 @@
                                     </div>
                                     <div class="rng-display">
                                         <div class="rng-aura-name" id="rngResult">-</div>
+                                        <div class="rng-pity-text" id="rngPityText"></div>
+                                        <div class="rng-luck-text" id="rngLuckText"></div>
                                     </div>
                                     
                                     <div class="rng-shop-actions">
@@ -2980,6 +3058,8 @@
             var rngRollBtn = document.getElementById('rngRollBtn');
             var rngAutoBtn = document.getElementById('rngAutoBtn');
             var rngResult = document.getElementById('rngResult');
+            var rngPityText = document.getElementById('rngPityText');
+            var rngLuckText = document.getElementById('rngLuckText');
             var rngRollsEl = document.getElementById('rngRolls');
             var rngCoinsEl = document.getElementById('rngCoins');
             var rngInventory = document.getElementById('rngInventory');
@@ -3014,6 +3094,8 @@
 
             var rolls = parseInt(localStorage.getItem('gurt-rng-rolls')) || 0;
             var coins = parseInt(localStorage.getItem('gurt-rng-coins')) || 0;
+            var pityCounter = parseInt(localStorage.getItem('gurt-rng-pity')) || 0;
+            var luckPotions = parseInt(localStorage.getItem('gurt-rng-luckpotion')) || 0; // remaining rolls
             var inventory = {};
             try {
                 inventory = JSON.parse(localStorage.getItem('gurt-rng-inv')) || {};
@@ -3024,6 +3106,22 @@
             function updateStats() {
                 rngRollsEl.textContent = rolls;
                 rngCoinsEl.textContent = coins.toLocaleString();
+                
+                if (pityCounter >= 29) {
+                    rngPityText.textContent = 'PITY ACTIVE! (10x Luck)';
+                    rngPityText.style.color = '#3fb950'; 
+                } else {
+                    rngPityText.textContent = (pityCounter + 1) + '/30 (every 30 rolls, the 30th has 10x luck)';
+                    rngPityText.style.color = '#e3b341';
+                }
+                
+                if (luckPotions > 0) {
+                    rngLuckText.textContent = 'POTION ACTIVE: ' + luckPotions + ' rolls left';
+                    rngLuckText.style.display = 'block';
+                } else {
+                    rngLuckText.style.display = 'none';
+                }
+
                 renderInventory();
             }
 
@@ -3077,27 +3175,75 @@
                     localStorage.setItem('gurt-rng-inv', JSON.stringify(inventory));
                     localStorage.setItem('gurt-rng-coins', coins);
                     updateStats();
+                    if (currentShopUpdate) currentShopUpdate();
+                }
+            }
+
+            function getWeightedRarity(isLuckActive) {
+                var rand = Math.random() * 100;
+                var cumulative = 0;
+                
+                if (isLuckActive) {
+                    // 10x luck algorithm:
+                    // Drastically reduce Common/Uncommon chances, multiply higher tier chances
+                    var boostedRates = [];
+                    var totalBoosted = 0;
+                    
+                    for (var i = 0; i < RARITIES.length; i++) {
+                        var boost = 1;
+                        if (RARITIES[i].name === 'Common') boost = 0.02; // heavily nerfed
+                        else if (RARITIES[i].name === 'Uncommon') boost = 0.1;
+                        else if (RARITIES[i].name === 'Good') boost = 0.5;
+                        else boost = 10; // 10x for rare stuff
+                        
+                        var newChance = RARITIES[i].chance * boost;
+                        boostedRates.push({ item: RARITIES[i], rate: newChance });
+                        totalBoosted += newChance;
+                    }
+                    
+                    // Normalize back to 100%
+                    rand = Math.random() * totalBoosted;
+                    for (var i = 0; i < boostedRates.length; i++) {
+                        cumulative += boostedRates[i].rate;
+                        if (rand <= cumulative) return boostedRates[i].item;
+                    }
+                    return boostedRates[boostedRates.length-1].item;
+                    
+                } else {
+                    for (var i = 0; i < RARITIES.length; i++) {
+                        cumulative += RARITIES[i].chance;
+                        if (rand <= cumulative) {
+                            return RARITIES[i];
+                        }
+                    }
+                    return RARITIES[0];
                 }
             }
 
             function roll() {
-                var rand = Math.random() * 100;
-                var cumulative = 0;
-                var rolledAura = RARITIES[0];
-
-                for (var i = 0; i < RARITIES.length; i++) {
-                    cumulative += RARITIES[i].chance;
-                    if (rand <= cumulative) {
-                        rolledAura = RARITIES[i];
-                        break;
-                    }
-                }
+                var isPity = (pityCounter >= 29);
+                var isPotion = (luckPotions > 0);
+                var isLucky = isPity || isPotion;
+                
+                var rolledAura = getWeightedRarity(isLucky);
 
                 rolls++;
                 inventory[rolledAura.name] = (inventory[rolledAura.name] || 0) + 1;
+                
+                if (isPity) {
+                    pityCounter = 0;
+                } else {
+                    pityCounter++;
+                }
+                
+                if (isPotion) {
+                    luckPotions--;
+                }
 
                 localStorage.setItem('gurt-rng-rolls', rolls);
                 localStorage.setItem('gurt-rng-inv', JSON.stringify(inventory));
+                localStorage.setItem('gurt-rng-pity', pityCounter);
+                localStorage.setItem('gurt-rng-luckpotion', luckPotions);
 
                 var inv = 100 / rolledAura.chance;
                 var invStr = inv % 1 === 0 ? inv.toLocaleString() : inv.toFixed(1);
@@ -3109,11 +3255,12 @@
                 rngDisplay.classList.remove('shake');
                 void rngDisplay.offsetWidth; // trigger reflow
                 
-                if (rolledAura.chance <= 0.01) {
+                if (rolledAura.chance <= 0.01 || isLucky) {
                     rngDisplay.classList.add('shake');
                 }
 
                 updateStats();
+                if (currentShopUpdate) currentShopUpdate();
             }
 
             rngRollBtn.addEventListener('click', roll);
@@ -3131,10 +3278,46 @@
                 }
             });
             
-            if (rngShopBtn) rngShopBtn.addEventListener('click', openShopPopup);
+            function renderShop() {
+                var shopCoinsEl = document.getElementById('shopCoins');
+                var buyBtn = document.getElementById('buyPotionBtn');
+                if (shopCoinsEl) shopCoinsEl.textContent = coins.toLocaleString();
+                if (buyBtn) {
+                    if (coins >= 10000) {
+                        buyBtn.disabled = false;
+                        buyBtn.style.background = '#238636';
+                        buyBtn.style.color = '#fff';
+                    } else {
+                        buyBtn.disabled = true;
+                        buyBtn.style.background = '#21262d';
+                        buyBtn.style.color = '#6e7681';
+                    }
+                }
+            }
+            
+            if (rngShopBtn) {
+                rngShopBtn.addEventListener('click', function() {
+                    openShopPopup(renderShop);
+                });
+            }
+            
             if (rngAuraListBtn) {
                 rngAuraListBtn.addEventListener('click', function() {
                     openAuraListPopup(RARITIES);
+                });
+            }
+            
+            var buyPotionBtn = document.getElementById('buyPotionBtn');
+            if (buyPotionBtn) {
+                buyPotionBtn.addEventListener('click', function() {
+                    if (coins >= 10000) {
+                        coins -= 10000;
+                        luckPotions += 50;
+                        localStorage.setItem('gurt-rng-coins', coins);
+                        localStorage.setItem('gurt-rng-luckpotion', luckPotions);
+                        updateStats();
+                        renderShop();
+                    }
                 });
             }
 
