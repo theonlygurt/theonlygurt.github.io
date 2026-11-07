@@ -21,7 +21,8 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="icon" href="https://github.com/theonlygurt.png">
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    <!-- LZString for reliable compression across mobile -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
 
     <script>
     (function () {
@@ -1149,8 +1150,6 @@
             text-align: center;
             border-radius: 4px;
             margin-bottom: 12px;
-            resize: none;
-            height: 80px;
         }
 
         /* ---- popup ---- */
@@ -1581,7 +1580,7 @@
             <div class="popup-view9">
                 <h2 class="popup-title">Your Save Code</h2>
                 <p class="popup-body" style="margin-bottom: 10px;">Copy this string to keep your data safe.</p>
-                <textarea class="backup-input" id="backupOutputCode" readonly></textarea>
+                <input type="text" class="backup-input" id="backupOutputCode" readonly>
                 <div class="popup-actions">
                     <button class="popup-btn" id="backupCopyBtn" type="button">Copy to Clipboard</button>
                     <button class="popup-btn popup-btn--ghost" id="backupCloseBtn" type="button">Done</button>
@@ -1592,7 +1591,7 @@
             <div class="popup-view10">
                 <h2 class="popup-title">Import Data</h2>
                 <p class="popup-body" style="margin-bottom: 10px;">Paste your Save Code below.</p>
-                <textarea class="backup-input" id="importInputCode" placeholder="Paste string here..."></textarea>
+                <input type="text" class="backup-input" id="importInputCode" placeholder="Paste string here..." autocorrect="off" autocapitalize="off" spellcheck="false" autocomplete="off">
                 <div class="popup-actions">
                     <button class="popup-btn" id="importContinueBtn" type="button">Continue</button>
                     <button class="popup-btn popup-btn--ghost" id="importCancelBtn" type="button">Cancel</button>
@@ -1722,7 +1721,7 @@
                         icon: 'Images/IMG_3133.jpeg',
                         iconAlt: 'ClassiCube',
                         desc: 'a minecraft old beta emulator(pretty light)',
-                        href: 'https://cdn.classicube.net/client/latest/ClassiCube.ipa'
+                        href: 'https://cdn.classiccube.net/client/latest/ClassiCube.ipa'
                     },
                     {
                         title: 'Nyxian IPA',
@@ -3399,7 +3398,7 @@
             function roll() {
                 var isPity = (pityCounter >= 29);
                 var isPotion = (luckPotions > 0);
-                var isLucky = isPity || isPotion || (permLuck > 0); // Luck is active if pity, potion, or perm luck
+                var isLucky = isPity || isPotion || (permLuck > 0);
                 
                 var rolledAura = getWeightedRarity(isLucky);
 
@@ -3570,7 +3569,10 @@
             var importContinueBtn = document.getElementById('importContinueBtn');
             if (importContinueBtn) {
                 importContinueBtn.addEventListener('click', function() {
-                    var code = document.getElementById('importInputCode').value.trim();
+                    // Clean up the input string thoroughly for iOS
+                    var rawInput = document.getElementById('importInputCode').value;
+                    // Remove whitespace, normalize quotes
+                    var code = rawInput.replace(/\s+/g, '').replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
                     
                     setPopupView('view11');
                     document.getElementById('importStatusTitle').textContent = 'Importing data...';
@@ -3627,37 +3629,25 @@
         }
         
         /* ================================================================
-           Save Code Generator & Parser (Base64 Compressed)
+           Save Code Generator & Parser (LZString)
            ================================================================ */
         function generateSaveCode(r, c, p, l, pl, inv) {
             var data = { r: r, c: c, p: p, l: l, pl: pl, i: inv };
             var str = JSON.stringify(data);
             
             try {
-                var binary = pako.deflate(str, { to: 'string' });
-                var b64 = btoa(binary);
-                return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+                // LZString compressToEncodedURIComponent is safe for URLs & copy/paste
+                return LZString.compressToEncodedURIComponent(str);
             } catch (e) {
-                return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+                return '';
             }
         }
         
         function parseSaveCode(code) {
             if (!code) return null;
             try {
-                var b64 = code.replace(/-/g, '+').replace(/_/g, '/').replace(/\s+/g, ''); // Strip whitespace
-                while (b64.length % 4) {
-                    b64 += '=';
-                }
-                
-                var binary = atob(b64);
-                var jsonStr;
-                
-                try {
-                    jsonStr = pako.inflate(binary, { to: 'string' });
-                } catch (e) {
-                    jsonStr = binary;
-                }
+                var jsonStr = LZString.decompressFromEncodedURIComponent(code);
+                if (!jsonStr) return null;
                 
                 var data = JSON.parse(jsonStr);
                 if (typeof data.r !== 'undefined' && typeof data.c !== 'undefined' && data.i) {
